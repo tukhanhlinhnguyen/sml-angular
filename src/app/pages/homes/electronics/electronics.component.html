@@ -1,0 +1,445 @@
+<app-header></app-header>
+<!-- Hero (Banners + Slider)-->
+<section class="bg-secondary py-4 pt-md-5">
+    <div class="container py-xl-2">
+        <div class="row">
+            <!-- Slider     -->
+            <div class="col-xl-9 pt-xl-4 order-xl-2">
+                <swiper [config]="config">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" *ngFor="let slide of sliders">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 order-md-2"><img class="d-block mx-auto" src="{{slide.image}}"
+                                        alt="VR Collection"></div>
+                                <div
+                                    class="col-lg-5 col-md-6 offset-lg-1 order-md-1 pt-4 pb-md-4 text-center text-md-start">
+                                    <h2 class="fw-light pb-1 from-bottom">{{slide.content}}</h2>
+                                    <h1 class="display-4 from-bottom delay-1">{{slide.heading}}</h1>
+                                    <h5 class="fw-light pb-3 from-bottom delay-2">{{slide.subheading}}</h5>
+                                    <div class="d-table scale-up delay-4 mx-auto mx-md-0"><a
+                                            class="btn btn-primary btn-shadow" routerLink="/shop/grid-ls">Shop Now<i
+                                                class="ci-arrow-right ms-2 me-n1"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </swiper>
+
+            </div>
+            <!-- Banner group-->
+            <div class="col-xl-3 order-xl-1 pt-4 mt-3 mt-xl-0 pt-xl-0">
+                <div class="table-responsive" data-simplebar>
+                    <div class="d-flex d-xl-block"><a
+                            class="d-flex align-items-center bg-faded-info rounded-3 pt-2 ps-2 mb-4 me-4 me-xl-0"
+                            href="javascript:void(0);" style="min-width: 16rem;"><img
+                                src="assets/img/home/banners/banner-sm01.png" width="125" alt="Banner">
+                            <div class="py-4 px-2">
+                                <h5 class="mb-2"><span class="fw-light">Next Gen</span><br>Video <span
+                                        class="fw-light">with</span><br>360 Cam</h5>
+                                <div class="text-info fs-sm">Shop now<i class="ci-arrow-right fs-xs ms-1"></i></div>
+                            </div>
+                        </a><a class="d-flex align-items-center bg-faded-warning rounded-3 pt-2 ps-2 mb-4 me-4 me-xl-0"
+                            href="javascript:void(0);" style="min-width: 16rem;"><img
+                                src="assets/img/home/banners/banner-sm02.png" width="125" alt="Banner">
+                            <div class="py-4 px-2">
+                                <h5 class="mb-2"><span class="fw-light">Top Rated</span><br>Gadgets<br><span
+                                        class="fw-light">are on </span>Sale</h5>
+                                <div class="text-warning fs-sm">Shop now<i class="ci-arrow-right fs-xs ms-1"></i></div>
+                            </div>
+                        </a><a class="d-flex align-items-center bg-faded-success rounded-3 pt-2 ps-2 mb-4"
+                            href="javascript:void(0);" style="min-width: 16rem;"><img
+                                src="assets/img/home/banners/banner-sm03.png" width="125" alt="Banner">
+                            <div class="py-4 px-2">
+                                <h5 class="mb-2"><span class="fw-light">Catch Big</span><br>Deals <span
+                                        class="fw-light">on</span><br>Earbuds</h5>
+                                <div class="text-success fs-sm">Shop now<i class="ci-arrow-right fs-xs ms-1"></i></div>
+                            </div>
+                        </a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Products grid (Trending products)-->
+<section class="container pt-5">
+    <!-- Heading-->
+    <div class="d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
+        <h2 class="h3 mb-0 pt-3 me-2">Trending products</h2>
+        <div class="pt-3"><a class="btn btn-outline-accent btn-sm" routerLink="/shop/grid-ls">More products<i
+                    class="ci-arrow-right ms-1 me-n1"></i></a></div>
+    </div>
+    <!-- Grid-->
+    <div class="row pt-2 mx-n2">
+        <!-- Product-->
+        <div *ngFor="let product of trendingproduct;let i = index;" class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4">
+            <div class="card product-card">
+                <span *ngIf="product.sale == true" class="badge bg-danger badge-shadow">Sale</span>
+                <span *ngIf="product.is_new == true" class="badge bg-info badge-shadow">New</span>
+                <div class="card product-card">
+                    <div class="product-card-actions d-flex align-items-center">
+                        <a class="btn-action nav-link-style me-2" href="javascript:void(0);">
+                            <i class="ci-compare me-1"></i>Compare
+                        </a>
+                        <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip"
+                            data-bs-placement="left" ngbTooltip="Add to wishlist">
+                            <i class="ci-heart"></i>
+                        </button>
+                    </div>
+                    <a class="card-img-top d-block overflow-hidden" routerLink="/shop/single-v2">
+                        <img src="{{product.image}}" alt="Product">
+                    </a>
+                    <div class="card-body py-2">
+                        <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);">{{product.type}}</a>
+                        <h3 class="product-title fs-sm">
+                            <a routerLink="/shop/single-v2">{{product.title}}</a>
+                        </h3>
+                        <div *ngIf="product.stock > 0" class="d-flex justify-content-between">
+                            <div class="product-price">
+                                <span class="text-accent">${{product.price}}</span>
+                                <del *ngIf="product.mrp" class="fs-sm text-muted">${{product.mrp}}</del>
+                            </div>
+                            <div *ngIf="product.rate > 0" class="star-rating me-2">
+                                <ng-template #t let-fill="fill">
+                                    <span class="rstar" [class.full]="fill === 100">
+                                        <span class="rhalf" [style.width.%]="fill">★</span>☆
+                                    </span>
+                                </ng-template>
+                                <ngb-rating class="d-inline-flex stars align-middle star-rating" [(rate)]="product.rate"
+                                    [starTemplate]="t" [readonly]="true" [max]="5">
+                                </ngb-rating>
+                            </div>
+                        </div>
+                        <div *ngIf="product.stock == 0" class="d-flex justify-content-between">
+                            <div class="product-price"><span class="text-muted fs-sm">Out of stock</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body card-body-hidden">
+                        <button *ngIf="product.stock > 0" class="btn btn-primary btn-sm d-block w-100 mb-2"
+                            type="button">
+                            <i class="ci-cart fs-sm me-1"></i>Add to Cart
+                        </button>
+                        <a *ngIf="product.stock == 0" class="btn btn-secondary btn-sm d-block w-100 mb-2"
+                            routerLink="/shop/single-v2">View details</a>
+                        <div class="text-center">
+                            <a class="nav-link-style fs-ms" href="javascript:void(0);" data-bs-toggle="modal"
+                                (click)="centerModal(centerDataModal,i)">
+                                <i class="ci-eye align-middle me-1"></i>Quick view
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="d-sm-none">
+        </div>
+    </div>
+</section>
+<!-- Promo banner-->
+<section class="container mt-4 mb-grid-gutter">
+    <div class="bg-faded-info rounded-3 py-4">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <div class="px-4 pe-sm-0 ps-sm-5"><span class="badge bg-danger">Limited Offer</span>
+                    <h3 class="mt-4 mb-1 text-body fw-light">All new</h3>
+                    <h2 class="mb-1">Last Gen iPad Pro</h2>
+                    <p class="h5 text-body fw-light">at discounted price. Hurry up!</p>
+                    <div class="countdown py-2 h4" data-countdown="07/01/2023 07:00:00 PM">
+                        <div class="countdown-days">
+                            <span class="countdown-value">{{_days}}</span>
+                            <span class="countdown-label text-muted">d</span>
+                        </div>
+                        <div class="countdown-hours">
+                            <span class="countdown-value">{{_hours}}</span>
+                            <span class="countdown-label text-muted">h</span>
+                        </div>
+                        <div class="countdown-minutes">
+                            <span class="countdown-value">{{_minutes}}</span>
+                            <span class="countdown-label text-muted">m</span>
+                        </div>
+                        <div class="countdown-seconds">
+                            <span class="countdown-value">{{_seconds}}</span>
+                            <span class="countdown-label text-muted">s</span>
+                        </div>
+                    </div><a class="btn btn-accent" href="javascript:void(0);">View offers<i
+                            class="ci-arrow-right fs-ms ms-1"></i></a>
+                </div>
+            </div>
+            <div class="col-md-7"><img src="assets/img/home/banners/offer.jpg" alt="iPad Pro Offer"></div>
+        </div>
+    </div>
+</section>
+<!-- Brands carousel-->
+<section class="container mb-5">
+    <swiper [config]="Brand">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let brand of brands">
+                <a class="d-block bg-white border py-4 py-sm-5 px-2" href="javascript:void(0);"
+                    style="margin-right: -.0624rem;">
+                    <img class="d-block mx-auto" src="{{brand.image}}" style="width: 165px;" alt="Brand">
+                </a>
+            </div>
+        </div>
+    </swiper>
+</section>
+<!-- Product widgets-->
+<section class="container pb-4 pb-md-5">
+    <div class="row">
+        <!-- Bestsellers-->
+        <div class="col-md-4 col-sm-6 mb-2 py-3">
+            <div class="widget">
+                <h3 class="widget-title">Bestsellers</h3>
+                <div *ngFor="let best of bestseller" class="d-flex align-items-center pb-2 border-bottom"><a
+                        class="d-block flex-shrink-0" routerLink="/shop/single-v2"><img src="{{best.image}}" width="64"
+                            alt="Product"></a>
+                    <div class="ps-2">
+                        <h6 class="widget-product-title">
+                            <a routerLink="/shop/single-v2"> {{best.title}}</a>
+                        </h6>
+                        <div class="widget-product-meta">
+                            <span class="text-accent">${{best.price}}</span>
+                            <del *ngIf="best.mrp" class="text-muted fs-xs"> ${{best.mrp}}</del>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-0">...</p><a class="fs-sm" routerLink="/shop/grid-ls">View more<i
+                        class="ci-arrow-right fs-xs ms-1"></i></a>
+            </div>
+        </div>
+        <!-- New arrivals-->
+        <div class="col-md-4 col-sm-6 mb-2 py-3">
+            <div class="widget">
+                <h3 class="widget-title">New arrivals</h3>
+                <div *ngFor="let new of newarrival" class="d-flex align-items-center pb-2 border-bottom"><a
+                        class="d-block flex-shrink-0" routerLink="/shop/single-v2"><img src="{{new.image}}" width="64"
+                            alt="Product"></a>
+                    <div class="ps-2">
+                        <h6 class="widget-product-title"><a routerLink="/shop/single-v2">{{new.title}}</a></h6>
+                        <div class="widget-product-meta">
+                            <span class="text-accent">${{new.price}}</span>
+                            <del *ngIf="new.mrp" class="text-muted fs-xs"> ${{new.mrp}}</del>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-0">...</p><a class="fs-sm" routerLink="/shop/grid-ls">View more<i
+                        class="ci-arrow-right fs-xs ms-1"></i></a>
+            </div>
+        </div>
+        <!-- Top rated-->
+        <div class="col-md-4 col-sm-6 mb-2 py-3">
+            <div class="widget">
+                <h3 class="widget-title">Top rated</h3>
+                <div *ngFor="let top of toprate" class="d-flex align-items-center pb-2 border-bottom"><a
+                        class="d-block flex-shrink-0" routerLink="/shop/single-v2"><img src="{{top.image}}" width="64"
+                            alt="Product"></a>
+                    <div class="ps-2">
+                        <h6 class="widget-product-title"><a routerLink="/shop/single-v2">{{top.title}}</a></h6>
+                        <div class="widget-product-meta"><span class="text-accent">${{top.price}}</span>
+                            <del *ngIf="top.mrp" class="text-muted fs-xs"> ${{top.mrp}}</del>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-0">...</p><a class="fs-sm" routerLink="/shop/grid-ls">View more<i
+                        class="ci-arrow-right fs-xs ms-1"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- YouTube feed-->
+<section class="container pb-5 mb-md-3">
+    <div class="border rounded-3 p-3">
+        <div class="row">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="bg-secondary p-5 text-center"><img class="d-block mb-4 mx-auto"
+                        src="assets/img/home/yt-logo.png" width="120" alt="YouTube">
+                    <div class="d-flex justify-content-center align-items-center mb-4"><img class="me-2"
+                            src="assets/img/home/yt-subscribers.png" width="126" alt="YouTube Subscribers"><span
+                            class="fs-sm">250k+</span></div><a class="btn btn-primary border-0 btn-sm mb-3"
+                        href="javascript:void(0);" style="background-color: #ff0000;"><i
+                            class="ci-add-user me-2"></i>Subscribe*</a>
+                    <p class="fs-sm mb-0">*View latest gadgets reviews available for purchase in our store.</p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 pb-2">
+                    <h2 class="h4 mb-3">Latest videos from Cartzilla channel</h2><a
+                        class="btn btn-outline-accent btn-sm mb-3" href="javascript:void(0);">More videos<i
+                            class="ci-arrow-right fs-xs ms-1 me-n1"></i></a>
+                </div>
+                <div class="row g-0">
+                    <swiper [config]="Youtube">
+                        <div class="swiper-wrapper">
+                            <div *ngFor="let video of youtube" class="col-lg-4 col-6 mb-3 swiper-slide"><a
+                                    class="d-block text-decoration-0 px-2"
+                                    href="https://www.youtube.com/embed/vS93u75NnPo" data-bs-toggle="video">
+                                    <div class="position-relative mb-2"><span
+                                            class="badge bg-dark position-absolute bottom-0 end-0 mb-2 me-2">{{video.time}}</span><img
+                                            class="w-100" src="{{video.image}}" alt="Video cover"></div>
+                                    <h6 class="fs-sm pt-1">{{video.title}}</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </swiper>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog + Instagram info cards-->
+<section class="container-fluid px-0">
+    <div class="row g-0">
+        <div class="col-md-6"><a class="card border-0 rounded-0 text-decoration-none py-md-4 bg-faded-primary"
+                routerLink="/blogs/list-sidebar">
+                <div class="card-body text-center"><i class="ci-edit h3 mt-2 mb-4 text-primary"></i>
+                    <h3 class="h5 mb-1">Read the blog</h3>
+                    <p class="text-muted fs-sm">Latest store, fashion news and trends</p>
+                </div>
+            </a></div>
+        <div class="col-md-6"><a class="card border-0 rounded-0 text-decoration-none py-md-4 bg-faded-accent"
+                href="javascript:void(0);">
+                <div class="card-body text-center"><i class="ci-instagram h3 mt-2 mb-4 text-accent"></i>
+                    <h3 class="h5 mb-1">Follow on Instagram</h3>
+                    <p class="text-muted fs-sm">#ShopWithCartzilla</p>
+                </div>
+            </a></div>
+    </div>
+</section>
+<app-footer></app-footer>
+
+<!-- Center Modal -->
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title product-title"><a routerLink="/shop/single-v1" data-bs-toggle="tooltip" placement="right"
+                ngbTooltip="Go to product page" id="productTitle">{{singleData.title}}<i
+                    class="ci-arrow-right fs-lg ms-2"></i></a></h4>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <!-- Product gallery-->
+            <div class="col-lg-7 pe-lg-0">
+                <div class="product-gallery">
+                    <div class="product-gallery-preview order-sm-2">
+                        <div class="product-gallery-preview-item active" id="first">
+                            <!-- <img class="image-zoom" src="{{product_img}}" data-zoom="img/shop/single/gallery/01.jpg" alt="Product image">
+                            <div class="image-zoom-pane"></div> -->
+
+                            <lib-ngx-image-zoom [thumbImage]="product_img" [fullImage]="product_img" [magnification]="1"
+                                [enableScrollZoom]="true" [lensWidth]="500" [lensHeight]="500">
+                            </lib-ngx-image-zoom>
+                        </div>
+                    </div>
+                    <div class="product-gallery-thumblist order-sm-1">
+                        <a class="product-gallery-thumblist-item active" href="javascript:void(0);"
+                            *ngFor="let image of singleData.image; let i = index" (click)="filterImg(i)">
+                            <img src="{{image}}" alt="Product thumb">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Product details-->
+            <div class="col-lg-5 pt-4 pt-lg-0 image-zoom-pane">
+                <div class="product-details ms-auto pb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2"><a routerLink="/shop/single-v1">
+                            <div class="star-rating">
+                                <ng-template #t let-fill="fill">
+                                    <span class="rstar" [class.full]="fill === 100">
+                                        <span class="rhalf" [style.width.%]="fill">★</span>☆
+                                    </span>
+                                </ng-template>
+                                <ngb-rating class="d-inline-flex stars align-middle star-rating"
+                                    [(rate)]="singleData.rate" [starTemplate]="t" [readonly]="true" [max]="5">
+                                </ngb-rating>
+                            </div>
+                            <span class="d-inline-block fs-sm text-body align-middle mt-1 ms-1">{{singleData.rate}}
+                                Reviews</span>
+                        </a>
+                        <button class="btn-wishlist" placement="top" ngbTooltip="Add to wishlist"><i
+                                class="ci-heart"></i></button>
+                    </div>
+                    <div class="mb-3"><span class="h3 fw-normal text-accent me-1">${{singleData.price}}</span>
+                        <del class="text-muted fs-lg me-3"
+                            *ngIf="singleData.discount">${{singleData.discount}}</del><span
+                            class="badge bg-danger badge-shadow align-middle mt-n2"
+                            *ngIf="singleData.id == '2'">Sale</span>
+                    </div>
+                    <div class="fs-sm mb-4"><span class="text-heading fw-medium me-1">Color:</span><span
+                            class="text-muted" id="colorOptionText">Dark blue/Orange</span></div>
+                    <div class="position-relative me-n4 mb-3">
+                        <div class="form-check form-option form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" name="color" id="color1"
+                                data-bs-label="colorOptionText" value="Dark blue/Orange" checked>
+                            <label class="form-option-label rounded-circle" for="color1"><span
+                                    class="form-option-color rounded-circle"
+                                    style="background-color: #f25540;"></span></label>
+                        </div>
+                        <div class="form-check form-option form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" name="color" id="color2"
+                                data-bs-label="colorOptionText" value="Dark gray/Green">
+                            <label class="form-option-label rounded-circle" for="color2"><span
+                                    class="form-option-color rounded-circle"
+                                    style="background-color: #65805b;"></span></label>
+                        </div>
+                        <div class="form-check form-option form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" name="color" id="color3"
+                                data-bs-label="colorOptionText" value="White">
+                            <label class="form-option-label rounded-circle" for="color3"><span
+                                    class="form-option-color rounded-circle"
+                                    style="background-color: #f5f5f5;"></span></label>
+                        </div>
+                        <div class="form-check form-option form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" name="color" id="color4"
+                                data-bs-label="colorOptionText" value="Black">
+                            <label class="form-option-label rounded-circle" for="color4"><span
+                                    class="form-option-color rounded-circle"
+                                    style="background-color: #333;"></span></label>
+                        </div>
+                        <div class="product-badge product-available mt-n1"><i class="ci-security-check"></i>Product
+                            available</div>
+                    </div>
+                    <form class="mb-grid-gutter">
+                        <div class="mb-3 d-flex align-items-center">
+                            <select class="form-select me-3" style="width: 5rem;">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button class="btn btn-primary btn-shadow d-block w-100" type="submit"><i
+                                    class="ci-cart fs-lg me-2"></i>Add to Cart</button>
+                        </div>
+                    </form>
+                    <div class="d-flex mb-4">
+                        <div class="w-100 me-3">
+                            <button class="btn btn-secondary d-block w-100" type="button"><i
+                                    class="ci-heart fs-lg me-2"></i><span class='d-none d-sm-inline'>Add to
+                                </span>Wishlist</button>
+                        </div>
+                        <div class="w-100">
+                            <button class="btn btn-secondary d-block w-100" type="button"><i
+                                    class="ci-compare fs-lg me-2"></i>Compare</button>
+                        </div>
+                    </div>
+                    <h5 class="h6 mb-3 pb-2 border-bottom">
+                        <i class="ci-announcement text-muted fs-lg align-middle mt-n1 me-2"></i>Product info
+                    </h5>
+                    <h6 class="fs-sm mb-2">General</h6>
+                    <ul class="fs-sm pb-2">
+                        <li><span class="text-muted">Model: </span>Amazfit Smartwatch</li>
+                        <li><span class="text-muted">Gender: </span>Unisex</li>
+                        <li><span class="text-muted">OS campitibility: </span>Android / iOS</li>
+                    </ul>
+                    <h6 class="fs-sm mb-2">Physical specs</h6>
+                    <ul class="fs-sm pb-2">
+                        <li><span class="text-muted">Shape: </span>Rectangular</li>
+                        <li><span class="text-muted">Body material: </span>Plastics / Ceramics</li>
+                        <li><span class="text-muted">Band material: </span>Silicone</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

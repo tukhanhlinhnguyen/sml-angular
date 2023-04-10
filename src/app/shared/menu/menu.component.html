@@ -1,0 +1,128 @@
+<ul class="navbar-nav" id="navbar-nav">
+  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Home</a>
+    <ul class="dropdown-menu">
+      <li class="dropdown position-static mb-0"><a class="dropdown-item border-bottom py-2"
+          href="https://themes.themesbrand.com/cartzilla/angular/nft-marketplace"><span class="d-block text-heading">NFT
+            Marketplace<span class="badge bg-danger ms-1">NEW</span></span><small class="d-block text-muted">NFTs,
+            Multi-vendor, Auctions</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block"
+            href="https://themes.themesbrand.com/cartzilla/angular/nft-marketplace" style="width: 250px;"><img
+              src="assets/img/home/preview/th08.jpg" alt="NFT Marketplace"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom" routerLink="/fashion-store-v1"><span
+            class="d-block text-heading">Fashion Store v.1</span><small class="d-block text-muted">Classic shop
+            layout</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block" routerLink="/fashion-store-v1"
+            style="width: 250px;"><img src="assets/img/home/preview/th01.jpg" alt="Fashion Store v.1"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom"
+          routerLink="/electronics"><span class="d-block text-heading">Electronics Store</span><small
+            class="d-block text-muted">Slider + Promo banners</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block" routerLink="/electronics"
+            style="width: 250px;"><img src="assets/img/home/preview/th03.jpg" alt="Electronics Store"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom"
+          href="https://themes.themesbrand.com/cartzilla/angular/marketplace"><span
+            class="d-block text-heading">Marketplace</span><small class="d-block text-muted">Multi-vendor, digital
+            goods</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block"
+            href="https://themes.themesbrand.com/cartzilla/angular/marketplace" style="width: 250px;"><img
+              src="assets/img/home/preview/th04.jpg" alt="Marketplace"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom" routerLink="/grocery"><span
+            class="d-block text-heading">Grocery Store</span><small class="d-block text-muted">Full width + Side
+            menu</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block" routerLink="/grocery"
+            style="width: 250px;"><img src="assets/img/home/preview/th06.jpg" alt="Grocery Store"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom"
+          href="https://themes.themesbrand.com/cartzilla/angular/food"><span class="d-block text-heading">Food Delivery
+            Service</span><small class="d-block text-muted">Food &amp; Beverages delivery</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block"
+            href="https://themes.themesbrand.com/cartzilla/angular/food" style="width: 250px;"><img
+              src="assets/img/home/preview/th07.jpg" alt="Food Delivery Service"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom"
+          routerLink="/fashion-store-v2"><span class="d-block text-heading">Fashion Store v.2</span><small
+            class="d-block text-muted">Slider + Featured categories</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block" routerLink="/fashion-store-v2"
+            style="width: 250px;"><img src="assets/img/home/preview/th02.jpg" alt="Fashion Store v.2"></a></div>
+      </li>
+      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2" routerLink="/single-store"><span
+            class="d-block text-heading">Single Product Store</span><small class="d-block text-muted">Single product /
+            mono brand</small></a>
+        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block" routerLink="/single-store"
+            style="width: 250px;"><img src="assets/img/home/preview/th05.jpg" alt="Single Product / Brand Store"></a>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <!-- Menu items-->
+  <ng-container *ngFor="let item of menuItems">
+    <li class="nav-item dropdown">
+
+      <a *ngIf="item.subItems" class="nav-link menu-link sublink dropdown-toggle" data-bs-toggle="dropdown"
+        (click)="onMenuClick($event)" role="button" (click)="toggleItem($event)">
+        {{item.label | translate}}
+      </a>
+
+      <ul class="dropdown-menu collapse menu-dropdown" *ngIf="item.subItems">
+        <li class="dropdown" *ngFor="let subitem of item.subItems; let i=index;">
+          <a class="dropdown-item side-nav-link-ref sublink childSublink" routerLink="{{subitem.link}}"
+            data-bs-toggle="dropdown" *ngIf="!subitem.subChild">{{subitem.label | translate}}</a>
+
+          <a class="dropdown-item dropdown-toggle sublink" href="javascript:void(0);" data-bs-toggle="dropdown"
+            *ngIf="subitem.subChild" (click)="toggleSubItem($event)">{{subitem.label | translate}}</a>
+
+          <ul class="dropdown-menu collapse menu-dropdown" *ngIf="subitem.subChild">
+            <li *ngFor="let subChild of subitem.subChild;">
+              <a *ngIf="subChild.link" class="dropdown-item sublink" routerLink="{{subChild.link}}">{{subChild.label | translate}}</a>
+              <a *ngIf="subChild.fulllink" class="dropdown-item sublink" href="{{subChild.fulllink}}">{{subChild.label | translate}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </li>
+  </ng-container>
+
+
+  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="javascript:void(0);"
+      data-bs-toggle="dropdown">Docs / Components</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="https://themes.themesbrand.com/cartzilla/angular/docs/dev-setup.html">
+          <div class="d-flex">
+            <div class="lead text-muted pt-1"><i class="ci-book"></i></div>
+            <div class="ms-2"><span class="d-block text-heading">Documentation</span><small
+                class="d-block text-muted">Kick-start customization</small></div>
+          </div>
+        </a></li>
+      <li class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="https://themes.themesbrand.com/cartzilla/angular/components/typography.html">
+          <div class="d-flex">
+            <div class="lead text-muted pt-1"><i class="ci-server"></i></div>
+            <div class="ms-2"><span class="d-block text-heading">Components<span
+                  class="badge bg-info ms-2">40+</span></span><small class="d-block text-muted">Faster page
+                building</small></div>
+          </div>
+        </a></li>
+      <li class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="https://themes.themesbrand.com/cartzilla/angular/docs/changelog.html">
+          <div class="d-flex">
+            <div class="lead text-muted pt-1"><i class="ci-edit"></i></div>
+            <div class="ms-2"><span class="d-block text-heading">Changelog<span
+                  class="badge bg-success ms-2">v1.0.0</span></span><small class="d-block text-muted">Regular
+                updates</small></div>
+          </div>
+        </a></li>
+      <li class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="mailto:support@themesbrand.com">
+          <div class="d-flex">
+            <div class="lead text-muted pt-1"><i class="ci-help"></i></div>
+            <div class="ms-2"><span class="d-block text-heading">Support</span><small
+                class="d-block text-muted">support@Themesbrand</small></div>
+          </div>
+        </a></li>
+    </ul>
+  </li>
+</ul>

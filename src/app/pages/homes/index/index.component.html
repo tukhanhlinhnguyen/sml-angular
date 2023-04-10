@@ -1,0 +1,163 @@
+<app-header></app-header>
+
+<!-- Hero slider-->
+<section class="tns-carousel tns-controls-lg">
+  <swiper [config]="Coverflow">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <!-- Item-->
+        <div class="px-lg-5" style="background-color: #3aafd2;">
+          <div class="d-lg-flex justify-content-between align-items-center ps-lg-4"><img
+              class="d-block order-lg-2 me-lg-n5 flex-shrink-0" src="assets/img/home/hero-slider/01.jpg"
+              alt="Summer Collection">
+            <div class="position-relative mx-auto me-lg-n5 py-5 px-4 mb-lg-5 order-lg-1"
+              style="max-width: 42rem; z-index: 10;">
+              <div class="pb-lg-5 mb-lg-5 text-center text-lg-start text-lg-nowrap">
+                <h3 class="h2 text-light fw-light pb-1 from-start">Has just arrived!</h3>
+                <h2 class="text-light display-5 from-start delay-1">Huge Summer Collection</h2>
+                <p class="fs-lg text-light pb-3 from-start delay-2">Swimwear, Tops, Shorts, Sunglasses &amp; much
+                  more...</p>
+                <div class="d-table scale-up delay-4 mx-auto mx-lg-0"><a class="btn btn-primary"
+                    routerLink="/shop/grid-ls">Shop Now<i class="ci-arrow-right ms-2 me-n1"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <!-- Item-->
+        <div class="px-lg-5" style="background-color: #f5b1b0;">
+          <div class="d-lg-flex justify-content-between align-items-center ps-lg-4"><img
+              class="d-block order-lg-2 me-lg-n5 flex-shrink-0" src="assets/img/home/hero-slider/02.jpg"
+              alt="Women Sportswear">
+            <div class="position-relative mx-auto me-lg-n5 py-5 px-4 mb-lg-5 order-lg-1"
+              style="max-width: 42rem; z-index: 10;">
+              <div class="pb-lg-5 mb-lg-5 text-center text-lg-start text-lg-nowrap">
+                <h3 class="h2 text-light fw-light pb-1 from-bottom">Hurry up! Limited time offer.</h3>
+                <h2 class="text-light display-5 from-bottom delay-1">Women Sportswear Sale</h2>
+                <p class="fs-lg text-light pb-3 from-bottom delay-2">Sneakers, Keds, Sweatshirts, Hoodies &amp; much
+                  more...</p>
+                <div class="d-table scale-up delay-4 mx-auto mx-lg-0"><a class="btn btn-primary"
+                    routerLink="/shop/grid-ls">Shop Now<i class="ci-arrow-right ms-2 me-n1"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <!-- Item-->
+        <div class="px-lg-5" style="background-color: #eba170;">
+          <div class="d-lg-flex justify-content-between align-items-center ps-lg-4"><img
+              class="d-block order-lg-2 me-lg-n5 flex-shrink-0" src="assets/img/home/hero-slider/03.jpg"
+              alt="Men Accessories">
+            <div class="position-relative mx-auto me-lg-n5 py-5 px-4 mb-lg-5 order-lg-1"
+              style="max-width: 42rem; z-index: 10;">
+              <div class="pb-lg-5 mb-lg-5 text-center text-lg-start text-lg-nowrap">
+                <h3 class="h2 text-light fw-light pb-1 from-top">Complete your look with</h3>
+                <h2 class="text-light display-5 from-top delay-1">New Men's Accessories</h2>
+                <p class="fs-lg text-light pb-3 from-top delay-2">Hats &amp; Caps, Sunglasses, Bags &amp; much more...
+                </p>
+                <div class="d-table scale-up delay-4 mx-auto mx-lg-0"><a class="btn btn-primary"
+                    routerLink="/shop/grid-ls">Shop Now<i class="ci-arrow-right ms-2 me-n1"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </swiper>
+</section>
+
+<!-- Popular categories-->
+<section class="container position-relative pt-3 pt-lg-0 pb-5 mt-lg-n10" style="z-index: 10;">
+  <div class="row">
+    <div class="col-xl-8 col-lg-9">
+      <div class="card border-0 shadow-lg">
+        <div class="card-body px-3 pt-grid-gutter pb-0">
+          <div class="row g-0 ps-1">
+            <div class="col-sm-4 px-2 mb-grid-gutter"><a class="d-block text-center text-decoration-none me-1"
+                routerLink="/shop/grid-ls"><img class="d-block rounded mb-3"
+                  src="assets/img/home/categories/cat-sm01.jpg" alt="Men">
+                <h3 class="fs-base pt-1 mb-0">Men</h3>
+              </a></div>
+            <div class="col-sm-4 px-2 mb-grid-gutter"><a class="d-block text-center text-decoration-none me-1"
+                routerLink="/shop/grid-ls"><img class="d-block rounded mb-3"
+                  src="assets/img/home/categories/cat-sm02.jpg" alt="Women">
+                <h3 class="fs-base pt-1 mb-0">Women</h3>
+              </a></div>
+            <div class="col-sm-4 px-2 mb-grid-gutter"><a class="d-block text-center text-decoration-none me-1"
+                routerLink="/shop/grid-ls"><img class="d-block rounded mb-3"
+                  src="assets/img/home/categories/cat-sm03.jpg" alt="Kids">
+                <h3 class="fs-base pt-1 mb-0">Kids</h3>
+              </a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products grid (Trending products)-->
+<app-trending></app-trending>
+
+<!-- Banners-->
+<section class="container pb-4 mb-md-3">
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <div class="d-sm-flex justify-content-between align-items-center bg-secondary overflow-hidden rounded-3">
+        <div class="py-4 my-2 my-md-0 py-md-5 px-4 ms-md-3 text-center text-sm-start">
+          <h4 class="fs-lg fw-light mb-2">Hurry up! Limited time offer</h4>
+          <h3 class="mb-4">Converse All Star on Sale</h3><a class="btn btn-primary btn-shadow btn-sm"
+            href="javascript:void(0);">Shop Now</a>
+        </div><img class="d-block ms-auto" src="assets/img/shop/catalog/banner.jpg" alt="Shop Converse">
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="d-flex flex-column h-100 justify-content-center bg-size-cover bg-position-center rounded-3"
+        style="background-image: url(assets/img/blog/banner-bg.jpg);">
+        <div class="py-4 my-2 px-4 text-center">
+          <div class="py-1">
+            <h5 class="mb-2">Your Add Banner Here</h5>
+            <p class="fs-sm text-muted">Hurry up to reserve your spot</p><a class="btn btn-primary btn-shadow btn-sm"
+              href="javascript:void(0);">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured category (Hoodie)-->
+<app-product-slider></app-product-slider>
+
+<!-- Shop by brand-->
+<section class="container py-lg-4 mb-4">
+  <h2 class="h3 text-center pb-4">Shop by brand</h2>
+  <app-brand-logos></app-brand-logos>
+</section>
+
+<!-- Blog + Instagram info cards-->
+<section class="container-fluid px-0">
+  <div class="row g-0">
+    <div class="col-md-6"><a class="card border-0 rounded-0 text-decoration-none py-md-4 bg-faded-primary"
+        routerLink="/blogs/list-sidebar">
+        <div class="card-body text-center"><i class="ci-edit h3 mt-2 mb-4 text-primary"></i>
+          <h3 class="h5 mb-1">Read the blog</h3>
+          <p class="text-muted fs-sm">Latest store, fashion news and trends</p>
+        </div>
+      </a></div>
+    <div class="col-md-6"><a class="card border-0 rounded-0 text-decoration-none py-md-4 bg-faded-accent"
+        href="javascript:void(0);">
+        <div class="card-body text-center"><i class="ci-instagram h3 mt-2 mb-4 text-accent"></i>
+          <h3 class="h5 mb-1">Follow on Instagram</h3>
+          <p class="text-muted fs-sm">#ShopWithCartzilla</p>
+        </div>
+      </a></div>
+  </div>
+</section>
+
+<!-- Footer-->
+<app-footer></app-footer>

@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<!-- Page Title (Light)-->
+<app-breadcrumbs title="Shop categories" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container pb-4 pb-sm-5">
+  <!-- Categories grid-->
+  <div class="row pt-5">
+    <!-- Catogory-->
+    <div class="col-md-4 col-sm-6 mb-3" *ngFor="let data of categoryList; let i = index">
+      <div class="card border-0"><a class="d-block overflow-hidden rounded-3" routerLink="/shop/grid-ls"><img class="d-block w-100" src="{{data.image}}" alt="Clothing"></a>
+        <div class="card-body">
+          <h2 class="h5">{{data.name}}</h2>
+          <ul class="list-unstyled fs-sm mb-0">
+            <li class="d-flex align-items-center justify-content-between" *ngFor="let list of data.lists; let i = index"><a class="nav-link-style" href="javascript:void(0);"><i class="ci-arrow-right-circle me-2"></i>{{list.title}}</a><span class="fs-ms text-muted">{{list.price}}</span></li>
+            <li>...</li>
+            <li>
+              <hr>
+            </li>
+            <li class="d-flex align-items-center justify-content-between"><a class="nav-link-style" href="javascript:void(0);"><i class="ci-arrow-right-circle me-2"></i>View all</a><span class="fs-ms text-muted">{{data.total}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Popular brands-->
+  <h2 class="h3 text-center py-4 mt-md-3">Popular brands</h2>
+  <app-brand-logos></app-brand-logos>
+</div>
+
+<!-- Footer-->
+<app-footer></app-footer>

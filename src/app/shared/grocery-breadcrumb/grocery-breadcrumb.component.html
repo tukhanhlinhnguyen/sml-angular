@@ -1,0 +1,12 @@
+ <!-- Page title + breadcrumb-->
+ <nav class="mb-4" aria-label="breadcrumb">
+    <ol class="breadcrumb flex-lg-nowrap">
+        <ng-container *ngFor="let item of breadcrumbItems">
+            <li class="breadcrumb-item">
+                <a class="text-nowrap active" [ngClass]="{'active': item.active == true}" href="{{item.link}}">
+                    <i *ngIf="item.label == 'Home'" class="ci-home"></i>{{item.label}}
+                </a>
+            </li>
+        </ng-container>
+    </ol>
+</nav>

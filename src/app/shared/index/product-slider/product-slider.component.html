@@ -1,0 +1,58 @@
+<!-- Featured category (Hoodie)-->
+<section class="container mb-4 pb-3 pb-sm-0 mb-sm-5">
+  <div class="row">
+    <!-- Banner with controls-->
+    <div class="col-md-5">
+      <div class="d-flex flex-column h-100 overflow-hidden rounded-3" style="background-color: #e2e9ef;">
+        <div class="d-flex justify-content-between px-grid-gutter py-grid-gutter">
+          <div>
+            <h3 class="mb-1">Hoodie day</h3><a class="fs-md" routerLink="/shop/grid-ls">Shop hoodies<i
+                class="ci-arrow-right fs-xs align-middle ms-1"></i></a>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mb-2">
+            <div class="slider-button-prev">
+              <button type="button"><i class="ci-arrow-left"></i></button>
+            </div>
+            <div class="slider-button-next">
+              <button type="button"><i class="ci-arrow-right"></i></button>
+            </div>
+
+          </div>
+        </div><a class="d-none d-md-block mt-auto" routerLink="/shop/grid-ls"><img class="d-block w-100"
+            src="assets/img/home/categories/cat-lg04.jpg" alt="For Women"></a>
+      </div>
+    </div>
+    <!-- Product grid (carousel)-->
+    <div class="col-md-7 pt-4 pt-md-0">
+      <swiper [config]="Coverflow" class="" #usefulSwiper>
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" *ngFor="let data of productData">
+            <div class="card product-card card-static">
+              <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" placement="left"
+                ngbTooltip="Add to wishlist"><i class="ci-heart"></i></button><a
+                class="card-img-top d-block overflow-hidden" routerLink="/shop/single-v1"><img src="{{data.image}}"
+                  alt="Product"></a>
+              <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1"
+                  href="javascript:void(0);">{{data.category}}</a>
+                <h3 class="product-title fs-sm"><a routerLink="/shop/single-v1">{{data.name}}</a></h3>
+                <div class="d-flex justify-content-between">
+                  <div class="product-price"><span class="text-accent">${{data.price}}</span></div>
+                  <div class="star-rating">
+                    <ng-template #t let-fill="fill">
+                      <span class="star" [class.full]="fill === 100">
+                        <span class="half" [style.width.%]="fill">★</span>☆
+                      </span>
+                    </ng-template>
+                    <ngb-rating class="d-inline-flex stars align-middle star-rating" [(rate)]="data.rating"
+                      [starTemplate]="t" [readonly]="true" [max]="5">
+                    </ngb-rating>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </swiper>
+    </div>
+  </div>
+</section>

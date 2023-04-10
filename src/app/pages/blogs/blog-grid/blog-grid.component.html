@@ -1,0 +1,114 @@
+<app-header></app-header>
+
+<!-- Page Title (Light)-->
+<app-breadcrumbs title="Blog grid no sidebar" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container pb-5 mb-2 mb-md-4 pt-5">
+  <!-- Featured posts carousel-->
+  <swiper [config]="Style" class="">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <article><a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar"><span
+              class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>Sep 10</span><img
+              src="assets/img/blog/featured/01.jpg" alt="Featured post"></a>
+          <div class="d-flex justify-content-between mb-2 pt-1">
+            <h2 class="h5 blog-entry-title mb-0"><a routerLink="/blogs/single-sidebar">Healthy Food - New Way of
+                Living</a></h2><a class="blog-entry-meta-link fs-sm text-nowrap ms-3 pt-1"
+              href="blog-single-sidebar.html#comments"><i class="ci-message"></i>13</a>
+          </div>
+          <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="assets/img/blog/meta/04.jpg" alt="Olivia Reyes"></div>Olivia
+              Reyes
+            </a><span class="blog-entry-meta-divider"></span>
+            <div class="fs-sm text-muted">in <a href="javascript:void(0);" class='blog-entry-meta-link'>Lifestyle</a>,
+              <a href="javascript:void(0);" class='blog-entry-meta-link'>Nutrition</a></div>
+          </div>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article><a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar"><span
+              class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>Aug 27</span><img
+              src="assets/img/blog/featured/02.jpg" alt="Featured post"></a>
+          <div class="d-flex justify-content-between mb-2 pt-1">
+            <h2 class="h5 blog-entry-title mb-0"><a routerLink="/blogs/single-sidebar">Online Payment Security Tips for
+                Shoppers</a></h2><a class="blog-entry-meta-link fs-sm text-nowrap ms-3 pt-1"
+              href="blog-single-sidebar.html#comments"><i class="ci-message"></i>9</a>
+          </div>
+          <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="assets/img/blog/meta/05.jpg" alt="Rafael Marquez"></div>
+              Rafael
+              Marquez
+            </a><span class="blog-entry-meta-divider"></span>
+            <div class="fs-sm text-muted">in <a href="javascript:void(0);" class='blog-entry-meta-link'>Online
+                shpopping</a></div>
+          </div>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article><a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar"><span
+              class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>Aug 16</span><img
+              src="assets/img/blog/featured/03.jpg" alt="Featured post"></a>
+          <div class="d-flex justify-content-between mb-2 pt-1">
+            <h2 class="h5 blog-entry-title mb-0"><a routerLink="/blogs/single-sidebar">We Launched New Store in San
+                Francisco!</a></h2><a class="blog-entry-meta-link fs-sm text-nowrap ms-3 pt-1"
+              href="blog-single-sidebar.html#comments"><i class="ci-message"></i>23</a>
+          </div>
+          <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="assets/img/blog/meta/03.jpg" alt="Paul Woodred"></div>Paul
+              Woodred
+            </a><span class="blog-entry-meta-divider"></span>
+            <div class="fs-sm text-muted">in <a href="javascript:void(0);" class='blog-entry-meta-link'>Cartzilla
+                news</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </swiper>
+  <hr class="mt-5">
+  <div class="pt-5 mt-md-2">
+    <!-- Entries grid-->
+    <div class="masonry-grid" data-columns="3">
+      <!-- Entry-->
+      <ngx-masonry [options]="myOptions" class="row">
+        <article class="masonry-grid-item" *ngFor="let data of tables$ | async;let i=index" ngxMasonryItem>
+          <div class="card">
+            <div class="card-body">
+              <a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar" *ngIf="data.image"><img
+                  src="{{data.image}}" alt="Post"></a>
+              <h2 class="h6 blog-entry-title"><a routerLink="/blogs/single-sidebar">{{data.title}}</a></h2>
+              <p class="fs-sm">{{data.content}}</p>
+              <a class="btn-tag me-2 mb-2" href="javascript:void(0);">Travel</a><a class="btn-tag me-2 mb-2"
+                href="javascript:void(0);">Personal finance</a>
+            </div>
+            <div class="card-footer d-flex align-items-center fs-xs"><a class="blog-entry-meta-link"
+                href="javascript:void(0);">
+                <div class="blog-entry-author-ava"><img src="{{data.profile}}" alt="Emma Gallaher"></div>{{data.name}}
+              </a>
+              <div class="ms-auto text-nowrap">
+                <a class="blog-entry-meta-link text-nowrap" href="javascript:void(0);">{{data.date}}</a><span
+                  class="blog-entry-meta-divider mx-2"></span><a class="blog-entry-meta-link text-nowrap"
+                  routerLink="/blogs/single-sidebar"><i class="ci-message"></i>{{data.comment}}</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </ngx-masonry>
+    </div>
+    <hr class="mb-4">
+    <!-- Pagination-->
+    <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
+      <ul class="pagination"></ul>
+      <ul class="pagination">
+        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+        </ngb-pagination>
+      </ul>
+      <ul class="pagination"></ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Footer-->
+<app-footer></app-footer>

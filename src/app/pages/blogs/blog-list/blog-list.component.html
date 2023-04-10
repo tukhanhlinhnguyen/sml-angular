@@ -1,0 +1,117 @@
+<app-header></app-header>
+
+<!-- Page Title (Light)-->
+<app-breadcrumbs title="Blog list no sidebar" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container pb-5 mb-2 mb-md-4 pt-5">
+  <!-- Featured posts carousel-->
+  <swiper [config]="Style" class="">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <article><a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar"><span
+              class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>Sep 10</span><img
+              src="assets/img/blog/featured/01.jpg" alt="Featured post"></a>
+          <div class="d-flex justify-content-between mb-2 pt-1">
+            <h2 class="h5 blog-entry-title mb-0"><a routerLink="/blogs/single-sidebar">Healthy Food - New Way of
+                Living</a></h2><a class="blog-entry-meta-link fs-sm text-nowrap ms-3 pt-1"
+              routerLink="/blogs/single-sidebar"><i class="ci-message"></i>13</a>
+          </div>
+          <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="assets/img/blog/meta/04.jpg" alt="Olivia Reyes"></div>Olivia
+              Reyes
+            </a><span class="blog-entry-meta-divider"></span>
+            <div class="fs-sm text-muted">in <a href="javascript:void(0);" class='blog-entry-meta-link'>Lifestyle</a>,
+              <a href="javascript:void(0);" class='blog-entry-meta-link'>Nutrition</a></div>
+          </div>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article><a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar"><span
+              class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>Aug 27</span><img
+              src="assets/img/blog/featured/02.jpg" alt="Featured post"></a>
+          <div class="d-flex justify-content-between mb-2 pt-1">
+            <h2 class="h5 blog-entry-title mb-0"><a routerLink="/blogs/single-sidebar">Online Payment Security Tips for
+                Shoppers</a></h2><a class="blog-entry-meta-link fs-sm text-nowrap ms-3 pt-1"
+              routerLink="/blogs/single-sidebar"><i class="ci-message"></i>9</a>
+          </div>
+          <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="assets/img/blog/meta/05.jpg" alt="Rafael Marquez"></div>
+              Rafael
+              Marquez
+            </a><span class="blog-entry-meta-divider"></span>
+            <div class="fs-sm text-muted">in <a href="javascript:void(0);" class='blog-entry-meta-link'>Online
+                shpopping</a></div>
+          </div>
+        </article>
+      </div>
+      <div class="swiper-slide">
+        <article><a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar"><span
+              class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>Aug 16</span><img
+              src="assets/img/blog/featured/03.jpg" alt="Featured post"></a>
+          <div class="d-flex justify-content-between mb-2 pt-1">
+            <h2 class="h5 blog-entry-title mb-0"><a routerLink="/blogs/single-sidebar">We Launched New Store in San
+                Francisco!</a></h2><a class="blog-entry-meta-link fs-sm text-nowrap ms-3 pt-1"
+              routerLink="/blogs/single-sidebar"><i class="ci-message"></i>23</a>
+          </div>
+          <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="assets/img/blog/meta/03.jpg" alt="Paul Woodred"></div>Paul
+              Woodred
+            </a><span class="blog-entry-meta-divider"></span>
+            <div class="fs-sm text-muted">in <a href="javascript:void(0);" class='blog-entry-meta-link'>Cartzilla
+                news</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </swiper>
+
+  <hr class="mt-5">
+  <div class="row justify-content-center pt-5 mt-2">
+    <!-- Entries list-->
+    <section class="col-lg-9">
+      <!-- Entry-->
+      <article class="blog-list border-bottom pb-4 mb-5" *ngFor="let data of tables$ | async;let i=index">
+        <div class="blog-start-column">
+          <div class="d-flex align-items-center fs-sm pb-2 mb-1"><a class="blog-entry-meta-link"
+              href="javascript:void(0);">
+              <div class="blog-entry-author-ava"><img src="{{data.profile}}" alt="Emma Gallaher"></div>{{data.name}}
+            </a><span class="blog-entry-meta-divider"></span><a class="blog-entry-meta-link"
+              href="javascript:void(0);">{{data.date}}</a></div>
+          <h2 class="h5 blog-entry-title"><a routerLink="/blogs/single-sidebar">{{data.sub_title}}</a></h2>
+        </div>
+        <div class="blog-end-column">
+          <a class="blog-entry-thumb mb-3" routerLink="/blogs/single-sidebar" *ngIf="data.image"><img
+              src="{{data.image}}" alt="Post"></a>
+          <div class="d-flex justify-content-between mb-1">
+            <div class="fs-sm text-muted pe-2 mb-2">in <a href="javascript:void(0);"
+                class='blog-entry-meta-link'>Travel</a>, <a href="javascript:void(0);"
+                class='blog-entry-meta-link'>Personal finance</a></div>
+            <div class="fs-sm mb-2"><a class="blog-entry-meta-link text-nowrap" routerLink="/blogs/single-sidebar"><i
+                  class="ci-message"></i>{{data.comment}}</a></div>
+          </div>
+          <p class="fs-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea com consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt…
+            <a routerLink="/blogs/single-sidebar" class='blog-entry-meta-link fw-medium'>[Read more]</a>
+          </p>
+        </div>
+      </article>
+      <!-- Pagination-->
+      <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
+        <ul class="pagination"></ul>
+        <ul class="pagination">
+          <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+          </ngb-pagination>
+        </ul>
+        <ul class="pagination"></ul>
+      </nav>
+    </section>
+  </div>
+</div>
+
+<!-- Footer-->
+<app-footer></app-footer>

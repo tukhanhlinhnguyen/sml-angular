@@ -1,0 +1,179 @@
+<!-- Products grid (Trending products)-->
+<section class="container pt-md-3 pb-5 mb-md-3">
+  <h2 class="h3 text-center">Trending products</h2>
+  <div class="row pt-4 mx-n2">
+    <!-- Product-->
+    <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4" *ngFor="let data of productData; let i = index">
+      <div class="card product-card">
+        <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" placement="left"
+        ngbTooltip="Add to wishlist"><i class="ci-heart"></i></button><a class="card-img-top d-block overflow-hidden"
+          routerLink="/shop/single-v1"><img src="{{data.image[0]}}" alt="Product"></a>
+        <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1"
+            href="javascript:void(0);">{{data.category}}</a>
+          <h3 class="product-title fs-sm"><a routerLink="/shop/single-v1">{{data.name}}</a></h3>
+          <div class="d-flex justify-content-between">
+            <div class="product-price" *ngIf="data.price !== ''"><span class="text-accent">${{data.price}}</span>
+              <del class="fs-sm text-muted" *ngIf="data.discount"> ${{data.discount}}</del>
+            </div>
+            <div class="product-price" *ngIf="data.price == ''"><span class="text-muted fs-sm">Out of stock</span></div>
+            <div class="star-rating">
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">★</span>☆
+                </span>
+              </ng-template>
+              <ngb-rating class="d-inline-flex stars align-middle star-rating" [(rate)]="data.rating" [starTemplate]="t"
+                [readonly]="true" [max]="5">
+              </ngb-rating>
+            </div>
+          </div>
+        </div>
+        <div class="card-body card-body-hidden" *ngIf="data.type == 'size'">
+          <div class="text-center pb-2">
+            <div class="form-check form-option form-check-inline mb-2" *ngFor="let size of data.size">
+              <input class="form-check-input" type="radio" name="size1" id="s-{{size}}">
+              <label class="form-option-label" for="s-{{size}}">{{size}}</label>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="button"><i class="ci-cart fs-sm me-1"></i>Add
+            to Cart</button>
+          <div class="text-center"><a class="nav-link-style fs-ms" href="javascript:void(0);" data-bs-toggle="modal" (click)="centerModal(centerDataModal,i)"><i
+                class="ci-eye align-middle me-1"></i>Quick view</a></div>
+        </div>
+        <div class="card-body card-body-hidden" *ngIf="data.type == 'color'">
+          <div class="text-center pb-2">
+            <div class="form-check form-option form-check-inline mb-2" *ngFor="let color of data.colors">
+              <input class="form-check-input" type="radio" name="color1" id="white" checked>
+              <label class="form-option-label rounded-circle" for="white"><span class="form-option-color rounded-circle"
+                  style="background-color: {{color}};"></span></label>
+            </div>
+          </div>
+          <div class="d-flex mb-2">
+            <select class="form-select form-select-sm me-2">
+              <option>XS</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+            </select>
+            <button class="btn btn-primary btn-sm" type="button"><i class="ci-cart fs-sm me-1"></i>Add to Cart</button>
+          </div>
+          <div class="text-center"><a class="nav-link-style fs-ms" href="javascript:void(0);" data-bs-toggle="modal" (click)="centerModal(centerDataModal,i)"><i
+                class="ci-eye align-middle me-1"></i>Quick view</a></div>
+        </div>
+        <div class="card-body card-body-hidden" *ngIf="data.type == 'details'"><a
+            class="btn btn-secondary btn-sm d-block w-100 mb-2" routerLink="/shop/single-v1">View details</a>
+          <div class="text-center"><a class="nav-link-style fs-ms" href="javascript:void(0);" data-bs-toggle="modal" (click)="centerModal(centerDataModal,i)"><i
+                class="ci-eye align-middle me-1"></i>Quick view</a></div>
+        </div>
+      </div>
+      <hr class="d-sm-none">
+    </div>
+  </div>
+  <div class="text-center pt-3"><a class="btn btn-outline-accent" routerLink="/shop/grid-ls">More products<i
+        class="ci-arrow-right ms-1"></i></a></div>
+</section>
+
+<!-- Center Modal -->
+<ng-template #centerDataModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title product-title"><a routerLink="/shop/single-v1" data-bs-toggle="tooltip" placement="right" ngbTooltip="Go to product page" id="productTitle">{{singleData.name}}<i class="ci-arrow-right fs-lg ms-2"></i></a></h4>
+    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <!-- Product gallery-->
+      <div class="col-lg-7 pe-lg-0">
+        <div class="product-gallery">
+          <div class="product-gallery-preview order-sm-2">
+            <div class="product-gallery-preview-item active" id="first"><img class="image-zoom" src="{{product_img}}" data-zoom="img/shop/single/gallery/01.jpg" alt="Product image">
+              <div class="image-zoom-pane"></div>
+            </div>
+            
+          </div>
+          <div class="product-gallery-thumblist order-sm-1">
+            <a class="product-gallery-thumblist-item active" href="javascript:void(0);" *ngFor="let image of singleData.image; let i = index" (click)="filterImg(i)">
+              <img src="{{image}}" alt="Product thumb">
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Product details-->
+      <div class="col-lg-5 pt-4 pt-lg-0 image-zoom-pane">
+        <div class="product-details ms-auto pb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2"><a routerLink="/shop/single-v1">
+            <div class="star-rating">
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">★</span>☆
+                </span>
+              </ng-template>
+              <ngb-rating class="d-inline-flex stars align-middle star-rating" [(rate)]="singleData.rating"
+                  [starTemplate]="t" [readonly]="true" [max]="5">
+              </ngb-rating>
+            </div>  
+            <span class="d-inline-block fs-sm text-body align-middle mt-1 ms-1">{{singleData.review}} Reviews</span></a>
+            <button class="btn-wishlist" placement="top" ngbTooltip="Add to wishlist"><i class="ci-heart"></i></button>
+          </div>
+          <div class="mb-3"><span class="h3 fw-normal text-accent me-1">${{singleData.price}}</span>
+            <del class="text-muted fs-lg me-3" *ngIf="singleData.discount">${{singleData.discount}}</del><span class="badge bg-danger badge-shadow align-middle mt-n2" *ngIf="singleData.id == '2'">Sale</span>
+          </div>
+          <div class="fs-sm mb-4"><span class="text-heading fw-medium me-1">Color:</span><span class="text-muted" id="colorOptionText">Red/Dark blue/White</span></div>
+          <div class="position-relative me-n4 mb-3">
+            <div class="form-check form-option form-check-inline mb-2">
+              <input class="form-check-input" type="radio" name="color" id="color1" data-bs-label="colorOptionText" value="Red/Dark blue/White" checked>
+              <label class="form-option-label rounded-circle" for="color1"><span class="form-option-color rounded-circle" style="background-image: url(assets/img/shop/single/color-opt-1.png)"></span></label>
+            </div>
+            <div class="form-check form-option form-check-inline mb-2">
+              <input class="form-check-input" type="radio" name="color" id="color2" data-bs-label="colorOptionText" value="Beige/White/Black">
+              <label class="form-option-label rounded-circle" for="color2"><span class="form-option-color rounded-circle" style="background-image: url(assets/img/shop/single/color-opt-2.png)"></span></label>
+            </div>
+            <div class="form-check form-option form-check-inline mb-2">
+              <input class="form-check-input" type="radio" name="color" id="color3" data-bs-label="colorOptionText" value="Dark grey/White/Mustard">
+              <label class="form-option-label rounded-circle" for="color3"><span class="form-option-color rounded-circle" style="background-image: url(assets/img/shop/single/color-opt-3.png)"></span></label>
+            </div>
+            <div class="product-badge product-available mt-n1"><i class="ci-security-check"></i>Product available</div>
+          </div>
+          <form class="mb-grid-gutter">
+            <div class="mb-3">
+              <label class="fw-medium pb-1" for="product-size">Size:</label>
+              <select class="form-select" required id="product-size">
+                <option value="">Select size</option>
+                <option value="xs">XS</option>
+                <option value="s">S</option>
+                <option value="m">M</option>
+                <option value="l">L</option>
+                <option value="xl">XL</option>
+              </select>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+              <select class="form-select me-3" style="width: 5rem;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button class="btn btn-primary btn-shadow d-block w-100" type="submit"><i class="ci-cart fs-lg me-2"></i>Add to Cart</button>
+            </div>
+          </form>
+          <h5 class="h6 mb-3 pb-2 border-bottom"><i class="ci-announcement text-muted fs-lg align-middle mt-n1 me-2"></i>Product info</h5>
+          <h6 class="fs-sm mb-2">Style</h6>
+          <ul class="fs-sm ps-4">
+            <li>Hooded top</li>
+          </ul>
+          <h6 class="fs-sm mb-2">Composition</h6>
+          <ul class="fs-sm ps-4">
+            <li>Elastic rib: Cotton 95%, Elastane 5%</li>
+            <li>Lining: Cotton 100%</li>
+            <li>Cotton 80%, Polyester 20%</li>
+          </ul>
+          <h6 class="fs-sm mb-2">Art. No.</h6>
+          <ul class="fs-sm ps-4 mb-0">
+            <li>183260098</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

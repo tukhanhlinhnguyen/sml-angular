@@ -1,0 +1,96 @@
+<!-- Header-->
+<app-grocery-header></app-grocery-header>
+<!-- Sidebar menu-->
+<app-side-menu></app-side-menu>
+<!-- Page-->
+<main class="offcanvas-enabled" style="padding-top: 5rem;">
+    <section class="ps-lg-4 pe-lg-3 pt-4">
+        <div class="px-3 pt-2">
+            <!-- Page title + breadcrumb-->
+            <app-grocery-breadcrumb [breadcrumbItems]="breadCrumbItems"></app-grocery-breadcrumb>
+            <!-- Content-->
+            <!-- Product Gallery + description-->
+            <section class="row g-0 mx-n2 pb-5 mb-xl-3">
+                <div class="col-xl-7 px-2 mb-3">
+                    <div class="h-100 bg-light rounded-3 p-4">
+                        <div class="product-gallery">
+                            <div class="product-gallery-preview order-sm-2">
+                                <div class="product-gallery-preview-item active" id="first">
+                                    <img src="{{preview}}" alt="Product image">
+                                </div>
+                            </div>
+                            <div class="product-gallery-thumblist order-sm-1">
+                                <div *ngFor="let img of productimage;let i =index;" id="{{i}}"
+                                    class="product-gallery-thumblist-item" (click)="imagePreview(i,$event)">
+                                    <img src="{{img}}" alt="Product thumb">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 px-2 mb-3">
+                    <div class="h-100 bg-light rounded-3 py-5 px-4 px-sm-5"><a class="product-meta d-block fs-sm pb-2"
+                            href="javascript:void(0);">{{products.category}}</a>
+                        <h1 class="h2">{{products.title}}</h1>
+                        <div class="h2 fw-normal text-accent price">${{products.price}}</div>
+                        <div class="d-flex flex-wrap align-items-center pt-4 pb-2 mb-3">
+                            <select class="form-select me-3 mb-3" style="width: 5rem;" [(ngModel)]="qty">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button class="btn btn-primary btn-shadow me-3 mb-3" type="submit" (click)="addcart()"><i
+                                    class="ci-cart fs-lg me-2"></i>Add to Cart</button>
+                            <button class="btn btn-icon btn-secondary mb-3" type="submit" 
+                            ngbTooltip="Add to Wishlist"><i class="ci-heart fs-lg"></i></button>
+                        </div>
+                        <h6>Product description</h6>
+                        <ul class="list-unstyled fs-sm pt-2 mb-0">
+                            <li><i class="ci-check-circle text-success me-2"></i>Natural ingredients</li>
+                            <li><i class="ci-check-circle text-success me-2"></i>No dyes and flavor enhancers</li>
+                            <li><i class="ci-check-circle text-success me-2"></i>Gluten free</li>
+                            <li><i class="ci-check-circle text-success me-2"></i>Vitamins B2, B3, B5 and B6</li>
+                            <li><i class="ci-check-circle text-success me-2"></i>Tastes better with milk</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!-- Related products-->
+            <section class="pb-5 mb-2 mb-xl-4">
+                <h2 class="h3 pb-2 mb-grid-gutter text-center">You may also like</h2>
+                <div class="tns-carousel tns-controls-static tns-controls-outside tns-nav-enabled">
+                    <!-- Product-->
+                    <swiper [config]="Discount">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" *ngFor="let product of relatedproduct;let i = index;">
+                                <div class="card product-card card-static pb-3">
+                                    <button class="btn-wishlist btn-sm" type="button"
+                                        data-bs-placement="left" ngbTooltip="Add to wishlist"><i
+                                            class="ci-heart"></i></button><a
+                                        class="card-img-top d-block overflow-hidden" routerLink="/grocery/single-product"><img
+                                            src="{{product.image}}" alt="Product"></a>
+                                    <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1"
+                                            href="javascript:void(0);">{{product.category}}</a>
+                                        <h3 class="product-title fs-sm"><a routerLink="/grocery/single-product">{{product.title}}</a></h3>
+                                        <div class="product-price"><span class="text-accent">${{product.price}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-floating-btn">
+                                        <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="addtocart(i)">+<i
+                                                class="ci-cart fs-base ms-1"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </swiper>
+                </div>
+            </section>
+        </div>
+    </section>
+    <!-- Footer-->
+    <app-grocery-footer></app-grocery-footer>
+</main>
