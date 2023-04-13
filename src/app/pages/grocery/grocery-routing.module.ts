@@ -9,26 +9,31 @@ import { SingleProductComponent } from './single-product/single-product.componen
 import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: HomeComponent
-    },
-    {
-      path: 'product-catalog',
-      component:ProductCatalogComponent
-    },
-    {
-      path: 'single-product',
-      component:SingleProductComponent
-    },
-    {
-      path: 'checkout',
-      component:CheckoutComponent
-    }
+  // {
+  //     path: '',
+  //     component: HomeComponent
+  // },
+  {
+    path: 'product-catalog',
+    component: ProductCatalogComponent
+  },
+  {
+    path: 'single-product',
+    component: SingleProductComponent
+  },
+  // {
+  //   path: 'single-product/:id',
+  //   component: SingleProductComponent
+  // },
+  {
+    path: 'checkout',
+    component: CheckoutComponent
+  },
+  { path: '**', redirectTo: 'product-catalog' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class GroceryRoutingModule { }

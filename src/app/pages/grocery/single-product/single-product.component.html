@@ -14,7 +14,7 @@
                 <div class="col-xl-7 px-2 mb-3">
                     <div class="h-100 bg-light rounded-3 p-4">
                         <div class="product-gallery">
-                            <div class="product-gallery-preview order-sm-2">
+                            <div *ngIf="preview" class="product-gallery-preview order-sm-2">
                                 <div class="product-gallery-preview-item active" id="first">
                                     <img src="{{preview}}" alt="Product image">
                                 </div>
@@ -31,7 +31,7 @@
                 <div class="col-xl-5 px-2 mb-3">
                     <div class="h-100 bg-light rounded-3 py-5 px-4 px-sm-5"><a class="product-meta d-block fs-sm pb-2"
                             href="javascript:void(0);">{{products.category}}</a>
-                        <h1 class="h2">{{products.title}}</h1>
+                        <h1 class="h2">{{ products.title || products.label }}</h1>
                         <div class="h2 fw-normal text-accent price">${{products.price}}</div>
                         <div class="d-flex flex-wrap align-items-center pt-4 pb-2 mb-3">
                             <select class="form-select me-3 mb-3" style="width: 5rem;" [(ngModel)]="qty">
@@ -43,8 +43,8 @@
                             </select>
                             <button class="btn btn-primary btn-shadow me-3 mb-3" type="submit" (click)="addcart()"><i
                                     class="ci-cart fs-lg me-2"></i>Add to Cart</button>
-                            <button class="btn btn-icon btn-secondary mb-3" type="submit" 
-                            ngbTooltip="Add to Wishlist"><i class="ci-heart fs-lg"></i></button>
+                            <button class="btn btn-icon btn-secondary mb-3" type="submit"
+                                ngbTooltip="Add to Wishlist"><i class="ci-heart fs-lg"></i></button>
                         </div>
                         <h6>Product description</h6>
                         <ul class="list-unstyled fs-sm pt-2 mb-0">
@@ -58,7 +58,7 @@
                 </div>
             </section>
             <!-- Related products-->
-            <section class="pb-5 mb-2 mb-xl-4">
+            <section class="pb-5 mb-2 mb-xl-4" *ngIf="relatedproduct && relatedproduct.length>0">
                 <h2 class="h3 pb-2 mb-grid-gutter text-center">You may also like</h2>
                 <div class="tns-carousel tns-controls-static tns-controls-outside tns-nav-enabled">
                     <!-- Product-->
@@ -66,20 +66,21 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" *ngFor="let product of relatedproduct;let i = index;">
                                 <div class="card product-card card-static pb-3">
-                                    <button class="btn-wishlist btn-sm" type="button"
-                                        data-bs-placement="left" ngbTooltip="Add to wishlist"><i
-                                            class="ci-heart"></i></button><a
-                                        class="card-img-top d-block overflow-hidden" routerLink="/grocery/single-product"><img
-                                            src="{{product.image}}" alt="Product"></a>
+                                    <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
+                                        ngbTooltip="Add to wishlist"><i class="ci-heart"></i></button><a
+                                        class="card-img-top d-block overflow-hidden"
+                                        routerLink="/grocery/single-product"><img src="{{product.image}}"
+                                            alt="Product"></a>
                                     <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1"
                                             href="javascript:void(0);">{{product.category}}</a>
-                                        <h3 class="product-title fs-sm"><a routerLink="/grocery/single-product">{{product.title}}</a></h3>
+                                        <h3 class="product-title fs-sm"><a
+                                                routerLink="/grocery/single-product">{{product.title}}</a></h3>
                                         <div class="product-price"><span class="text-accent">${{product.price}}</span>
                                         </div>
                                     </div>
                                     <div class="product-floating-btn">
-                                        <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="addtocart(i)">+<i
-                                                class="ci-cart fs-base ms-1"></i></button>
+                                        <button class="btn btn-primary btn-shadow btn-sm" type="button"
+                                            (click)="addtocart(i)">+<i class="ci-cart fs-base ms-1"></i></button>
                                     </div>
                                 </div>
                             </div>

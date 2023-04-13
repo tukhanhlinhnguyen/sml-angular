@@ -4,6 +4,9 @@ import { NgbActiveOffcanvas, NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-boo
 import { Router, NavigationEnd } from '@angular/router';
 
 import { cart } from 'src/app/pages/grocery/checkout/data';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { User } from 'src/app/core/model/user.model';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-grocery-header',
@@ -20,6 +23,9 @@ export class GroceryHeaderComponent {
   subtotal: any = 0;
   total: any = 0;
 
+  loginuser: User = new User();
+  user: User = new User();
+
   // Login Form
   loginForm!: UntypedFormGroup;
   submitted = false;
@@ -29,12 +35,39 @@ export class GroceryHeaderComponent {
   signupCPassfield!: boolean;
   SignupForm!: UntypedFormGroup;
   submit = false;
+  _isLoggedIn: boolean = false;
 
   constructor(private modalService: NgbModal,
+    private authService: AuthService,
     private formBuilder: UntypedFormBuilder,
     public router: Router, private offcanvasService: NgbOffcanvas) { }
 
   ngOnInit(): void {
+    this._isLoggedIn = this.authService.checkLogin();
+    this.user = this.authService.getUser();
+
+    this.authService.loginStatusChanged.subscribe(
+      (IsLoggedIn) => {
+        this.user = this.authService.getUser();
+        // console.log("testing");
+        // this._logService.logMessage('on init loginStatusChanged: ' + IsLoggedIn);
+
+        this._isLoggedIn = IsLoggedIn;
+      }
+    );
+
+    this.authService.loginUserStatusChanged.subscribe(
+      (user) => {
+        this.user = this.authService.getUser();
+      },
+      (error) => {
+        console.error(error)
+      },
+      () => {
+        console.log('Login state has been marked completed!')
+      }
+    );
+
     /**
      * Form Validatyion
      */
@@ -54,10 +87,41 @@ export class GroceryHeaderComponent {
 
     // Fetch Data
     this.mycart = cart
+    // this.mycart.forEach((element: any) => {
+    //   this.subtotal += parseFloat(element.price)
+    // });
     this.mycart.forEach((element: any) => {
-      this.subtotal += parseFloat(element.price)
+      this.subtotal += (parseFloat(element.price) * parseFloat(element.qty))
     });
     this.subtotal = this.subtotal.toFixed(2)
+
+    this.authService.mycartChanged.subscribe(
+      (res) => {
+        this.mycart = cart
+        // console.log("this.subtotal", this.subtotal)
+
+        // console.log("this.mycart", this.mycart)
+        // this.mycart.forEach((element: any) => {
+        //   this.subtotal += parseFloat(element.price)
+        // });
+        this.mycart.forEach((element: any) => {
+          // console.log("element.price", element.price)
+          // console.log("element.qty", element.qty)
+          // console.log("multiply", (parseFloat(element.price) * parseFloat(element.qty)))
+          // this.subtotal += (parseFloat(element.price) * parseFloat(element.qty))
+          this.subtotal = parseFloat(this.subtotal) + (parseFloat(element.price) * parseFloat(element.qty))
+
+          // console.log("this.subtotal", this.subtotal)
+        });
+        this.subtotal = this.subtotal.toFixed(2)
+      },
+      (error) => {
+        console.error(error)
+      },
+      () => {
+        // console.log('Login state has been marked completed!')
+      }
+    );
 
     // set decimal point to small
     setTimeout(() => {
@@ -89,12 +153,48 @@ export class GroceryHeaderComponent {
   /**
    * Form submit
    */
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
+    }
+
+    try {
+      let res: any = await this.authService.login(this.loginuser);
+      console.log("res", res);
+      if (res) {
+
+        let obj = res && res.success ? res.success : null;
+
+        await this.authService.saveToken(obj);
+
+
+        let user: User = new User();
+
+        // user.username = obj && obj.username ? obj.username || null : null;
+        user.username = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
+        user.useremail = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
+        user.userdisplayname = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
+
+        this.authService.storeUser(user);
+
+        this.authService.loginStatusChanged.next(true);
+
+        // let si: any = this.document.getElementById("modalclose") as HTMLElement;
+        let md: any = document.getElementById("modalclose");
+
+        console.log("md", md)
+
+        md.click();
+
+        // document.getElementById('elmLoader')?.classList.add('d-none')
+      }
+
+    } catch (error) {
+      console.log("error", error);
+
     }
   }
 
@@ -162,5 +262,9 @@ export class GroceryHeaderComponent {
       this.subtotal += parseFloat(element.price)
     });
     this.subtotal = this.subtotal.toFixed(2)
+  }
+
+  onlogOut() {
+    this.authService.logoutUser_();
   }
 }

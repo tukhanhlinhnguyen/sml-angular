@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // Data Get
-import { catalog } from './data';
+// import { catalog } from './data';
+// import { CatalogModel, ProductModel } from './product-catalog.model';
 import { CatalogModel } from './product-catalog.model';
 import { ProductCatlogService } from './product-catalog.service';
 import { cart } from '../checkout/data';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-product-catalog',
@@ -22,9 +24,13 @@ export class ProductCatalogComponent implements OnInit {
 
   // Table data
   CatelogList!: Observable<CatalogModel[]>;
+  // ProductList!: ProductModel[];
+  ProductList!: CatalogModel[];
   total: Observable<number>;
 
-  constructor(public service: ProductCatlogService,
+  constructor(
+    public service: ProductCatlogService,
+    public authService: AuthService,
     public router: Router) {
     this.CatelogList = service.countries$;
     this.total = service.total$;
@@ -36,20 +42,23 @@ export class ProductCatalogComponent implements OnInit {
     document.documentElement.scrollTop = 0;
 
     /**
-* BreadCrumb
-*/
+    * BreadCrumb
+    */
     this.breadCrumbItems = [
       { label: 'Home', link: '/grocery' },
       { label: 'Product catalog', active: true, link: '/grocery/product-catalog' }
     ];
 
     //Fetch Data
-    setTimeout(() => {
-      this.CatelogList.subscribe(x => {
-        this.catalogs = Object.assign([], x);
-      });
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1200)
+    // setTimeout(() => {
+    //   this.CatelogList.subscribe(x => {
+    //     this.catalogs = Object.assign([], x);
+
+    //     console.log("this.catalogs",this.catalogs);
+    //   });
+    //   document.getElementById('elmLoader')?.classList.add('d-none')
+    // }, 1200)
+    this.getProduct();
 
     // set decimal point to small
     setTimeout(() => {
@@ -64,17 +73,20 @@ export class ProductCatalogComponent implements OnInit {
 
   sortproduct(ev: any) {
     if (ev.nextId == 1) {
-      this.service.products = catalog.filter((element: any) => {
+      // this.service.products = catalog.filter((element: any) => {
+      this.service.products = this.ProductList.filter((element: any) => {
         return element.type == 'popular'
       })
     }
     if (ev.nextId == 2) {
-      this.service.products = catalog.filter((element: any) => {
+      // this.service.products = catalog.filter((element: any) => {
+      this.service.products = this.ProductList.filter((element: any) => {
         return element.type == 'Cheap'
       })
     }
     if (ev.nextId == 3) {
-      this.service.products = catalog.filter((element: any) => {
+      // this.service.products = catalog.filter((element: any) => {
+      this.service.products = this.ProductList.filter((element: any) => {
         return element.type == 'Expensive'
       })
     }
@@ -83,12 +95,57 @@ export class ProductCatalogComponent implements OnInit {
 
   // Go To Detail Page
   gotodetail(id: any) {
+    console.log("gotodetail ")
+    console.log("id ", id)
+    console.log("this.catalogs ", this.catalogs)
     this.router.navigate(['/grocery/single-product', this.catalogs[id]])
   }
 
   // Add To Cart
   addtocart(id: any) {
-    cart.push(this.catalogs[id])
+    this.catalogs[id].qty = 1;
+
+    let product = this.service.deepCopy(this.catalogs[id]);
+    // console.log("this.products", this.products)
+    console.log("product", product)
+
+    // cart.push(this.catalogs[id])
+    cart.push(product)
+
+    this.authService.mycartChanged.next(true);
+  }
+
+  async getProduct() {
+
+    try {
+      let res: any = await this.service.get_products();
+      console.log("res", res);
+      if (res) {
+        this.service.productChanged.next(this.ProductList);
+        this.ProductList = res || [];
+        setTimeout(() => {
+          this.CatelogList.subscribe(x => {
+            this.catalogs = Object.assign([], x);
+            this.service.productChanged.next(this.ProductList);
+
+            // console.log("this.catalogs", this.catalogs);
+          });
+          document.getElementById('elmLoader')?.classList.add('d-none')
+        }, 1200)
+        // this.catalogs = Object.assign([], res);
+        // this.service.productChanged.next(this.ProductList);
+
+        // document.getElementById('elmLoader')?.classList.add('d-none')
+      }
+
+    } catch (error) {
+      console.log("error", error);
+
+    }
+
+    // this.service.get_products().subscribe((res: any[]) => {
+    //   // this.families = res;
+    // });
   }
 
 }

@@ -3,10 +3,15 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 
+// import { CatalogModel, ProductModel } from './product-catalog.model';
 import { CatalogModel } from './product-catalog.model';
 import { catalog } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Token } from 'src/app/core/model/token.model';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 interface SearchResult {
   countries: CatalogModel[];
@@ -45,6 +50,8 @@ export class ProductCatlogService {
   private _search$ = new Subject<void>();
   private _countries$ = new BehaviorSubject<CatalogModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  // public productChanged = new Subject<ProductModel[]>();
+  public productChanged = new Subject<CatalogModel[]>();
 
   content?: any;
   products?: any;
@@ -61,7 +68,14 @@ export class ProductCatlogService {
     date: '',
   };
 
-  constructor(private pipe: DecimalPipe) {
+  baseUrl: string = environment.baseApiUrl;
+
+  constructor(
+    private pipe: DecimalPipe,
+    private httpClient: HttpClient,
+    private authService: AuthService,
+    // private environment: environment
+  ) {
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
       debounceTime(200),
@@ -76,7 +90,16 @@ export class ProductCatlogService {
     this._search$.next();
 
     // Json Data
-    this.products = catalog;
+    // this.products = catalog;
+
+    this.productChanged.subscribe(
+      (products) => {
+        // console.log("testing");
+        this.products = products;
+
+        // this._search$.next();
+      }
+    );
   }
 
   get countries$() { return this._countries$.asObservable(); }
@@ -154,5 +177,37 @@ export class ProductCatlogService {
     return of({ countries, total });
   }
 
+  async get_products() {
+    let url = this.baseUrl + '/products';
+
+    let storeToken: Token;
+    storeToken = this.authService.getTokenData();
+
+    let dkey = "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";
+    const key: string = storeToken ? storeToken.tokenId || dkey : dkey;
+    
+
+    // const headers = new HttpHeaders();
+    // headers.set('DOLAPIKEY', key);
+    // headers.set('api_key', key);
+
+    let header = new HttpHeaders({ 'DOLAPIKEY': key });
+    // let header = new HttpHeaders({ 'api_key': key });
+
+
+    // return this.httpClient.get(this.baseUrl + '/products').toPromise();
+    return await this.httpClient.get(url, { headers: header }).toPromise();
+  }
+
+  public deepCopy(oldObj: any) {
+    var newObj = oldObj;
+    if (oldObj && typeof oldObj === "object") {
+      newObj = Object.prototype.toString.call(oldObj) === "[object Array]" ? [] : {};
+      for (var i in oldObj) {
+        newObj[i] = this.deepCopy(oldObj[i]);
+      }
+    }
+    return newObj;
+  }
 
 }

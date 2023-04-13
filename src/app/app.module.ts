@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { PagesModule } from "./pages/pages.module";
+import { CoreModule } from './core/core.module';
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient): any {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    PagesModule
+    PagesModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

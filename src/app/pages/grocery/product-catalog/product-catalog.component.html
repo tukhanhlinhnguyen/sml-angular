@@ -6,7 +6,7 @@
 <main class="offcanvas-enabled" style="padding-top: 5rem;">
     <section class="ps-lg-4 pe-lg-3 pt-4">
         <div class="px-3 pt-2">
-         <!-- Page title + breadcrumb-->
+            <!-- Page title + breadcrumb-->
             <app-grocery-breadcrumb [breadcrumbItems]="breadCrumbItems"></app-grocery-breadcrumb>
             <!-- Sorting-->
             <section class="d-md-flex justify-content-between align-items-center mb-4 pb-2">
@@ -33,14 +33,24 @@
                     <span *ngIf="product.tag == true"
                         class="badge bg-{{product.tagcolor}} badge-shadow">{{product.tagname}}</span>
                     <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
-                        ngbTooltip="Add to wishlist"><i class="ci-heart"></i></button><a
-                        class="card-img-top d-block overflow-hidden"><img
-                            src="{{product.image}}" alt="Product" (click)="gotodetail(i)"></a>
-                    <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1"
-                            href="javascript:void(0);"  (click)="gotodetail(i)">{{product.category}}</a>
-                        <h3 class="product-title fs-sm text-truncate"><a
-                                href="javascript:void(0);">{{product.title}}</a></h3>
-                        <div class="product-price"><span class="text-accent">${{product.price}}</span></div>
+                        ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
+                    </button>
+                    <a *ngIf="product.image" class="card-img-top d-block overflow-hidden"><img src="{{product.image}}"
+                            alt="Product" (click)="gotodetail(i)">
+                    </a>
+                    <div class="card-body py-2">
+                        <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(i)">
+                            {{ product.category }}
+                        </a>
+                        <h3 class="product-title fs-sm text-truncate">
+                            <a href="javascript:void(0);" (click)="gotodetail(i)">
+                                <!-- {{ product.title }} -->
+                                {{ product.title || product.label }}
+                            </a>
+                        </h3>
+                        <div class="product-price">
+                            <span class="text-accent">${{product.price}}</span>
+                        </div>
                     </div>
                     <div class="product-floating-btn">
                         <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="addtocart(i)">+<i
