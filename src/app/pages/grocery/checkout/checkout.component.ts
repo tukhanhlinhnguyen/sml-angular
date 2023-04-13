@@ -143,7 +143,7 @@ export class CheckoutComponent implements OnInit {
         console.log("error:", error);
 
         m.click();
-        this.msg = error;
+        this.msg = JSON.stringify(error);
       }
 
     }
