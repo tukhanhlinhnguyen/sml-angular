@@ -123,6 +123,30 @@ export class AuthService {
         return await this._http.post(url, body, { headers: header }).toPromise();
     }
 
+    async createProposalLine(id: any, obj: any) {
+        const url = environment.baseApiUrl + '/proposals/' + id + '/line';
+
+        let user: User = this.getUser();
+        let socId = localStorage.getItem("socId") || null;
+
+        let body = {
+            "fk_product": obj.id,
+            "qty": obj.qty,
+            "subprice": obj.price
+        };
+
+        let storeToken: Token;
+        storeToken = this.getTokenData();
+
+        const key: string = storeToken ? storeToken.tokenId || "" : "";
+        // let key = "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";
+
+        // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
+        let header = new HttpHeaders({ 'DOLAPIKEY': key });
+
+        return await this._http.post(url, body, { headers: header }).toPromise();
+    }
+
     checkLogin(): boolean {
         if (localStorage.getItem("token_id")) {
             // this.isLoggedIn.next(true);

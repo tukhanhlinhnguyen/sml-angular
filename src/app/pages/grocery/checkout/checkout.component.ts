@@ -135,6 +135,23 @@ export class CheckoutComponent implements OnInit {
 
         // if (res && res.Status) {
         if (res) {
+
+          this.cartproduct.forEach(async (element: any) => {
+            setTimeout(async () => {
+              try {
+
+                let res1: any = await this._authService.createProposalLine(res, element);
+  
+              } catch (error) {
+                console.log("error:", error);
+  
+                m.click();
+                this.msg = JSON.stringify(error);
+              }
+            }, 100);
+          });
+
+
           m.click();
           this.msg = "Propasal Created. " + res;
         }
