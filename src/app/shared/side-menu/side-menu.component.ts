@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MENU } from './side-menu';
 import { SideMenuItem } from './side-menu.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,6 +12,10 @@ import { SideMenuItem } from './side-menu.model';
 export class SideMenuComponent implements OnInit {
 
   menuItems: SideMenuItem[] = [];
+  smlFacebookURL = environment.smlFacebookURL
+  smlPhoneNumber = environment.smlPhonenumber
+  smlHotline = environment.smlHotline
+  smlEmail = environment.smlEmail
 
   constructor() { }
 

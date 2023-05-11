@@ -5,6 +5,10 @@
 export const environment = {
   production: false,
   baseApiUrl: "https://devdolibarrsml.societe-kali.fr/api/index.php",
+  smlPhonenumber: "(+33) 7 53 08 74 88",
+  smlHotline:"(+33) 9 80 80 15 89",
+  smlEmail:"contact@sml-import-export.fr",
+  smlFacebookURL:"https://www.facebook.com/sml.import.export/"
 };
 
 /*
