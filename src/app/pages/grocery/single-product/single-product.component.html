@@ -32,7 +32,7 @@
                     <div class="h-100 bg-light rounded-3 py-5 px-4 px-sm-5"><a class="product-meta d-block fs-sm pb-2"
                             href="javascript:void(0);">{{products.category}}</a>
                         <h1 class="h2">{{ products.title || products.label }}</h1>
-                        <div class="h2 fw-normal text-accent price">${{products.price}}</div>
+                        <div class="h2 fw-normal text-accent price">${{products.price |number:'.2-4'}}</div>
                         <div class="d-flex flex-wrap align-items-center pt-4 pb-2 mb-3">
                             <select class="form-select me-3 mb-3" style="width: 5rem;" [(ngModel)]="qty">
                                 <option value="1">1</option>
@@ -48,11 +48,12 @@
                         </div>
                         <h6>Product description</h6>
                         <ul class="list-unstyled fs-sm pt-2 mb-0">
-                            <li><i class="ci-check-circle text-success me-2"></i>Natural ingredients</li>
+                            <li><i class="ci-check-circle text-success me-2"></i>{{products.description}}</li>
+                            <!-- <li><i class="ci-check-circle text-success me-2"></i>Natural ingredients</li>
                             <li><i class="ci-check-circle text-success me-2"></i>No dyes and flavor enhancers</li>
                             <li><i class="ci-check-circle text-success me-2"></i>Gluten free</li>
                             <li><i class="ci-check-circle text-success me-2"></i>Vitamins B2, B3, B5 and B6</li>
-                            <li><i class="ci-check-circle text-success me-2"></i>Tastes better with milk</li>
+                            <li><i class="ci-check-circle text-success me-2"></i>Tastes better with milk</li> -->
                         </ul>
                     </div>
                 </div>
