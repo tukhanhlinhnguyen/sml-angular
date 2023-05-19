@@ -11,7 +11,7 @@ import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Token } from 'src/app/core/model/token.model';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 interface SearchResult {
   countries: CatalogModel[];

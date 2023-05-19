@@ -4,8 +4,8 @@ import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { takeUntil } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
-import { User } from "../model/user.model";
-import { Token } from "../model/token.model";
+import { User } from "../../core/model/user.model";
+import { Token } from "../../core/model/token.model";
 
 // import { User } from "../../models/user.model";
 // import { Token } from "../../models/token.model";

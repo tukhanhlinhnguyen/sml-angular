@@ -9,10 +9,10 @@ import { SingleProductComponent } from './single-product/single-product.componen
 import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
-  // {
-  //     path: '',
-  //     component: HomeComponent
-  // },
+  {
+      path: '',
+      component: HomeComponent
+  },
   {
     path: 'product-catalog',
     component: ProductCatalogComponent

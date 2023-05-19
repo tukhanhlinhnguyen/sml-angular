@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MENU } from './side-menu';
 import { SideMenuItem } from './side-menu.model';
 import { environment } from 'src/environments/environment';
+import { CategoryService } from '../../services/category/category.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -16,12 +17,16 @@ export class SideMenuComponent implements OnInit {
   smlPhoneNumber = environment.smlPhonenumber
   smlHotline = environment.smlHotline
   smlEmail = environment.smlEmail
+  categories: any[] = []
 
-  constructor() { }
+  constructor(public _categoryService: CategoryService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
      // Menu Items
-     this.menuItems = MENU;
+    this.menuItems = MENU;
+    this._categoryService.getCategories().subscribe((data: any) => {
+      this.categories = data
+    })
   }
 
   close() {

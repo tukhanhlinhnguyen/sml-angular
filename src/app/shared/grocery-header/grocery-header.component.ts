@@ -4,7 +4,7 @@ import { NgbActiveOffcanvas, NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-boo
 import { Router, NavigationEnd } from '@angular/router';
 
 import { cart } from 'src/app/pages/grocery/checkout/data';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
 import { Subject } from 'rxjs/internal/Subject';
 

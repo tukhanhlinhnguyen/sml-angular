@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 // import { AuthGuard } from './guards/auth.guard';
 // import { MainGuard } from './guards/main.guard';
 
-import { AuthService } from './auth/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 
 // import { EnvService } from './services/env/env.service';

@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 
 // Data Get
 import { cart } from './data';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

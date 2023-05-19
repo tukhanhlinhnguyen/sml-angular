@@ -35,7 +35,9 @@
                     <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
                         ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
                     </button>
-                    <a *ngIf="product.image" class="card-img-top d-block overflow-hidden"><img src="{{product.image}}"
+                    <a *ngIf="product.url_photo_recto
+                    " class="card-img-top d-block overflow-hidden"><img src="{{product.url_photo_recto
+                    }}"
                             alt="Product" (click)="gotodetail(i)">
                     </a>
                     <div class="card-body py-2">

@@ -8,7 +8,7 @@ import { cart } from '../checkout/data';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogModel } from '../product-catalog/product-catalog.model';
 import { ProductCatlogService } from '../product-catalog/product-catalog.service';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 // import { ProductModel } from '../product-catalog/product-catalog.model';
 
 @Component({

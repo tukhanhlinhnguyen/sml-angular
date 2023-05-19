@@ -9,7 +9,7 @@ import { CatalogModel } from './product-catalog.model';
 import { ProductCatlogService } from './product-catalog.service';
 import { cart } from '../checkout/data';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-product-catalog',
