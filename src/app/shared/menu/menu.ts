@@ -59,22 +59,22 @@ export const MENU: MenuItem[] = [
           {
             id: 1,
             label: 'MENUITEMS.SHOP.LIST.SingleItemPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/single',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/single',
           },
           {
             id: 2,
             label: 'MENUITEMS.SHOP.LIST.VendorPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/vendor',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/vendor',
           },
           {
             id: 3,
             label: 'MENUITEMS.SHOP.LIST.Cart',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/cart',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/cart',
           },
           {
             id: 4,
             label: 'MENUITEMS.SHOP.LIST.Checkout',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/checkout',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/checkout',
           }
         ]
       },
@@ -106,22 +106,22 @@ export const MENU: MenuItem[] = [
           {
             id: 1,
             label: 'MENUITEMS.SHOP.LIST.CategoryPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/category',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/category',
           },
           {
             id: 2,
             label: 'MENUITEMS.SHOP.LIST.SingleItem',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/restaurants',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/restaurants',
           },
           {
             id: 3,
             label: 'MENUITEMS.SHOP.LIST.Cart',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/cart',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/cart',
           },
           {
             id: 4,
             label: 'MENUITEMS.SHOP.LIST.Checkout',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/checkout',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/checkout',
           }
         ]
       },
@@ -132,42 +132,42 @@ export const MENU: MenuItem[] = [
           {
             id: 1,
             label: 'MENUITEMS.SHOP.LIST.Catalogv1',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/catalog_v1',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/catalog_v1',
           },
           {
             id: 2,
             label: 'MENUITEMS.SHOP.LIST.Catalogv2',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/catalog_v2',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/catalog_v2',
           },
           {
             id: 3,
             label: 'MENUITEMS.SHOP.LIST.SingleItemAuctionLive',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/auctionlive',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/auctionlive',
           },
           {
             id: 4,
             label: 'MENUITEMS.SHOP.LIST.SingleItemAuctionEnded',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/auctionended',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/auctionended',
           },
           {
             id: 5,
             label: 'MENUITEMS.SHOP.LIST.SingleItemBuyNow',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/auctionbuy',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/auctionbuy',
           },
           {
             id: 6,
             label: 'MENUITEMS.SHOP.LIST.VendorPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/vendor',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/vendor',
           },
           {
             id: 7,
             label: 'MENUITEMS.SHOP.LIST.ConnectWallet',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/connectwallet',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/connectwallet',
           },
           {
             id: 8,
             label: 'MENUITEMS.SHOP.LIST.CreateNewItem',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/createnewitem',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/createnewitem',
           }
         ]
       },
@@ -286,37 +286,37 @@ export const MENU: MenuItem[] = [
             {
               id: 1,
               label: 'MENUITEMS.ACCOUNT.LIST.Settings',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/setting'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/setting'
             },
             {
               id: 2,
               label: 'MENUITEMS.ACCOUNT.LIST.Purchases',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/purchase'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/purchase'
             },
             {
               id: 3,
               label: 'MENUITEMS.ACCOUNT.LIST.Favorites',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/favorites'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/favorites'
             },
             {
               id: 4,
               label: 'MENUITEMS.ACCOUNT.LIST.Sales',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/sales'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/sales'
             },
             {
               id: 5,
               label: 'MENUITEMS.ACCOUNT.LIST.Products',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/product'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/product'
             },
             {
               id: 6,
               label: 'MENUITEMS.ACCOUNT.LIST.AddNewProduct',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/addproduct'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/addproduct'
             },
             {
               id: 7,
               label: 'MENUITEMS.ACCOUNT.LIST.Payouts',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/payout'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/payout'
             }
           ]
         },
@@ -327,32 +327,32 @@ export const MENU: MenuItem[] = [
             {
               id: 1,
               label: 'MENUITEMS.ACCOUNT.LIST.ProfileSettings',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/setting'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/setting'
             },
             {
               id: 2,
               label: 'MENUITEMS.ACCOUNT.LIST.WalletPayouts',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/setting'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/setting'
             },
             {
               id: 3,
               label: 'MENUITEMS.ACCOUNT.LIST.MyItems',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/myitem'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/myitem'
             },
             {
               id: 4,
               label: 'MENUITEMS.ACCOUNT.LIST.MyCollections',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/mycollection'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/mycollection'
             },
             {
               id: 5,
               label: 'MENUITEMS.ACCOUNT.LIST.Favorites',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/favorite'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/favorite'
             },
             {
               id: 6,
               label: 'MENUITEMS.ACCOUNT.LIST.Notifications',
-              fulllink: 'https://themes.themesbrand.com/cartzilla/angular/nft-marketplace/notification'
+              fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/nft-marketplace/notification'
             }
           ]
         },

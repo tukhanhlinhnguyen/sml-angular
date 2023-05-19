@@ -59,22 +59,22 @@ export const MENU: SideMenuItem[] = [
           {
             id: 1,
             label: 'MENUITEMS.SHOP.LIST.SingleItemPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/single',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/single',
           },
           {
             id: 2,
             label: 'MENUITEMS.SHOP.LIST.VendorPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/vendor',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/vendor',
           },
           {
             id: 3,
             label: 'MENUITEMS.SHOP.LIST.Cart',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/cart',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/cart',
           },
           {
             id: 4,
             label: 'MENUITEMS.SHOP.LIST.Checkout',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/checkout',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/checkout',
           }
         ]
       },
@@ -106,22 +106,22 @@ export const MENU: SideMenuItem[] = [
           {
             id: 1,
             label: 'MENUITEMS.SHOP.LIST.CategoryPage',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/category',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/category',
           },
           {
             id: 2,
             label: 'MENUITEMS.SHOP.LIST.SingleItem',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/restaurants',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/restaurants',
           },
           {
             id: 3,
             label: 'MENUITEMS.SHOP.LIST.Cart',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/cart',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/cart',
           },
           {
             id: 4,
             label: 'MENUITEMS.SHOP.LIST.Checkout',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/food/checkout',
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/food/checkout',
           }
         ]
       },
@@ -240,37 +240,37 @@ export const MENU: SideMenuItem[] = [
           {
             id: 1,
             label: 'MENUITEMS.ACCOUNT.LIST.Settings',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/setting'
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/setting'
           },
           {
             id: 2,
             label: 'MENUITEMS.ACCOUNT.LIST.Purchases',
-            lfulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/purchase'
+            lfulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/purchase'
           },
           {
             id: 3,
             label: 'MENUITEMS.ACCOUNT.LIST.Favorites',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/favorites'
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/favorites'
           },
           {
             id: 4,
             label: 'MENUITEMS.ACCOUNT.LIST.Sales',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/sales'
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/sales'
           },
           {
             id: 5,
             label: 'MENUITEMS.ACCOUNT.LIST.Products',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/product'
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/product'
           },
           {
             id: 6,
             label: 'MENUITEMS.ACCOUNT.LIST.AddNewProduct',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/addproduct'
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/addproduct'
           },
           {
             id: 7,
             label: 'MENUITEMS.ACCOUNT.LIST.Payouts',
-            fulllink: 'https://themes.themesbrand.com/cartzilla/angular/marketplace/payout'
+            fulllink: 'https://themes.themesbrand.com/sml-import-export/angular/marketplace/payout'
           }
         ]
       },

@@ -231,19 +231,19 @@ const youtube = [
     {
         id: '1',
         image: 'assets/img/home/video/cover01.jpg',
-        title: '5 New Cool Gadgets You Must See on Cartzilla - Cheap Budget',
+        title: '5 New Cool Gadgets You Must See on SML IMPORT EXPORT - Cheap Budget',
         time: '6:16'
     },
     {
         id: '2',
         image: 'assets/img/home/video/cover02.jpg',
-        title: '5 Super Useful Gadgets on Cartzilla You Must Have in 2020',
+        title: '5 Super Useful Gadgets on SML IMPORT EXPORT You Must Have in 2020',
         time: '7:27'
     },
     {
         id: '3',
         image: 'assets/img/home/video/cover03.jpg',
-        title: 'Top 5 New Amazing Gadgets on Cartzilla You Must See',
+        title: 'Top 5 New Amazing Gadgets on SML IMPORT EXPORT You Must See',
         time: '6:20'
     },
     // {

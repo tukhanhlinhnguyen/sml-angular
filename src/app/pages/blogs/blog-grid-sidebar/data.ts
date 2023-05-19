@@ -41,7 +41,7 @@ const tableData = [
     image: '',
     comment: 7,
     content:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim...',
-    cate:['Cartzilla news']
+    cate:['SML IMPORT EXPORT news']
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ const tableData = [
     image: '',
     comment: 7,
     content:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim...',
-    cate:['Cartzilla news']
+    cate:['SML IMPORT EXPORT news']
   },
   {
     id: 7,
@@ -85,7 +85,7 @@ const tableData = [
     image: 'assets/img/blog/03.jpg',
     comment: 31,
     content:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt...',
-    cate:['Cartzilla news']
+    cate:['SML IMPORT EXPORT news']
   },
 ];
   

@@ -36,14 +36,14 @@ const ShippingData = [
     },
     {
         id:6,
-        title:'Pick Up at Cartzilla Locker',
+        title:'Pick Up at SML IMPORT EXPORT Locker',
         content:'All addresses (default zone), United States & Canada',
         time: '-',
         fee: '9.99'
     },
     {
         id:7,
-        title:'Cartzilla Global Export',
+        title:'SML IMPORT EXPORT Global Export',
         content:'All addresses (default zone), outside United States',
         time: '3 - 4 days',
         fee: '25.00'

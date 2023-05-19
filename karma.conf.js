@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/cartzilla'),
+      dir: require('path').join(__dirname, './coverage/sml-import-export'),
       subdir: '.',
       reporters: [
         { type: 'html' },

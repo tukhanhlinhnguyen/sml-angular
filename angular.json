@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cartzilla": {
+    "sml-import-export": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/cartzilla",
+            "outputPath": "dist/sml-import-export",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cartzilla:build:production"
+              "browserTarget": "sml-import-export:build:production"
             },
             "development": {
-              "browserTarget": "cartzilla:build:development"
+              "browserTarget": "sml-import-export:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cartzilla:build"
+            "browserTarget": "sml-import-export:build"
           }
         },
         "test": {

@@ -8,7 +8,7 @@ import { User } from './core/model/user.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'cartzilla';
+  title = 'sml-import-export';
 
   user: User = new User();
   _isLoggedIn: boolean = false;

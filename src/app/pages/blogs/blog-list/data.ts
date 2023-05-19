@@ -38,7 +38,7 @@ const tableData = [
     name: 'Olivia Reyes',
     date: 'Jun 12',
     title: 'Google Pay is Now Available in All Outlets',
-    sub_title: 'in Cartzilla news',
+    sub_title: 'in SML IMPORT EXPORT news',
     image: '',
     comment: 7,
     content:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt… '
@@ -49,7 +49,7 @@ const tableData = [
     name: 'Rafael Marquez',
     date: 'May 29',
     title: 'We Launched Regular Drone Delivery in California. Watch Demo Video',
-    sub_title: 'in Cartzilla news',
+    sub_title: 'in SML IMPORT EXPORT news',
     image: 'assets/img/blog/03.jpg',
     comment: 31,
     content:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt… '
