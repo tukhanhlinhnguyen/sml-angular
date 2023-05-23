@@ -38,14 +38,14 @@
                     <a *ngIf="product.url_photo_recto
                     " class="card-img-top d-block overflow-hidden"><img src="{{product.url_photo_recto
                     }}"
-                            alt="Product" (click)="gotodetail(i)">
+                            alt="Product" (click)="gotodetail(product.id)">
                     </a>
                     <div class="card-body py-2">
-                        <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(i)">
+                        <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(product.id)">
                             {{ product.category }}
                         </a>
                         <h3 class="product-title fs-sm text-truncate">
-                            <a href="javascript:void(0);" (click)="gotodetail(i)">
+                            <a href="javascript:void(0);" (click)="gotodetail(product.id)">
                                 <!-- {{ product.title }} -->
                                 {{ product.title || product.label }}
                             </a>

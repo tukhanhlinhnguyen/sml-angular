@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 // import { CatalogModel, ProductModel } from './product-catalog.model';
 import { CatalogModel } from './product-catalog.model';
 import { ProductCatlogService } from './product-catalog.service';
-import { cart } from '../checkout/data';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { CartService } from '../../../services/cart/cart.service';
 
 @Component({
   selector: 'app-product-catalog',
@@ -31,6 +31,7 @@ export class ProductCatalogComponent implements OnInit {
   constructor(
     public service: ProductCatlogService,
     public authService: AuthService,
+    public cartService: CartService,
     public router: Router) {
     this.CatelogList = service.countries$;
     this.total = service.total$;
@@ -95,10 +96,7 @@ export class ProductCatalogComponent implements OnInit {
 
   // Go To Detail Page
   gotodetail(id: any) {
-    console.log("gotodetail ")
-    console.log("id ", id)
-    console.log("this.catalogs ", this.catalogs)
-    this.router.navigate(['/grocery/single-product', this.catalogs[id]])
+    this.router.navigate(['/grocery/single-product', {id:id}])
   }
 
   // Add To Cart
@@ -110,7 +108,7 @@ export class ProductCatalogComponent implements OnInit {
     console.log("product", product)
 
     // cart.push(this.catalogs[id])
-    cart.push(product)
+    this.cartService.addToCart(product)
 
     this.authService.mycartChanged.next(true);
   }

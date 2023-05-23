@@ -5,7 +5,6 @@ import { SwiperOptions } from 'swiper';
 
 // Data Get
 import { discout, Bestsellers, review } from './data';
-import { cart } from '../checkout/data';
 import { Router } from '@angular/router';
 
 @Component({
@@ -109,7 +108,7 @@ export class HomeComponent implements OnInit {
 
   // Add To Cart
   addtocart(id: any) {
-    cart.push(this.discountedproduct[id])
+    // cart.push(this.discountedproduct[id])
   }
 
 }

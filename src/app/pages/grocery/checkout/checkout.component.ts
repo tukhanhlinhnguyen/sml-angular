@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 // Data Get
-import { cart } from './data';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CartService } from '../../../services/cart/cart.service';
+
 
 @Component({
   selector: 'app-checkout',
@@ -16,7 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CheckoutComponent implements OnInit {
 
   breadCrumbItems: any;
-  cartproduct: any;
+  cart: any;
   subtotal: any = 0;
   total: any = 0;
   msg: any;
@@ -32,6 +33,7 @@ export class CheckoutComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private formBuilder: UntypedFormBuilder,
     private _authService: AuthService,
+    private cartService: CartService,
     private modalService: NgbModal,
     public router: Router
   ) {
@@ -65,8 +67,8 @@ export class CheckoutComponent implements OnInit {
     ];
 
     // Fetch Data
-    this.cartproduct = cart
-    this.cartproduct.forEach((element: any) => {
+    this.cart = this.cartService.getCart()
+    this.cart.forEach((element: any) => {
       this.subtotal += (parseFloat(element.price) * parseFloat(element.qty))
     });
 
@@ -113,8 +115,8 @@ export class CheckoutComponent implements OnInit {
 
   // Go To Detail Page
   gotodetail(id: any) {
-    // this.router.navigate(['/single-product', this.cartproduct[id]])
-    this.router.navigate(['/grocery/single-product', this.cartproduct[id]])
+    // this.router.navigate(['/single-product', this.cart[id]])
+    this.router.navigate(['/grocery/single-product', this.cart[id]])
   }
 
   async placeorder() {
@@ -136,7 +138,7 @@ export class CheckoutComponent implements OnInit {
         // if (res && res.Status) {
         if (res) {
 
-          this.cartproduct.forEach(async (element: any) => {
+          this.cart.forEach(async (element: any) => {
             setTimeout(async () => {
               try {
 

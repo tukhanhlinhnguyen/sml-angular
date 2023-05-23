@@ -3,10 +3,11 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { NgbActiveOffcanvas, NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
 
-import { cart } from 'src/app/pages/grocery/checkout/data';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
 import { Subject } from 'rxjs/internal/Subject';
+import { CartService } from 'src/app/services/cart/cart.service';
+
 
 @Component({
   selector: 'app-grocery-header',
@@ -40,6 +41,7 @@ export class GroceryHeaderComponent {
   constructor(private modalService: NgbModal,
     private authService: AuthService,
     private formBuilder: UntypedFormBuilder,
+    private cartService: CartService,
     public router: Router, private offcanvasService: NgbOffcanvas) { }
 
   ngOnInit(): void {
@@ -86,7 +88,8 @@ export class GroceryHeaderComponent {
     });
 
     // Fetch Data
-    this.mycart = cart
+    this.mycart = this.cartService.getCart()
+    console.log('this.mycart:', this.mycart)
     // this.mycart.forEach((element: any) => {
     //   this.subtotal += parseFloat(element.price)
     // });
@@ -97,18 +100,9 @@ export class GroceryHeaderComponent {
 
     this.authService.mycartChanged.subscribe(
       (res) => {
-        this.mycart = cart
-        // console.log("this.subtotal", this.subtotal)
-
-        // console.log("this.mycart", this.mycart)
-        // this.mycart.forEach((element: any) => {
-        //   this.subtotal += parseFloat(element.price)
-        // });
+        this.mycart = this.cartService.getCart()
+        this.subtotal = 0
         this.mycart.forEach((element: any) => {
-          // console.log("element.price", element.price)
-          // console.log("element.qty", element.qty)
-          // console.log("multiply", (parseFloat(element.price) * parseFloat(element.qty)))
-          // this.subtotal += (parseFloat(element.price) * parseFloat(element.qty))
           this.subtotal = parseFloat(this.subtotal) + (parseFloat(element.price) * parseFloat(element.qty))
 
           // console.log("this.subtotal", this.subtotal)
@@ -257,11 +251,12 @@ export class GroceryHeaderComponent {
   // Remove From Cart
   removecart(id: any) {
     this.subtotal = 0;
-    cart.splice(id, 1)
-    cart.forEach((element: any) => {
+    this.mycart.splice(id, 1)
+    this.mycart.forEach((element: any) => {
       this.subtotal += parseFloat(element.price)
     });
     this.subtotal = this.subtotal.toFixed(2)
+    this.cartService.setCart(this.mycart)
   }
 
   onlogOut() {

@@ -4,6 +4,7 @@ import { MENU } from './side-menu';
 import { SideMenuItem } from './side-menu.model';
 import { environment } from 'src/environments/environment';
 import { CategoryService } from '../../services/category/category.service';
+import { CartService } from '../../services/cart/cart.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -19,7 +20,7 @@ export class SideMenuComponent implements OnInit {
   smlEmail = environment.smlEmail
   categories: any[] = []
 
-  constructor(public _categoryService: CategoryService) {}
+  constructor(public _categoryService: CategoryService, public _cartService: CartService) {}
 
   ngOnInit() {
      // Menu Items

@@ -4,11 +4,15 @@ import { DecimalPipe } from '@angular/common';
 
 // Data Get
 import { related } from './data';
-import { cart } from '../checkout/data';
 import { ActivatedRoute } from '@angular/router';
-import { CatalogModel } from '../product-catalog/product-catalog.model';
 import { ProductCatlogService } from '../product-catalog/product-catalog.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CartService } from 'src/app/services/cart/cart.service';
+import { ProductService } from 'src/app/services/product/product.servie';
+
+import { ProductModel } from '../../../models/product';
+
+
 // import { ProductModel } from '../product-catalog/product-catalog.model';
 
 @Component({
@@ -22,27 +26,27 @@ export class SingleProductComponent implements OnInit {
   breadCrumbItems: any;
   productimage: any;
   preview: any;
-  relatedproduct: any;
-  // products: any;
-  // products: ProductModel;
-  products!: CatalogModel;
+  // product: any;
+  // product: ProductModel;
+  product: ProductModel;
   qty: any = 1;
 
   constructor(
     private route: ActivatedRoute,
     public service: ProductCatlogService,
     public authService: AuthService,
+    public cartService: CartService,
+    public productService: ProductService,
   ) {
 
-    // this.products = this.route.snapshot.params;
-    let products = this.route.snapshot.params;
-    this.products = this.service.deepCopy(products);
-    // this.products["qty"] = "";
-    // this.products.qty = "";
+    // this.product = this.route.snapshot.params;
+    this.productService.getProductById(this.route.snapshot.params['id'])
+        .subscribe((data)=>{
+        console.log('data:', data)
+			if(data) this.product = data
+        });
 
-    console.log("this.products", this.products);
-    // this.productimage =  this.products.image.split(',');
-    this.productimage = this.products && this.products.image ? this.products.image.split(',') : null;
+    // this.productimage =  this.product.image.split(',');
     console.log("this.productimage", this.productimage);
     // this.preview = this.productimage[0]
     this.preview = this.productimage && this.productimage.length > 0 ? this.productimage[0] : null;
@@ -63,7 +67,6 @@ export class SingleProductComponent implements OnInit {
     ];
 
     // Fetch Data
-    // this.relatedproduct = related
 
     // set decimal point to small
     setTimeout(() => {
@@ -107,24 +110,13 @@ export class SingleProductComponent implements OnInit {
   };
 
   // Add To Cart
-  addtocart(id: any) {
-    cart.push(this.relatedproduct[id])
-  }
-
   addcart() {
-    // this.products.qty = '1'
-    // this.products.qty = this.qty;
-    this.products.qty = this.service.deepCopy(this.qty);
+    this.product.qty = this.service.deepCopy(this.qty);
+    console.log('this.product:', this.product)
 
-    let product = this.service.deepCopy(this.products);
-    // console.log("this.products", this.products)
-    console.log("product", product)
-    // cart.push(this.products)
-    cart.push(product)
+    this.cartService.addToCart(this.product)
 
-    console.log("cart", cart)
-
-    this.authService.mycartChanged.next(true);
+    // this.authService.mycartChanged.next(true);
   }
 
 
