@@ -10,7 +10,7 @@ import { SingleStoreComponent } from './single-store/single-store.component';
 
 const routes: Routes = [
     {
-        path: 'fashion-store-v1', component: IndexComponent
+        path: 'home', component: IndexComponent
     },
     {
         path: 'electronics', component: ElectronicsComponent

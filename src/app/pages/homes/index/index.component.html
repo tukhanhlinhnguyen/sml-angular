@@ -1,11 +1,109 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 
-<!-- Hero slider-->
+<section classe="authentification et register">
+    <ul>
+        <div class="container-si">
+          <h1>Sign In</h1>
+            <form class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="LoginForm" 
+              (ngSubmit)="onSubmitted()">
+              <div class="mb-3">
+                <label class="form-label" for="si-email">Email address</label>
+                <input class="form-control" type="email" id="si-email" placeholder="johndoe@example.com" required
+                  formControlName="email" [ngClass]="{ 'is-invalid': submitted
+                  && f['email'].errors }">
+                <div class="invalid-feedback">Please provide a valid email
+                  address.</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="si-password">Password
+                  {{loginPassfield}}</label>
+                <div class="password-toggle">
+                  <input class="form-control" [type]="loginPassfield ? 'text' :
+                    'password'" id="si-password" required formControlName="password" [ngClass]="{ 'is-invalid':
+                    submitted && f['password'].errors }">
+                  <label class="password-toggle-btn" aria-label="Show/hide
+                    password">
+                    <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"
+                      [ngClass]="{'mdi-eye-off-outline': !loginPassfield,
+                      'mdi-eye-outline': loginPassfield
+                      }" (click)="toggleLoginPassField()"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="mb-3 d-flex flex-wrap justify-content-between">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="si-remember">
+                  <label class="form-check-label" for="si-remember">Remember me</label>
+                </div><a class="fs-sm" href="javascript:void(0);">Forgot
+                  password?</a>
+              </div>
+              <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+        <div class="container-su">
+          <h1>Sign up</h1>
+              <!-- class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="SignUpForm" (ngSubmit)="SignupSubmit" -->
+              <!-- [formGroup]="SignUpForm" -->
+          <form class="needs-validation tab-pane fade show active" [formGroup]="SignUpForm"  (ngSubmit)="SignUpSubmit(SignUpForm.value)">
+              <div class="form-group">
+                <label class="form-label" for="su-Societe">Votre Societe</label>
+                <input class="form-control" type="text" name="su-Societe" placeholder="Le nom de votre Societe" required
+                  formControlName="Societe" [ngClass]="{ 'is-invalid': submit &&
+                  fa['Societe'].errors }">
+                <div class="invalid-feedback">Please fill in your name.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="su-email">Email address</label>
+                <input class="form-control" type="email" name="su-email" placeholder="Votre Email" required
+                  formControlName="email" [ngClass]="{ 'is-invalid': submit &&
+                  fa['email'].errors }">
+                <div class="invalid-feedback">Please provide a valid email address.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="su-numTel">Votre numero de Telephone</label>
+                <input class="form-control" type="number" name="su-numTel" placeholder="Phone number" required
+                  formControlName="numTel" [ngClass]="{ 'is-invalid': submit &&
+                  fa['numTel'].errors }">
+                <div class="invalid-feedback">Veuillez fournir avec votre numero de telephone.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="su-KBis">Votre numero de KBis</label>
+                <input class="form-control" type="number" name="su-KBis" placeholder="Votre numero KBis" required
+                  formControlName="KBis" [ngClass]="{ 'is-invalid': submit &&
+                  fa['KBis'].errors }">
+                <div class="invalid-feedback">Veuillez fournir avec votre bon numero de K-Bis.</div>  
+              </div>
+              <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+        <!-- <script src="https://smtpjs.com/v3/smtp.js"></script>
+            <script>
+              function SendEmail(){
+                Email.send({
+                  Host : "smtp.hostinger.fr",
+                  Username : "viethoang@societe-kali.fr",
+                  Password : "o$s$9r92Or33",
+                  To : 'caoviethoang.lfay@gmail.com',
+                  From : document.getElementById("su-email").value,
+                  Subject : "Creation un nouveau compte SML Import-Export",
+                  Body : "And this is the body"
+                }).then(
+                  message => alert(message)
+                );
+              }
+          </script> -->
+        
+        <!-- <div class="modal-body tab-content py-4">
+            <div class="mt-2"></div>
+        </div> -->
+      </ul>
+</section>
+<!-- 
 <section class="tns-carousel tns-controls-lg">
   <swiper [config]="Coverflow">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <!-- Item-->
+
         <div class="px-lg-5" style="background-color: #3aafd2;">
           <div class="d-lg-flex justify-content-between align-items-center ps-lg-4"><img
               class="d-block order-lg-2 me-lg-n5 flex-shrink-0" src="assets/img/home/hero-slider/01.jpg"
@@ -25,7 +123,7 @@
         </div>
       </div>
       <div class="swiper-slide">
-        <!-- Item-->
+
         <div class="px-lg-5" style="background-color: #f5b1b0;">
           <div class="d-lg-flex justify-content-between align-items-center ps-lg-4"><img
               class="d-block order-lg-2 me-lg-n5 flex-shrink-0" src="assets/img/home/hero-slider/02.jpg"
@@ -45,7 +143,7 @@
         </div>
       </div>
       <div class="swiper-slide">
-        <!-- Item-->
+
         <div class="px-lg-5" style="background-color: #eba170;">
           <div class="d-lg-flex justify-content-between align-items-center ps-lg-4"><img
               class="d-block order-lg-2 me-lg-n5 flex-shrink-0" src="assets/img/home/hero-slider/03.jpg"
@@ -65,13 +163,13 @@
         </div>
       </div>
     </div>
-    <!-- Add Arrows -->
+
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </swiper>
 </section>
 
-<!-- Popular categories-->
+
 <section class="container position-relative pt-3 pt-lg-0 pb-5 mt-lg-n10" style="z-index: 10;">
   <div class="row">
     <div class="col-xl-8 col-lg-9">
@@ -100,10 +198,10 @@
   </div>
 </section>
 
-<!-- Products grid (Trending products)-->
+
 <app-trending></app-trending>
 
-<!-- Banners-->
+
 <section class="container pb-4 mb-md-3">
   <div class="row">
     <div class="col-md-8 mb-4">
@@ -130,16 +228,14 @@
   </div>
 </section>
 
-<!-- Featured category (Hoodie)-->
 <app-product-slider></app-product-slider>
 
-<!-- Shop by brand-->
+
 <section class="container py-lg-4 mb-4">
   <h2 class="h3 text-center pb-4">Shop by brand</h2>
   <app-brand-logos></app-brand-logos>
 </section>
 
-<!-- Blog + Instagram info cards-->
 <section class="container-fluid px-0">
   <div class="row g-0">
     <div class="col-md-6"><a class="card border-0 rounded-0 text-decoration-none py-md-4 bg-faded-primary"
@@ -158,6 +254,6 @@
       </a></div>
   </div>
 </section>
+ -->
 
-<!-- Footer-->
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

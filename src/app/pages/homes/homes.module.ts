@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbRatingModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Swiper Slider
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
@@ -38,7 +39,9 @@ import { LightboxModule } from 'ngx-lightbox';
     NgbRatingModule,
     NgxImageZoomModule,
     LightboxModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    FormsModule, 
+    ReactiveFormsModule
   ]
 })
 export class HomesModule { }

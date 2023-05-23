@@ -12,9 +12,10 @@ import { AppComponent } from './app.component';
 
 import { PagesModule } from "./pages/pages.module";
 import { CoreModule } from './core/core.module';
+import { EmailService } from './services/email.service';
 
 export function createTranslateLoader(http: HttpClient): any {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -22,8 +23,9 @@ export function createTranslateLoader(http: HttpClient): any {
     AppComponent
   ],
   imports: [
+    BrowserModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'fr',
+      defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
@@ -37,7 +39,7 @@ export function createTranslateLoader(http: HttpClient): any {
     PagesModule,
     CoreModule,
   ],
-  providers: [],
+  providers: [EmailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
