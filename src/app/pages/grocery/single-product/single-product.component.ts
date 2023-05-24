@@ -9,11 +9,7 @@ import { ProductCatlogService } from '../product-catalog/product-catalog.service
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ProductService } from 'src/app/services/product/product.servie';
-
 import { ProductModel } from '../../../models/product';
-
-
-// import { ProductModel } from '../product-catalog/product-catalog.model';
 
 @Component({
   selector: 'app-single-product',

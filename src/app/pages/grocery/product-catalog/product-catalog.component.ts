@@ -49,16 +49,7 @@ export class ProductCatalogComponent implements OnInit {
       { label: 'Home', link: '/grocery' },
       { label: 'Product catalog', active: true, link: '/grocery/product-catalog' }
     ];
-
-    //Fetch Data
-    // setTimeout(() => {
-    //   this.CatelogList.subscribe(x => {
-    //     this.catalogs = Object.assign([], x);
-
-    //     console.log("this.catalogs",this.catalogs);
-    //   });
-    //   document.getElementById('elmLoader')?.classList.add('d-none')
-    // }, 1200)
+    
     this.getProduct();
 
     // set decimal point to small

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-
+import { ActivatedRoute } from '@angular/router';
 
 // import { CatalogModel, ProductModel } from './product-catalog.model';
 import { CatalogModel } from './product-catalog.model';
-import { catalog } from './data';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Token } from 'src/app/core/model/token.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -74,6 +73,7 @@ export class ProductCatlogService {
     private pipe: DecimalPipe,
     private httpClient: HttpClient,
     private authService: AuthService,
+    private route: ActivatedRoute,
     // private environment: environment
   ) {
     this._search$.pipe(
@@ -179,24 +179,21 @@ export class ProductCatlogService {
 
   async get_products() {
     let url = this.baseUrl + '/products';
+    let catId = this.route.snapshot.params['id']
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("category", catId);
 
     let storeToken: Token;
     storeToken = this.authService.getTokenData();
 
+    //TODO REMOVE HARD CODE TOKEN
     let dkey = "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";
     const key: string = storeToken ? storeToken.tokenId || dkey : dkey;
-    
-
-    // const headers = new HttpHeaders();
-    // headers.set('DOLAPIKEY', key);
-    // headers.set('api_key', key);
 
     let header = new HttpHeaders({ 'DOLAPIKEY': key });
-    // let header = new HttpHeaders({ 'api_key': key });
-
 
     // return this.httpClient.get(this.baseUrl + '/products').toPromise();
-    return await this.httpClient.get(url, { headers: header }).toPromise();
+    return await this.httpClient.get(url, { headers: header, params:queryParams }).toPromise();
   }
 
   public deepCopy(oldObj: any) {

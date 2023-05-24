@@ -14,7 +14,7 @@ const routes: Routes = [
       component: HomeComponent
   },
   {
-    path: 'product-catalog',
+    path: 'product-catalog/:id',
     component: ProductCatalogComponent
   },
   {
@@ -28,8 +28,7 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent
-  },
-  { path: '**', redirectTo: 'product-catalog' },
+  }
 ];
 
 @NgModule({

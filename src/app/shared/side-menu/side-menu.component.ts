@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MENU } from './side-menu';
 import { SideMenuItem } from './side-menu.model';
 import { environment } from 'src/environments/environment';
 import { CategoryService } from '../../services/category/category.service';
@@ -24,7 +23,6 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit() {
      // Menu Items
-    this.menuItems = MENU;
     this._categoryService.getCategories().subscribe((data: any) => {
       this.categories = data
     })
@@ -32,7 +30,6 @@ export class SideMenuComponent implements OnInit {
 
   close() {
     document.getElementById('sideNav')?.classList.remove('show')
-    // document.querySelector('.nav-item')?.classList.remove('d-none')
   }
 
 }
