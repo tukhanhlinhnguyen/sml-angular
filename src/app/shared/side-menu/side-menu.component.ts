@@ -12,7 +12,7 @@ import { CartService } from '../../services/cart/cart.service';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent implements OnInit {
-  @Output() changeCategory = new EventEmitter<string>();
+  @Output() changeCategory = new EventEmitter();
 
   menuItems: SideMenuItem[] = [];
   smlFacebookURL = environment.smlFacebookURL
@@ -39,8 +39,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   goToCat( id:any, label:any ) {
-    console.log('label:', label)
-    this.changeCategory.emit(label);
+    this.changeCategory.emit({ id:id, label:label});
     this.route.navigate([`/grocery/product-catalog/${id}`]);
   }
 

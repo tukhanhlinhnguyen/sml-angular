@@ -89,10 +89,6 @@ export class GroceryHeaderComponent {
 
     // Fetch Data
     this.mycart = this.cartService.getCart()
-    console.log('this.mycart:', this.mycart)
-    // this.mycart.forEach((element: any) => {
-    //   this.subtotal += parseFloat(element.price)
-    // });
     this.mycart.forEach((element: any) => {
       this.subtotal += (parseFloat(element.price) * parseFloat(element.qty))
     });
@@ -157,7 +153,6 @@ export class GroceryHeaderComponent {
 
     try {
       let res: any = await this.authService.login(this.loginuser);
-      console.log("res", res);
       if (res) {
 
         let obj = res && res.success ? res.success : null;
@@ -178,8 +173,6 @@ export class GroceryHeaderComponent {
 
         // let si: any = this.document.getElementById("modalclose") as HTMLElement;
         let md: any = document.getElementById("modalclose");
-
-        console.log("md", md)
 
         md.click();
 

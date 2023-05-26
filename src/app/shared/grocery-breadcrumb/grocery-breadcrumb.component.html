@@ -3,7 +3,7 @@
     <ol class="breadcrumb flex-lg-nowrap">
         <ng-container *ngFor="let item of breadcrumbItems">
             <li class="breadcrumb-item">
-                <a class="text-nowrap active" [ngClass]="{'active': item.active == true}" href="{{item.link}}">
+                <a class="text-nowrap active" [ngClass]="{'active': item.active == true}" (click)=goToCat(item.link,item.label)>
                     <i *ngIf="item.label == 'Home'" class="ci-home"></i>{{item.label}}
                 </a>
             </li>

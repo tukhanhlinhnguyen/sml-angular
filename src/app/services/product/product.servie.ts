@@ -26,6 +26,17 @@ export class ProductService {
     return this._http.get<ProductModel>(url, { headers: header });
   }
 
+  getProductCatById(id: number) {
+    const url = environment.baseApiUrl + '/products/' + id + '/categories';
+    let storeToken: Token;
+    storeToken = this.authService.getTokenData();
+
+    const key: string = storeToken ? storeToken.tokenId || "" : "";
+    let header = new HttpHeaders({ 'DOLAPIKEY': key });
+
+    return this._http.get(url, { headers: header });
+  }
+
   getItems() {
     return this.items;
   }

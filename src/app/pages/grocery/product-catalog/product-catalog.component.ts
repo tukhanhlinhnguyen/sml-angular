@@ -24,6 +24,7 @@ export class ProductCatalogComponent implements OnInit {
   catalogs: any;
   loading: boolean = false;
   title:string;
+  categoryId:any;
 
   // Table data
   CatelogList!: Observable<CatalogModel[]>;
@@ -51,10 +52,11 @@ export class ProductCatalogComponent implements OnInit {
     */
     this.breadCrumbItems = [
       { label: 'Home', link: '/grocery' },
-      { label: 'Product catalog', active: true, link: '/grocery/product-catalog' }
+      { label: 'Product catalog', active: true, link: '/grocery/product-catalog/all' }
     ];
 
     this.route.params.subscribe(routeParams => {
+      this.title = routeParams.label ? routeParams.label : this.title
       this.getProduct();
     });
 
@@ -93,7 +95,7 @@ export class ProductCatalogComponent implements OnInit {
 
   // Go To Detail Page
   gotodetail(id: any) {
-    this.router.navigate(['/grocery/single-product', {id:id}])
+    this.router.navigate(['/grocery/single-product', {id:id, categoryId:this.categoryId, categoryLabel:this.title}])
   }
 
   // Add To Cart
@@ -101,9 +103,6 @@ export class ProductCatalogComponent implements OnInit {
     this.catalogs[id].qty = 1;
 
     let product = this.service.deepCopy(this.catalogs[id]);
-    // console.log("this.products", this.products)
-    console.log("product", product)
-
     // cart.push(this.catalogs[id])
     this.cartService.addToCart(product)
 
@@ -136,7 +135,8 @@ export class ProductCatalogComponent implements OnInit {
   }
 
   updateCategoryTitle(event:any){
-    this.title=event
+    this.title= event.label ? event.label : this.title
+    this.categoryId=event.id
   }
 
 }

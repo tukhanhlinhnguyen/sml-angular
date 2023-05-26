@@ -13,7 +13,6 @@ export class CartService {
     let cart = localStorage.getItem("cart")
     let result = cart ? JSON.parse(cart) : []
     let index = result.findIndex( (t:any) => t.id === product.id)
-    console.log('index:', index)
     if(index>=0){
       let p = this.deepCopy(result[index])
       let newQty = p.qty + product.qty

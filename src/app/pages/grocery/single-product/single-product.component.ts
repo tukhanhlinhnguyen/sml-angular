@@ -3,13 +3,13 @@ import { SwiperOptions } from 'swiper';
 import { DecimalPipe } from '@angular/common';
 
 // Data Get
-import { related } from './data';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCatlogService } from '../product-catalog/product-catalog.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { ProductService } from 'src/app/services/product/product.servie';
 import { ProductModel } from '../../../models/product';
+
 
 @Component({
   selector: 'app-single-product',
@@ -19,13 +19,15 @@ import { ProductModel } from '../../../models/product';
 })
 export class SingleProductComponent implements OnInit {
 
-  breadCrumbItems: any;
+  breadCrumbItems: any=[];
   productimage: any;
   preview: any;
   // product: any;
   // product: ProductModel;
   product: ProductModel;
   qty: any = 1;
+  categoryLabel: any;
+  categoryId: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,18 +36,6 @@ export class SingleProductComponent implements OnInit {
     public cartService: CartService,
     public productService: ProductService,
   ) {
-
-    // this.product = this.route.snapshot.params;
-    this.productService.getProductById(this.route.snapshot.params['id'])
-        .subscribe((data)=>{
-        console.log('data:', data)
-			if(data) this.product = data
-        });
-
-    // this.productimage =  this.product.image.split(',');
-    console.log("this.productimage", this.productimage);
-    // this.preview = this.productimage[0]
-    this.preview = this.productimage && this.productimage.length > 0 ? this.productimage[0] : null;
   }
 
   ngOnInit(): void {
@@ -53,14 +43,34 @@ export class SingleProductComponent implements OnInit {
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
 
-    /**
-* BreadCrumb
-*/
-    this.breadCrumbItems = [
-      { label: 'Home', link: '/grocery' },
-      { label: 'Product catalog', active: true, link: '/grocery/product-catalog' },
-      { label: 'Single product', active: true, link: '/grocery/single-product' }
-    ];
+    // this.product = this.route.snapshot.params;
+    this.productService.getProductById(this.route.snapshot.params['id']).subscribe((data)=>{
+      console.log('data:', data)
+        if(data) this.product = data
+      });
+  
+      // get cat product by ID
+      // this.productService.getProductCatById(this.route.snapshot.params['id']).subscribe((data)=>{
+      //   if(data) {
+      //     this.product = data
+      //   }
+      // });
+  
+      // this.productimage =  this.product.image.split(',');
+      console.log("this.productimage", this.productimage);
+      // this.preview = this.productimage[0]
+      this.preview = this.productimage && this.productimage.length > 0 ? this.productimage[0] : null;
+
+    this.route.params.subscribe(routeParams => {
+      /**
+      * BreadCrumb
+      */
+      this.breadCrumbItems = [
+        { label: 'Home', link: '/grocery' },
+        { label: 'Product catalog', active: true, link: '/grocery/product-catalog/all' },
+        { label: this.categoryLabel, active: true, link: '/grocery/product-catalog/' + this.categoryId },
+      ];
+    });
 
     // Fetch Data
 
@@ -108,12 +118,6 @@ export class SingleProductComponent implements OnInit {
   // Add To Cart
   addcart() {
     this.product.qty = this.service.deepCopy(this.qty);
-    console.log('this.product:', this.product)
-
     this.cartService.addToCart(this.product)
-
-    // this.authService.mycartChanged.next(true);
   }
-
-
 }

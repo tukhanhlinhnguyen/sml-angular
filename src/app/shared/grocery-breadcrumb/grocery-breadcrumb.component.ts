@@ -1,4 +1,7 @@
 import { Component,Input,OnInit } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-grocery-breadcrumb',
@@ -7,7 +10,6 @@ import { Component,Input,OnInit } from '@angular/core';
 })
 export class GroceryBreadcrumbComponent implements OnInit {
   @Input()
-    
   breadcrumbItems!: Array<{
     link?: string;
     active?: boolean;
@@ -17,8 +19,17 @@ export class GroceryBreadcrumbComponent implements OnInit {
   Item!: Array<{
     label?: string;
   }>
-  constructor() { }
+  
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToCat(link:any, label:any){
+    let categoryId = link.split('/')
+    categoryId = categoryId[categoryId.length-1]
+    console.log('{label:label, id:categoryId}:', {label:label, id:categoryId})
+    this.route.navigate([link, {label:label}]);
+
   }
 }
