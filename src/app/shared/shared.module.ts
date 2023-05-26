@@ -13,7 +13,6 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 // Component
-import { HeaderComponent } from './header/header.component';
 import { TrendingComponent } from './index/trending/trending.component';
 import { ProductSliderComponent } from './index/product-slider/product-slider.component';
 import { BrandLogosComponent } from './index/brand-logos/brand-logos.component';
@@ -33,7 +32,6 @@ import { GroceryFooterComponent } from './grocery-footer/grocery-footer.componen
 
 @NgModule({
   declarations: [
-    HeaderComponent,
     TrendingComponent,
     ProductSliderComponent,
     BrandLogosComponent,
@@ -69,7 +67,7 @@ import { GroceryFooterComponent } from './grocery-footer/grocery-footer.componen
   providers: [
     LanguageService,
   ],
-  exports:[HeaderComponent,BreadcrumbsComponent,TrendingComponent,ProductSliderComponent,BrandLogosComponent,FooterComponent,NavbarLevel1LightComponent,NavbarLevel1DarkComponent,
+  exports:[BreadcrumbsComponent,TrendingComponent,ProductSliderComponent,BrandLogosComponent,FooterComponent,NavbarLevel1LightComponent,NavbarLevel1DarkComponent,
     NavbarLevel2LightComponent, NavbarLevel2DarkComponent, NavbarLevel3DarkComponent, SideMenuComponent, GroceryBreadcrumbComponent,GroceryFooterComponent,
     GroceryHeaderComponent]
 })
