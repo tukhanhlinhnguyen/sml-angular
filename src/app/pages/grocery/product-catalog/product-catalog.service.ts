@@ -96,6 +96,7 @@ export class ProductCatlogService {
       (products) => {
         // console.log("testing");
         this.products = products;
+        console.log('this.products:', this.products)
 
         // this._search$.next();
       }
@@ -181,7 +182,9 @@ export class ProductCatlogService {
     let url = this.baseUrl + '/products';
     let catId = this.route.snapshot.params['id']
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("category", catId);
+    if(catId && catId !=="all"){
+      queryParams = queryParams.append("category", catId);
+    }
 
     let storeToken: Token;
     storeToken = this.authService.getTokenData();

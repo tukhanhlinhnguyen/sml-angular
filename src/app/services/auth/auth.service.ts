@@ -227,10 +227,7 @@ export class AuthService {
     }
 
     async logoutUser_() {
-        // console.log("logout");
-
         let key = localStorage.getItem("token_id") || null;
-
         localStorage.clear();
         this.loginStatusChanged.next(false);
         this.loginUserStatusChanged.next(new User());

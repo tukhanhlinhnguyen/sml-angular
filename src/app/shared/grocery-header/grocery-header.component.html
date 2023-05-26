@@ -158,15 +158,27 @@
                             class="navbar-tool-tooltip">Wishlist</span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
                     </a>
-                    <a *ngIf="!_isLoggedIn" id="sign-in" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
-                        href="javascript:void(0);" data-bs-toggle="modal" (click)="toggleModal(toggleFirstModal)">
-                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
-                        <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>
-                    </a>
-                    <a *ngIf="_isLoggedIn" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2">
-                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
-                        <div class="navbar-tool-text ms-n3"><small>Hello, {{user.username}}</small>My Account</div>
-                    </a>
+
+                    <div class="navbar-tool dropdown ms-3">
+                        <a *ngIf="!_isLoggedIn" id="sign-in" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
+                                        href="javascript:void(0);" data-bs-toggle="modal" (click)="toggleModal(toggleFirstModal)">
+                                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
+                                        <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>
+                                    </a>
+                                    <a *ngIf="_isLoggedIn" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2">
+                                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
+                                        <div class="navbar-tool-text ms-n3"><small>Hello, {{user.username}}</small>My Account</div>
+                                    </a>
+                        <div *ngIf="_isLoggedIn" class="dropdown-menu dropdown-menu-end">
+                            <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
+                                <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
+                                    <button class="btn btn-primary btn-shadow" (click) ="onlogOut()">Log Out</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
                             routerLink="/grocery/checkout"><span class="navbar-tool-label">{{mycart?.length}}</span><i
                                 class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"

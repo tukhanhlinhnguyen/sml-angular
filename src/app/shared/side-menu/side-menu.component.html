@@ -24,7 +24,7 @@
 										<div class="widget widget-links">
 											<ul class="widget-list">
 												<li *ngFor="let i of item.subcategories" class="widget-list-item">
-													<a class="widget-list-link" href="/grocery/product-catalog/{{i.id}}">
+													<a class="widget-list-link" (click)="goToCat(i.id, i.label)">
 														{{i.label}}
 													</a>
 												</li>

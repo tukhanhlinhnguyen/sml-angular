@@ -1,6 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 // Data Get
 // import { catalog } from './data';
@@ -21,6 +22,8 @@ export class ProductCatalogComponent implements OnInit {
 
   breadCrumbItems: any;
   catalogs: any;
+  loading: boolean = false;
+  title:string;
 
   // Table data
   CatelogList!: Observable<CatalogModel[]>;
@@ -32,7 +35,8 @@ export class ProductCatalogComponent implements OnInit {
     public service: ProductCatlogService,
     public authService: AuthService,
     public cartService: CartService,
-    public router: Router) {
+    public router: Router,
+    private route: ActivatedRoute) {
     this.CatelogList = service.countries$;
     this.total = service.total$;
   }
@@ -49,8 +53,10 @@ export class ProductCatalogComponent implements OnInit {
       { label: 'Home', link: '/grocery' },
       { label: 'Product catalog', active: true, link: '/grocery/product-catalog' }
     ];
-    
-    this.getProduct();
+
+    this.route.params.subscribe(routeParams => {
+      this.getProduct();
+    });
 
     // set decimal point to small
     setTimeout(() => {
@@ -105,36 +111,32 @@ export class ProductCatalogComponent implements OnInit {
   }
 
   async getProduct() {
-
+    this.catalogs =[];
+    this.loading=true;
     try {
       let res: any = await this.service.get_products();
-      console.log("res", res);
       if (res) {
-        this.service.productChanged.next(this.ProductList);
-        this.ProductList = res || [];
-        setTimeout(() => {
-          this.CatelogList.subscribe(x => {
-            this.catalogs = Object.assign([], x);
-            this.service.productChanged.next(this.ProductList);
-
-            // console.log("this.catalogs", this.catalogs);
-          });
-          document.getElementById('elmLoader')?.classList.add('d-none')
-        }, 1200)
-        // this.catalogs = Object.assign([], res);
+        this.catalogs=res
+        this.loading = false
         // this.service.productChanged.next(this.ProductList);
-
-        // document.getElementById('elmLoader')?.classList.add('d-none')
+        // this.ProductList = res || [];
+        // this.CatelogList.subscribe(x => {
+        //   this.catalogs = Object.assign([], x);
+        //   this.service.productChanged.next(this.ProductList);
+        //   this.loading = false
+        //   // console.log("this.catalogs", this.catalogs);
+        // });
       }
 
     } catch (error) {
       console.log("error", error);
-
+      this.loading = false
+      console.log('this.catalogs:', this.catalogs)
     }
+  }
 
-    // this.service.get_products().subscribe((res: any[]) => {
-    //   // this.families = res;
-    // });
+  updateCategoryTitle(event:any){
+    this.title=event
   }
 
 }
