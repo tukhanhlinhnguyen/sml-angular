@@ -38,6 +38,9 @@ export class GroceryHeaderComponent {
   submit = false;
   _isLoggedIn: boolean = false;
 
+  //  Search form
+  searchLabel : string = ""
+
   constructor(private modalService: NgbModal,
     private authService: AuthService,
     private formBuilder: UntypedFormBuilder,
@@ -254,5 +257,9 @@ export class GroceryHeaderComponent {
 
   onlogOut() {
     this.authService.logoutUser_();
+  }
+
+  onSearch(){
+    this.router.navigate([`/grocery/search/${this.searchLabel}`])
   }
 }

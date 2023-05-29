@@ -108,6 +108,32 @@
         "ArticlewithSidebar":"Article avec encadré",
         "ArticlenoSidebar":"Article no Sidebar"
       }
+    },
+    "INVOICE": {
+      "TEXT": "Factures",
+      "DOWNLOADBUTTONTEXT": "Télécharger la facture "
+    },
+    "PROPOSAL": {
+      "TEXT": "Devis"
+    },
+    "LOGOUT": {
+      "TEXT": "Déconnecter"
+    }
+  },
+  "PAGES": {
+    "PROPOSAL": {
+      "TITLE": "Devis",
+      "LIST": {
+        "BlogListLayouts":"Dispositions de la liste de blogs",
+        "ListwithSidebar":"Liste avec barre latérale",
+        "ListnoSidebar":"Ne lister aucune barre latérale",
+        "BlogGridLayouts":"Dispositions de la grille de blog",
+        "GridwithSidebar":"Grille avec barre latérale",
+        "GridnoSidebar":"Grille sans barre latérale",
+        "SinglePostLayouts":"Dispositions de poste unique",
+        "ArticlewithSidebar":"Article avec encadré",
+        "ArticlenoSidebar":"Article no Sidebar"
+      }
     }
   }
 }

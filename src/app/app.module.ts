@@ -25,7 +25,7 @@ export function createTranslateLoader(http: HttpClient): any {
   imports: [
     BrowserModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
+      defaultLanguage: 'fr',
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),

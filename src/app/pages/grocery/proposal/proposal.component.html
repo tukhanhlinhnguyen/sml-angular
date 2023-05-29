@@ -1,7 +1,7 @@
 <!-- Header-->
 <app-grocery-header></app-grocery-header>
 <!-- Sidebar menu-->
-<app-side-menu (changeCategory)="updateCategoryTitle($event)"></app-side-menu>
+<app-side-menu></app-side-menu>
 <!-- Page-->
 <main class="offcanvas-enabled" style="padding-top: 5rem;">
     <section class="ps-lg-4 pe-lg-3 pt-4 min-vh-100">
@@ -13,7 +13,7 @@
                 <h1 class="h2 mb-3 mb-md-0 me-3">{{title}}</h1>
                 <!-- <div class="d-flex align-items-center">
                     <div class="d-none d-sm-block py-2 fs-sm text-muted text-nowrap me-2">Sort by:</div>
-                    <ul ngbNav #nav="ngbNav" (navChange)="sortproduct($event)" class="nav nav-tabs fs-sm mb-0">
+                    <ul ngbNav #nav="ngbNav" (navChange)="sortproposal($event)" class="nav nav-tabs fs-sm mb-0">
                         <li class="nav-item" [ngbNavItem]="1"><a ngbNavLink class="nav-link"
                                 href="javascript:void(0);">Popular</a></li>
                         <li class="nav-item" [ngbNavItem]="2"><a ngbNavLink class="nav-link"
@@ -27,42 +27,45 @@
         </div>
         <!-- Product grid-->
         <div class="row g-0 mx-n2">
-            <ng-container *ngIf="catalogs && catalogs.length && !loading">
+            <ng-container *ngIf="proposals && proposals.length && !loading">
                 <!-- Product-->
-                <div *ngFor="let product of catalogs;let i = index;" class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
-                    <div class="card product-card card-static pb-3">
-                        <span *ngIf="product.tag == true"
-                            class="badge bg-{{product.tagcolor}} badge-shadow">{{product.tagname}}</span>
-                        <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
-                            ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
-                        </button>
-                        <a *ngIf="product.url_photo_recto
-                        " class="card-img-top d-block overflow-hidden"><img src="{{product.url_photo_recto
-                        }}"
-                                alt="Product" (click)="gotodetail(product.id)">
-                        </a>
+                <div *ngFor="let proposal of proposals;let i = index;" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 px-2 mb-3">
+                    <div class="card proposal-card card-static pb-3">
+                        <!-- icon -->
+                        <!-- <a class="card-img-top d-block overflow-hidden"><img src="assets/img/icon/business-and-trade.png"
+                                alt="Product" (click)="gotodetail(proposal.id)">
+                        </a> -->
                         <div class="card-body py-2">
-                            <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(product.id)">
-                                {{ product.category }}
+                            <a class="proposal-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(proposal.id)">
+                                {{ service.convertDate(proposal.date) }}
                             </a>
-                            <h3 class="product-title fs-sm text-truncate">
-                                <a href="javascript:void(0);" (click)="gotodetail(product.id)">
-                                    <!-- {{ product.title }} -->
-                                    {{ product.title || product.label }}
+                            <h3 class="proposal-title fs-sm text-truncate">
+                                <a href="javascript:void(0);" (click)="gotodetail(proposal.id)">
+                                    {{"PAGES.PROPOSAL.TITLE" | translate}} {{ proposal.ref }}
                                 </a>
                             </h3>
-                            <div class="product-price">
-                                <span class="text-accent">${{product.price | number:'.1-4'}}</span>
+                            <div class="proposal-price">
+                                <span class="text-accent">{{proposal.total | number:'.1-4'}}€</span>
                             </div>
-                        </div>
-                        <div class="product-floating-btn">
-                            <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="addtocart(i)">+<i
-                                    class="ci-cart fs-base ms-1"></i></button>
+                              
+                            <!-- Button with data-bs-target -->
+                            <button type="button" class="btn btn-primary" (click)="isCollapsed[i] = !isCollapsed[i]" aria-controls="collapseExample">
+                                <i class="ci-eye ms-1"></i>
+                            </button>
+                              
+                            <!-- Collapse -->
+                            <div class="collapse" #collapse="ngbCollapse" [ngbCollapse]="!isCollapsed[i]">
+                                <div *ngFor="let line of proposal.lines" class="card card-body">
+                                    {{line.libelle}} <br>
+                                    {{line.subprice | number:'.1-4'}} x {{line.qty  | number:'.1-4'}} <br>
+                                    {{line.total_ht}} HT
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="catalogs && !catalogs.length && !loading">
+            <ng-container *ngIf="proposals && !proposals.length && !loading">
                 <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
                     //TODO NOTHING AVAILABLE
                     No produitsts

@@ -5,23 +5,23 @@ import { ActivatedRoute } from '@angular/router';
 
 // Data Get
 // import { catalog } from './data';
-// import { CatalogModel, ProductModel } from './product-catalog.model';
-import { CatalogModel } from './product-catalog.model';
-import { ProductCatlogService } from './product-catalog.service';
+// import { CatalogModel, ProductModel } from './invoice.model';
+import { CatalogModel } from './invoice.model';
+import { InvoiceService } from './invoice.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CartService } from '../../../services/cart/cart.service';
 
 @Component({
-  selector: 'app-product-catalog',
-  templateUrl: './product-catalog.component.html',
-  styleUrls: ['./product-catalog.component.scss'],
-  providers: [ProductCatlogService, DecimalPipe]
+  selector: 'app-invoice',
+  templateUrl: './invoice.component.html',
+  styleUrls: ['./invoice.component.scss'],
+  providers: [InvoiceService, DecimalPipe]
 })
-export class ProductCatalogComponent implements OnInit {
+export class InvoiceComponent implements OnInit {
 
   breadCrumbItems: any;
-  catalogs: any;
+  invoices: any;
   loading: boolean = false;
   title:string;
   categoryId:any;
@@ -33,12 +33,12 @@ export class ProductCatalogComponent implements OnInit {
   total: Observable<number>;
 
   constructor(
-    public service: ProductCatlogService,
+    public service: InvoiceService,
     public authService: AuthService,
     public cartService: CartService,
     public router: Router,
     private route: ActivatedRoute) {
-    this.CatelogList = service.products$;
+    this.CatelogList = service.countries$;
     this.total = service.total$;
   }
 
@@ -52,12 +52,11 @@ export class ProductCatalogComponent implements OnInit {
     */
     this.breadCrumbItems = [
       { label: 'Home', link: '/grocery' },
-      { label: 'Product catalog', active: true, link: '/grocery/product-catalog/all' }
+      { label: 'Product catalog', active: true, link: '/grocery/invoice/all' }
     ];
 
     this.route.params.subscribe(routeParams => {
       this.title = routeParams.label ? routeParams.label : this.title
-      console.log('this.title:', this.title)
       this.getProduct();
     });
 
@@ -100,41 +99,56 @@ export class ProductCatalogComponent implements OnInit {
   }
 
   // Add To Cart
-  addtocart(id: any) {
-    this.catalogs[id].qty = 1;
+  downloadInvoice(url: any) {
+    let trimedURL = url.replace('facture/','')
+    this.service.downloadInvoice(trimedURL).then(fee=>{
+    console.log('fee:', fee)
+      fee.subscribe((data:any)=>{
+        console.log('data:', data)
+        var binaryData = [];
+        const linkSource = `data:application/pdf;base64,${data.content}`;
 
-    let product = this.service.deepCopy(this.catalogs[id]);
-    // cart.push(this.catalogs[id])
-    this.cartService.addToCart(product)
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = linkSource;
+        a.download = data.filename;
+        a.click();
+        window.URL.revokeObjectURL(linkSource);
+        a.remove();
+      })
+    })
+    
+  }
 
-    this.authService.mycartChanged.next(true);
+  getPDFName(url: any){
+    let trimedURL = url.split('/')
+    return trimedURL[trimedURL.length - 1]
   }
 
   async getProduct() {
-    console.log('getProduct:')
-    this.catalogs =[];
+    this.invoices =[];
     this.loading=true;
     try {
-      let res: any = await this.service.get_products();
+      let res: any = await this.service.getInvoice();
       console.log('res:', res)
       if (res) {
-        //this.catalogs=res
-        this.service.productChanged.next(this.ProductList);
-        this.ProductList = res || [];
-        this.CatelogList.subscribe(x => {
-          this.catalogs = Object.assign([], x);
-          this.service.productChanged.next(this.ProductList);
-          setTimeout(() => {
-            this.loading = false
-          }, 500);
-          // console.log("this.catalogs", this.catalogs);
-        });
+        this.invoices=res
+        this.loading = false
+        // this.service.productChanged.next(this.ProductList);
+        // this.ProductList = res || [];
+        // this.CatelogList.subscribe(x => {
+        //   this.invoices = Object.assign([], x);
+        //   this.service.productChanged.next(this.ProductList);
+        //   this.loading = false
+        //   // console.log("this.invoices", this.invoices);
+        // });
       }
 
     } catch (error) {
       console.log("error", error);
       this.loading = false
-      console.log('this.catalogs:', this.catalogs)
+      console.log('this.invoices:', this.invoices)
     }
   }
 

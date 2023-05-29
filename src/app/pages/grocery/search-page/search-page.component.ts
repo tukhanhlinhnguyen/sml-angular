@@ -6,19 +6,19 @@ import { ActivatedRoute } from '@angular/router';
 // Data Get
 // import { catalog } from './data';
 // import { CatalogModel, ProductModel } from './product-catalog.model';
-import { CatalogModel } from './product-catalog.model';
-import { ProductCatlogService } from './product-catalog.service';
+import { CatalogModel } from '../product-catalog/product-catalog.model';
+import { ProductCatlogService } from '../product-catalog/product-catalog.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CartService } from '../../../services/cart/cart.service';
 
 @Component({
-  selector: 'app-product-catalog',
-  templateUrl: './product-catalog.component.html',
-  styleUrls: ['./product-catalog.component.scss'],
+  selector: 'app-search-page',
+  templateUrl: './search-page.component.html',
+  styleUrls: ['./search-page.component.scss'],
   providers: [ProductCatlogService, DecimalPipe]
 })
-export class ProductCatalogComponent implements OnInit {
+export class SearchPageComponent implements OnInit {
 
   breadCrumbItems: any;
   catalogs: any;
@@ -51,13 +51,12 @@ export class ProductCatalogComponent implements OnInit {
     * BreadCrumb
     */
     this.breadCrumbItems = [
-      { label: 'Home', link: '/grocery' },
-      { label: 'Product catalog', active: true, link: '/grocery/product-catalog/all' }
+      // { label: 'Home', link: '/grocery' },
+      // { label: 'Product catalog', active: true, link: '/grocery/product-catalog/all' }
     ];
 
     this.route.params.subscribe(routeParams => {
       this.title = routeParams.label ? routeParams.label : this.title
-      console.log('this.title:', this.title)
       this.getProduct();
     });
 
@@ -111,14 +110,11 @@ export class ProductCatalogComponent implements OnInit {
   }
 
   async getProduct() {
-    console.log('getProduct:')
     this.catalogs =[];
     this.loading=true;
     try {
-      let res: any = await this.service.get_products();
-      console.log('res:', res)
+      let res: any = await this.service.searchProducts();
       if (res) {
-        //this.catalogs=res
         this.service.productChanged.next(this.ProductList);
         this.ProductList = res || [];
         this.CatelogList.subscribe(x => {

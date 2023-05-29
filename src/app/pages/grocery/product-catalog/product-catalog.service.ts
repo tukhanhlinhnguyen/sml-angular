@@ -13,7 +13,7 @@ import { Token } from 'src/app/core/model/token.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 interface SearchResult {
-  countries: CatalogModel[];
+  products: CatalogModel[];
   total: number;
 }
 
@@ -31,8 +31,8 @@ interface State {
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(countries: CatalogModel[]): CatalogModel[] {
-  return countries;
+function sort(products: CatalogModel[]): CatalogModel[] {
+  return products;
 }
 
 function matches(country: CatalogModel, term: string, pipe: PipeTransform) {
@@ -47,7 +47,7 @@ function matches(country: CatalogModel, term: string, pipe: PipeTransform) {
 export class ProductCatlogService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _countries$ = new BehaviorSubject<CatalogModel[]>([]);
+  private _products$ = new BehaviorSubject<CatalogModel[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
   // public productChanged = new Subject<ProductModel[]>();
   public productChanged = new Subject<CatalogModel[]>();
@@ -83,7 +83,7 @@ export class ProductCatlogService {
       delay(200),
       tap(() => this._loading$.next(false))
     ).subscribe(result => {
-      this._countries$.next(result.countries);
+      this._products$.next(result.products);
       this._total$.next(result.total);
     });
 
@@ -96,14 +96,12 @@ export class ProductCatlogService {
       (products) => {
         // console.log("testing");
         this.products = products;
-        console.log('this.products:', this.products)
-
         // this._search$.next();
       }
     );
   }
 
-  get countries$() { return this._countries$.asObservable(); }
+  get products$() { return this._products$.asObservable(); }
   get product() { return this.products; }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
@@ -137,45 +135,45 @@ export class ProductCatlogService {
     const { pageSize, page, searchTerm, status, payment, date } = this._state;
 
     // 1. sort
-    let countries = sort(datas);
+    let products = sort(datas);
 
     // 2. filter
-    countries = countries.filter(country => matches(country, searchTerm, this.pipe));
+    products = products.filter(country => matches(country, searchTerm, this.pipe));
     // 5. Status Filter
     // if (status) {
-    //   countries = countries.filter(country => country.status == status);
+    //   products = products.filter(country => country.status == status);
     // }
     // else {
-    //   countries = countries;
+    //   products = products;
     // }
 
     // 3. payment Filter
     // if (payment) {
-    //   countries = countries.filter(country => country.payment == payment);
+    //   products = products.filter(country => country.payment == payment);
     // }
     // else {
-    //   countries = countries;
+    //   products = products;
     // }
 
     // 4. Date Filter       
     // if (date) {
-    //   countries = countries.filter(country => this.datePipe.transform(country.orderDate, "yyyy-MM-dd") == this.datePipe.transform(date, "yyyy-MM-dd"));
+    //   products = products.filter(country => this.datePipe.transform(country.orderDate, "yyyy-MM-dd") == this.datePipe.transform(date, "yyyy-MM-dd"));
     // }
     // else {
-    //   countries = countries;
+    //   products = products;
     // }
 
-    const total = countries.length;
+    const total = products.length;
 
     // 3. paginate
-    this.totalRecords = countries.length;
+    this.totalRecords = products.length;
     this._state.startIndex = (page - 1) * this.pageSize + 1;
     this._state.endIndex = (page - 1) * this.pageSize + this.pageSize;
     if (this.endIndex > this.totalRecords) {
       this.endIndex = this.totalRecords;
     }
-    countries = countries.slice(this._state.startIndex - 1, this._state.endIndex);
-    return of({ countries, total });
+    products = products.slice(this._state.startIndex - 1, this._state.endIndex);
+    return of({ products, total });
   }
 
   async get_products() {
@@ -208,6 +206,26 @@ export class ProductCatlogService {
       }
     }
     return newObj;
+  }
+
+  async searchProducts() {
+    let url = this.baseUrl + '/products';
+    let label = this.route.snapshot.params['label']
+    let queryParams = new HttpParams();
+    let sqlfilters = `(t.label:like:'%${label}%')`
+    if(label) queryParams = queryParams.append("sqlfilters", sqlfilters);
+  
+    let storeToken: Token;
+    storeToken = this.authService.getTokenData();
+
+    //TODO REMOVE HARD CODE TOKEN
+    let dkey = "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";
+    const key: string = storeToken ? storeToken.tokenId || dkey : dkey;
+
+    let header = new HttpHeaders({ 'DOLAPIKEY': key });
+
+    // return this.httpClient.get(this.baseUrl + '/products').toPromise();
+    return await this.httpClient.get(url, { headers: header, params:queryParams }).toPromise();
   }
 
 }

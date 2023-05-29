@@ -127,24 +127,13 @@
                 <!-- Search-->
                 <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i
                         class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                    <input class="form-control rounded-start w-100" type="text" placeholder="Search for products">
-                    <select class="form-select flex-shrink-0" style="width: 14rem;">
+                    <input class="form-control rounded-start w-100" type="text" [(ngModel)]="searchLabel"
+                        placeholder="Search for products" (keyup.enter)="onSearch()"
+                    >
+                    <!-- <select class="form-select flex-shrink-0" style="width: 14rem;">
                         <option>All categories</option>
                         <option>Bakery</option>
-                        <option>Fruits and Vegetables</option>
-                        <option>Dairy and Eggs</option>
-                        <option>Meat and Poultry</option>
-                        <option>Fish and Seafood</option>
-                        <option>Sauces and Spices</option>
-                        <option>Canned Food and Oil</option>
-                        <option>Alcoholic Beverages</option>
-                        <option>Soft Drinks and Juice</option>
-                        <option>Packets, Cereals</option>
-                        <option>Frozen</option>
-                        <option>Snaks, Sweets and Chips</option>
-                        <option>Personal hygiene</option>
-                        <option>Kitchenware</option>
-                    </select>
+                    </select> -->
                 </div>
                 <!-- Toolbar-->
                 <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center ms-xl-2">
@@ -172,8 +161,17 @@
                         <div *ngIf="_isLoggedIn" class="dropdown-menu dropdown-menu-end">
                             <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
                                 <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
-                                    <button class="btn btn-primary btn-shadow" (click) ="onlogOut()">Log Out</button>
-
+                                    <div class="ps-2">
+                                        <h6 class="widget-product-title border-bottom">
+                                            <a href="/grocery/proposal">{{"MENUITEMS.PROPOSAL.TEXT" | translate}}</a>
+                                        </h6>
+                                        <h6 class="widget-product-title border-bottom">
+                                            <a href="/grocery/invoice">{{"MENUITEMS.INVOICE.TEXT" | translate}}</a>
+                                        </h6>
+                                        <h6 class="widget-product-title border-bottom">
+                                            <a href="javascript:;" (click) ="onlogOut()">{{"MENUITEMS.LOGOUT.TEXT" | translate}}</a>
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +196,7 @@
                                                 <h6 class="widget-product-title"><a
                                                         href="javascript:void(0);">{{cart.title || cart.label}}</a></h6>
                                                 <div class="widget-product-meta"><span
-                                                        class="text-accent me-2 price">${{cart.price}}</span><span
+                                                        class="text-accent me-2 price">${{cart.price | number:'.2'}}</span><span
                                                         class="text-muted">x {{cart.qty}}</span></div>
                                             </div>
                                         </div>
