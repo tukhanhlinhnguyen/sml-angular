@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
 import { User } from "../../core/model/user.model";
 import { Token } from "../../core/model/token.model";
+import { Societe } from "src/app/core/model/Societe.model";
 
 // import { User } from "../../models/user.model";
 // import { Token } from "../../models/token.model";
@@ -60,6 +61,25 @@ export class AuthService {
         // return await this._http.get(url, { headers: header }).toPromise();
         return await this._http.get(url).toPromise();
     }
+
+
+    // async socIDInfo(){
+    //     let user: User = this.getUser();
+
+    //     let sqlfilters = "(t.login:like:'" + user.username + "')"
+
+    //     const url = environment.baseApiUrl + '/contacts?sortfield=t.rowid&sortorder=ASC&limit=100&sqlfilters=' + sqlfilters;
+
+    //     let storeToken: Token;
+    //     storeToken = this.getTokenData();
+
+    //     const key: string = storeToken ? storeToken.tokenId || "" : "";
+
+    //     // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
+    //     let header = new HttpHeaders({ 'DOLAPIKEY': key });
+
+    //     return await this._http.get(url, { headers: header }).toPromise();
+    // }
 
     async userInfo() {
         const url = environment.baseApiUrl + '/users/info';
@@ -174,6 +194,7 @@ export class AuthService {
         // localStorage.setItem("token_expiry", token_expires.toString());
         // localStorage.setItem("refresh_token", data.refresh_token);
         // localStorage.setItem("token_type", data.token_type);
+        localStorage.setItem("socid", data.socid)
 
         // this.loginStatusChanged.next(true);
 
@@ -181,6 +202,19 @@ export class AuthService {
         // console.log();
 
         // return data;
+    }
+
+    async saveSocID(response: any){
+        let data: any = response;
+        localStorage.setItem("socid", data.socid)
+    }
+
+    getSocIDData(): Societe{
+        const societe = new Societe();
+
+        societe.socID = localStorage.getItem("socid") || "";
+        
+        return societe;
     }
 
     getTokenData(): Token {
@@ -191,6 +225,7 @@ export class AuthService {
         token.tokenExpiryData = localStorage.getItem("token_expiry_date") || "";
         token.refreshToken = localStorage.getItem("refresh_token") || "";
         token.tokenType = localStorage.getItem("token_type") || "";
+        //token.societeID = localStorage.getItem("soc_id") || "";
 
         return token;
     }
@@ -204,6 +239,12 @@ export class AuthService {
         this.loginUserStatusChanged.next(user);
     }
 
+    storeSocID(id:Societe){
+        if(!id){
+            return;
+        }
+        localStorage.setItem("id", JSON.stringify(id))
+    }
     getUser(): User {
         if (localStorage.getItem("user")) {
             return JSON.parse(localStorage.getItem("user") || "");

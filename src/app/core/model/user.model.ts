@@ -1,3 +1,4 @@
+import { Societe } from './Societe.model';
 import { BaseModel } from './base.model';
 
 export class User extends BaseModel {
@@ -5,6 +6,7 @@ export class User extends BaseModel {
     userId!: number;
     firstName!: string;
     lastName!: string;
+    socID!: Societe;
 
     fullName!: string;
 

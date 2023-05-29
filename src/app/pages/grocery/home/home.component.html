@@ -1,56 +1,82 @@
-<!-- Page-->
+<app-grocery-header></app-grocery-header>
 <main>
-    <section class="ps-lg-4 pe-lg-3 pt-4">
-        <div class="px-3 pt-2">
-            <!-- Page title + breadcrumb-->
-            <!-- Content-->
-
-            <!-- How it works-->
-            <section class="pt-4 mb-4 mb-md-5">
-                <h2 class="h3 text-center mb-grid-gutter pt-2">How it works?</h2>
-                <div class="row g-0 bg-light rounded-3">
-                    <div class="col-xl-4 col-lg-12 col-md-4 border-end">
-                        <div class="py-3">
-                            <div class="d-flex align-items-center mx-auto py-3 px-3" style="max-width: 362px;">
-                                <div class="display-3 fw-normal opacity-15 me-4">01</div>
-                                <div class="ps-2"><img class="d-block my-2" src="assets/img/grocery/steps/01.png"
-                                        width="72" alt="Order online">
-                                    <p class="mb-3 pt-1">You order your favorite products online</p>
-                                </div>
-                            </div>
-                            <hr class="d-md-none d-lg-block d-xl-none">
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-12 col-md-4 border-end">
-                        <div class="py-3">
-                            <div class="d-flex align-items-center mx-auto py-3 px-3" style="max-width: 362px;">
-                                <div class="display-3 fw-normal opacity-15 me-4">02</div>
-                                <div class="ps-2"><img class="d-block my-2" src="assets/img/grocery/steps/02.png"
-                                        width="72" alt="Grocery collected">
-                                    <p class="mb-3 pt-1">A personal assistant collects the products from your list</p>
-                                </div>
-                            </div>
-                            <hr class="d-md-none d-lg-block d-xl-none">
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-12 col-md-4">
-                        <div class="py-3">
-                            <div class="d-flex align-items-center mx-auto py-3 px-3" style="max-width: 362px;">
-                                <div class="display-3 fw-normal opacity-15 me-4">03</div>
-                                <div class="ps-2"><img class="d-block my-2" src="assets/img/grocery/steps/03.png"
-                                        width="72" alt="Delivery">
-                                    <p class="mb-3 pt-1">We deliver to the door at a time convenient for you</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-12 col-md-4">
-                        <span>Vous avez déjà un compte ?</span>
-                        <button class="btn btn-primary btn-shadow" type="submit">Connecter</button>
-                    </div>
+<section classe="authentification et register">
+    <ul>
+        <div class="container-si">
+          <h1>Sign In</h1>
+            <form class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="LoginForm" 
+              (ngSubmit)="onSubmitted()">
+              <div class="mb-3">
+                <label class="form-label" for="si-email">Username</label>
+                <input class="form-control" type="test" id="si-email" placeholder="johndoe" required
+                  formControlName="email" [(ngModel)]="loginuser.username" [ngClass]="{ 'is-invalid': submitted
+                  && f['email'].errors }">
+                <div class="invalid-feedback">Please provide a valid username.</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="si-password">Password
+                  {{loginPassfield}}</label>
+                <div class="password-toggle">
+                  <input class="form-control" [type]="loginPassfield ? 'text' :
+                    'password'" id="si-password" required formControlName="password" [(ngModel)]="loginuser.password" [ngClass]="{ 'is-invalid':
+                    submitted && f['password'].errors }">
+                  <label class="password-toggle-btn" aria-label="Show/hide
+                    password">
+                    <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"
+                      [ngClass]="{'mdi-eye-off-outline': !loginPassfield,
+                      'mdi-eye-outline': loginPassfield
+                      }" (click)="toggleLoginPassField()"></span>
+                  </label>
                 </div>
-            </section>
+              </div>
+              <div class="mb-3 d-flex flex-wrap justify-content-between">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="si-remember">
+                  <label class="form-check-label" for="si-remember">Remember me</label>
+                </div><a class="fs-sm" href="javascript:void(0);">Forgot
+                  password?</a>
+              </div>
+              <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
         </div>
-    </section>
-    <app-grocery-footer></app-grocery-footer>
+        <div class="container-su">
+          <h1>Sign up</h1>
+              <!-- class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="SignUpForm" (ngSubmit)="SignupSubmit" -->
+              <!-- [formGroup]="SignUpForm" -->
+          <form class="needs-validation tab-pane fade show active" [formGroup]="SignUpForm"  (ngSubmit)="SignUpSubmit(SignUpForm.value)">
+              <div class="form-group">
+                <label class="form-label" for="su-Societe">Votre Societe</label>
+                <input class="form-control" type="text" name="su-Societe" placeholder="Le nom de votre Societe" required
+                  formControlName="Societe" [ngClass]="{ 'is-invalid': submit &&
+                  fa['Societe'].errors }">
+                <div class="invalid-feedback">Please fill in your name.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="su-email">Email address</label>
+                <input class="form-control" type="email" name="su-email" placeholder="Votre Email" required
+                  formControlName="email" [ngClass]="{ 'is-invalid': submit &&
+                  fa['email'].errors }">
+                <div class="invalid-feedback">Please provide a valid email address.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="su-numTel">Votre numero de Telephone</label>
+                <input class="form-control" type="number" name="su-numTel" placeholder="Phone number" required
+                  formControlName="numTel" [ngClass]="{ 'is-invalid': submit &&
+                  fa['numTel'].errors }">
+                <div class="invalid-feedback">Veuillez fournir avec votre numero de telephone.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="su-KBis">Votre numero de KBis</label>
+                <input class="form-control" type="number" name="su-KBis" placeholder="Votre numero KBis" required
+                  formControlName="KBis" [ngClass]="{ 'is-invalid': submit &&
+                  fa['KBis'].errors }">
+                <div class="invalid-feedback">Veuillez fournir avec votre bon numero de K-Bis.</div>  
+              </div>
+              <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+      </ul>
+      
+</section>
+
 </main>

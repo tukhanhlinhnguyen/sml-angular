@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { Societe } from 'src/app/core/model/Societe.model';
+
 
 
 @Component({
@@ -185,6 +187,27 @@ export class GroceryHeaderComponent {
     } catch (error) {
       console.log("error", error);
 
+    }
+    try{
+      let societeid: any = await this.authService.userInfo();
+      console.log("socid", societeid);
+  
+      if(societeid){
+  
+        let objSocID = societeid ? societeid : null;
+        console.log(objSocID);
+  
+        await this.authService.saveSocID(objSocID)
+  
+        let SocID: Societe= new Societe;
+  
+        SocID=this.loginuser.socID;
+  
+        this.authService.storeSocID(SocID);
+      }
+    }
+    catch (error){
+      console.log("error", error);
     }
   }
 

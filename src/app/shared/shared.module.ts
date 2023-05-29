@@ -29,7 +29,6 @@ import { GroceryBreadcrumbComponent } from './grocery-breadcrumb/grocery-breadcr
 import { GroceryHeaderComponent } from './grocery-header/grocery-header.component';
 import { GroceryFooterComponent } from './grocery-footer/grocery-footer.component';
 
-
 @NgModule({
   declarations: [
     TrendingComponent,
@@ -46,7 +45,7 @@ import { GroceryFooterComponent } from './grocery-footer/grocery-footer.componen
     SideMenuComponent,
     GroceryBreadcrumbComponent,
     GroceryHeaderComponent,
-    GroceryFooterComponent
+    GroceryFooterComponent,
   ],
   imports: [
     CommonModule,
