@@ -135,5 +135,23 @@
         "ArticlenoSidebar":"Article no Sidebar"
       }
     }
+  },
+  "TABLE": {
+    "CHECKOUT": {
+      "ROW" : {
+        "HEADER": {
+          "ProductText":"Produit",
+          "QuantityText":"Quantité",
+          "HTText":"Prix unitaire HT",
+          "TVAText":"Prix unitaire TTC",
+          "SubTotalHT":"Montant HT",
+          "TotalTVA5":"Total TVA 5,5%",
+          "TotalTVA20":"Total TVA 20%"
+        }
+      } 
+    }
+  },
+  "INDICATOR": {
+    "CurrencyText":"Montants exprimés en Euros"
   }
 }

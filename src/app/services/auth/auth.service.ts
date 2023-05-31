@@ -114,55 +114,6 @@ export class AuthService {
         return await this._http.get(url, { headers: header }).toPromise();
     }
 
-    async createProposal() {
-        const url = environment.baseApiUrl + '/proposals';
-
-        let user: User = this.getUser();
-        let socId = localStorage.getItem("socId") || null;
-
-        let body = {
-            "socid": socId || "",
-            // "date": "1672317842",
-            "date": Date.now(),
-            // "request_data": [
-            //     // "121"
-            // ]
-        };
-
-        let storeToken: Token;
-        storeToken = this.getTokenData();
-
-        const key: string = storeToken ? storeToken.tokenId || "" : "";
-
-        // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
-        let header = new HttpHeaders({ 'DOLAPIKEY': key });
-
-        return await this._http.post(url, body, { headers: header }).toPromise();
-    }
-
-    async createProposalLine(id: any, obj: any) {
-        const url = environment.baseApiUrl + '/proposals/' + id + '/line';
-
-        let user: User = this.getUser();
-        let socId = localStorage.getItem("socId") || null;
-
-        let body = {
-            "fk_product": obj.id,
-            "qty": obj.qty,
-            "subprice": obj.price
-        };
-
-        let storeToken: Token;
-        storeToken = this.getTokenData();
-
-        const key: string = storeToken ? storeToken.tokenId || "" : "";
-
-        // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
-        let header = new HttpHeaders({ 'DOLAPIKEY': key });
-
-        return await this._http.post(url, body, { headers: header }).toPromise();
-    }
-
     checkLogin(): boolean {
         if (localStorage.getItem("token_id")) {
             // this.isLoggedIn.next(true);

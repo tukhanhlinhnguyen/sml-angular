@@ -25,7 +25,7 @@ export class SingleProductComponent implements OnInit {
   // product: any;
   // product: ProductModel;
   product: ProductModel;
-  qty: any = 1;
+  qty: number = 1;
   categoryLabel: any;
   categoryId: any;
 
@@ -117,7 +117,7 @@ export class SingleProductComponent implements OnInit {
 
   // Add To Cart
   addcart() {
-    this.product.qty = this.service.deepCopy(this.qty);
-    this.cartService.addToCart(this.product)
+    console.log('this.qty:', (this.qty))
+    this.cartService.addToCart(this.qty, this.product)
   }
 }

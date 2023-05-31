@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Language
 import { CookieService } from 'ngx-cookie-service';
-import { LanguageService } from 'src/app/services/language.service';
+import { LanguageService } from 'src/app/services/language/language.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

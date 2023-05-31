@@ -5,7 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 // Language
 import { CookieService } from 'ngx-cookie-service';
-import { LanguageService } from 'src/app/services/language.service';
+import { LanguageService } from 'src/app/services/language/language.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbCarouselModule, NgbDropdownModule, NgbNavModule, NgbRatingModule, NgbCollapseModule,NgbTooltipModule, NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
 
 // Language
-import { LanguageService } from '../services/language.service';
+import { LanguageService } from '../services/language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 // Swiper Slider

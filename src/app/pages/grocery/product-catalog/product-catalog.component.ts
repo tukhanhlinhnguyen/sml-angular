@@ -102,12 +102,7 @@ export class ProductCatalogComponent implements OnInit {
   // Add To Cart
   addtocart(id: any) {
     this.catalogs[id].qty = 1;
-
-    let product = this.service.deepCopy(this.catalogs[id]);
-    // cart.push(this.catalogs[id])
-    this.cartService.addToCart(product)
-
-    this.authService.mycartChanged.next(true);
+    this.cartService.addToCart(id, this.catalogs[id])
   }
 
   async getProduct() {

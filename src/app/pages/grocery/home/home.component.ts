@@ -8,7 +8,7 @@ import { discout, Bestsellers, review } from './data';
 import { Router } from '@angular/router';
 
 import { EmailValidator, FormControl, UntypedFormBuilder, UntypedFormGroup, Validators, FormBuilder } from '@angular/forms';
-import { EmailService } from 'src/app/services/email.service';
+import { EmailService } from 'src/app/services/email/email.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
 import { Societe } from 'src/app/core/model/Societe.model';

@@ -98,16 +98,11 @@ export class SearchPageComponent implements OnInit {
     this.router.navigate(['/grocery/single-product', {id:id, categoryId:this.categoryId, categoryLabel:this.title}])
   }
 
-  // Add To Cart
-  addtocart(id: any) {
-    this.catalogs[id].qty = 1;
-
-    let product = this.service.deepCopy(this.catalogs[id]);
-    // cart.push(this.catalogs[id])
-    this.cartService.addToCart(product)
-
-    this.authService.mycartChanged.next(true);
-  }
+ // Add To Cart
+ addtocart(id: any) {
+  this.catalogs[id].qty = 1;
+  this.cartService.addToCart(id, this.catalogs[id])
+}
 
   async getProduct() {
     this.catalogs =[];

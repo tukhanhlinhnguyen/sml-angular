@@ -75,34 +75,47 @@
           <!-- Order summary + payment-->
           <div class="col-xl-5 offset-xl-1 mb-2">
             <div class="bg-light rounded-3 py-5 px-4 px-xxl-5">
-              <h2 class="h5 pb-3">Your order</h2>
-              <div *ngFor="let product of cart;let i = index"
-                class="d-flex align-items-center pb-2 border-bottom" (click)="gotodetail(i)">
-                <a *ngIf="product.image" class="d-block flex-shrink-0" href="javascript:void(0);"><img
-                    src="{{product.image}}" width="64" alt="Product">
-                </a>
-                <div class="ps-2">
-                  <h6 class="widget-product-title"><a href="javascript:void(0);">{{product.title || product.label}}</a>
-                  </h6>
-                  <div class="widget-product-meta">
-                    <span class="text-accent me-2 price">${{product.price}}</span>
-                    <span class="text-muted">x {{product.qty}}</span>
-                  </div>
-                </div>
+              <h2 class="h5">Your order</h2>
+              <span class="pb-3">{{"INDICATOR.CurrencyText" | translate}}</span>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th colspan="2">{{"TABLE.CHECKOUT.ROW.HEADER.ProductText" | translate}}</th>
+                      <th>{{"TABLE.CHECKOUT.ROW.HEADER.QuantityText" | translate}}</th>
+                      <th>{{"TABLE.CHECKOUT.ROW.HEADER.HTText" | translate}}</th>
+                      <th>{{"TABLE.CHECKOUT.ROW.HEADER.TVAText" | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of cart;let i = index">
+                      <th scope="row">{{i+1}}</th>
+                      <td colspan="2">{{product.title || product.label}}</td>
+                      <td>{{product.qty}}</td>
+                      <td>{{product.price | number:'.1-4'}}</td>
+                      <td>{{priceService.roundNumber(product.price_ttc)}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <ul class="list-unstyled fs-sm pt-4 pb-2 border-bottom">
                 <li class="d-flex justify-content-between align-items-center">
-                  <span class="me-2">Subtotal:</span>
-                  <span class="text-end fw-medium price">${{subtotal}}</span>
+                  <span class="me-2">{{"TABLE.CHECKOUT.ROW.HEADER.SubTotalHT" | translate}}:</span>
+                  <span class="text-end fw-medium price">{{priceService.roundNumber(subtotalHT)}}</span>
                 </li>
                 <li class="d-flex justify-content-between align-items-center">
-                  <span class="me-2">Delivery:</span><span class="text-end fw-medium">
-                    <!-- $7.<small>00</small> -->
-                    ${{ deliveryFee }}
+                  <span class="me-2">{{"TABLE.CHECKOUT.ROW.HEADER.TotalTVA5" | translate}}: </span><span class="text-end fw-medium">
+                    {{priceService.roundNumber(totalTVA5)}}
+                  </span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="me-2">{{"TABLE.CHECKOUT.ROW.HEADER.TotalTVA20" | translate}}: </span><span class="text-end fw-medium">
+                    {{priceService.roundNumber(totalTVA20)}}
                   </span>
                 </li>
               </ul>
-              <h3 class="fw-normal text-center my-4 py-2 price">${{total}}</h3>
+              <h3 class="fw-normal text-center my-4 py-2 price">{{priceService.roundNumber(subtotalTTC)}}€</h3>
               <!-- Payment methods accordion -->
               <div *ngIf="false" class="accordion accordio-flush shadow-sm rounded-3 mb-4" id="payment-methods">
                 <div class="accordion-item border-bottom">

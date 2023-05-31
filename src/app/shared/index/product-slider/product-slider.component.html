@@ -36,7 +36,7 @@
                   href="javascript:void(0);">{{data.category}}</a>
                 <h3 class="product-title fs-sm"><a routerLink="/shop/single-v1">{{data.name}}</a></h3>
                 <div class="d-flex justify-content-between">
-                  <div class="product-price"><span class="text-accent">${{data.price}}</span></div>
+                  <div class="product-price"><span class="text-accent">{{data.price}}€</span></div>
                   <div class="star-rating">
                     <ng-template #t let-fill="fill">
                       <span class="star" [class.full]="fill === 100">

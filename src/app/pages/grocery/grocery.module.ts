@@ -11,7 +11,7 @@ import { GroceryRoutingModule } from './grocery-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 // Language
-import { LanguageService } from '../../services/language.service';
+import { LanguageService } from '../../services/language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 // Component

@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 
 import { PagesModule } from "./pages/pages.module";
 import { CoreModule } from './core/core.module';
-import { EmailService } from './services/email.service';
+import { EmailService } from './services/email/email.service';
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
