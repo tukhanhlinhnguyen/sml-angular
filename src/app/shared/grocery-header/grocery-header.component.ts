@@ -145,6 +145,19 @@ export class GroceryHeaderComponent {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
+  async goto(){
+    this._isLoggedIn=this.authService.checkLogin();
+      if (this._isLoggedIn){
+        this.authService.loginStatusChanged.next(true)
+        this.authService.gotoPage(this._isLoggedIn)
+      }
+      else{
+        this.authService.loginStatusChanged.next(false)
+        this.authService.gotoPage(this._isLoggedIn)
+      }
+    
+  }
+
   /**
    * Form submit
    */
@@ -175,6 +188,7 @@ export class GroceryHeaderComponent {
         this.authService.storeUser(user);
 
         this.authService.loginStatusChanged.next(true);
+        this.authService.gotoHome();
 
         // let si: any = this.document.getElementById("modalclose") as HTMLElement;
         let md: any = document.getElementById("modalclose");

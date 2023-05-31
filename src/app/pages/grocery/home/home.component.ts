@@ -79,10 +79,10 @@ export class HomeComponent implements OnInit {
     /Sign Up
     */
    this.SignUpForm=this.formBuilder.group({
-    Societe:['dưec',[Validators.required]],
-    email:['bgrbr@vrvr.ft',[Validators.required]],
-    numTel:['1',[Validators.required]],
-    KBis:['1',[Validators.required]]
+    Societe:['',[Validators.required]],
+    email:['',[Validators.required]],
+    numTel:['',[Validators.required]],
+    KBis:['',[Validators.required]]
    })
 
     // When the user clicks on the button, scroll to the top of the document
@@ -110,6 +110,7 @@ export class HomeComponent implements OnInit {
     if(this.LoginForm.invalid){
       return;
     }
+    
     try {
       let res: any = await this.authService.login(this.loginuser);
      
@@ -135,6 +136,7 @@ export class HomeComponent implements OnInit {
         this.authService.storeUser(user);
 
         this.authService.loginStatusChanged.next(true);
+        this.authService.gotoHome();
       }
   }catch (error) {
     console.log("error", error);
@@ -161,6 +163,7 @@ export class HomeComponent implements OnInit {
   catch (error){
     console.log("error", error);
   }
+  
     
 }
 
@@ -179,8 +182,9 @@ export class HomeComponent implements OnInit {
     console.log(this.SignUpForm.value)
     this.contact.SendEmail(SignUpForm)
     .subscribe((response) => {
-      location.href='../grocery/product-catalog.component.html'
+      //location.href='../grocery/product-catalog.component.html'
       console.log(response),
+      this.authService.gotoHome();
       (error:any) => {
         console.warn(error.responseType)
         console.log({error})
@@ -210,7 +214,7 @@ export class HomeComponent implements OnInit {
   /**
   * Swiper Coverflow setting
   */
-
+  
   /**
   * Swiper Coverflow setting
   */

@@ -273,4 +273,17 @@ export class AuthService {
         this.loginStatusChanged.next(false);
         this.loginUserStatusChanged.next(new User());
     }
+    gotoHome(){
+        this._router.navigate(['/grocery/product-catalog/all'])
+      }
+    
+    gotoPage(login:boolean){
+        if(login){
+            this._router.navigate(['/grocery/product-catalog/all'])
+        }
+        else{
+            this._router.navigate(['/grocery'])
+        }
+    }
+    
 }

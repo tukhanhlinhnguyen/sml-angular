@@ -16,6 +16,7 @@ export class SideMenuComponent implements OnInit {
 
   menuItems: SideMenuItem[] = [];
   smlFacebookURL = environment.smlFacebookURL
+  smlEuroPageURL = environment.smlEuroPageURL
   smlPhoneNumber = environment.smlPhonenumber
   smlHotline = environment.smlHotline
   smlEmail = environment.smlEmail
