@@ -34,6 +34,7 @@
                                     <input class="form-control" [type]="loginPassfield ? 'text' : 'password'"
                                         id="si-password" required formControlName="password" [(ngModel)]="loginuser.password"
                                         [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                                        <div class="invalid-feedback">Please provide us your password.</div>
                                     <label class="password-toggle-btn" aria-label="Show/hide password">
                                         <input class="password-toggle-check" type="checkbox"><span
                                             class="password-toggle-indicator"

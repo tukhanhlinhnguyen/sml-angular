@@ -1,4 +1,4 @@
-{
+ {
   "MENUITEMS": {
     "SHOP": {
       "TEXT": "Boutique",
@@ -67,7 +67,8 @@
         "MyCollections":"Mes collections",
         "Notifications":"Avis",
         "SignIn":"Vous connecter vous inscrire",
-        "PasswordRecovery":"Récupération de mot de passe"
+        "PasswordRecovery":"Récupération de mot de passe",
+        "Company":"Notre boite"
       }
     },
     "PAGES": {
@@ -92,7 +93,59 @@
        "404NotFound":"404 Non trouvé",
        "404SimpleText":"404 - Texte simple",
        "404Illustration":"404 - Illustration",
-       "StickyFooterDemo":"Démo de pied de page collant"
+       "StickyFooterDemo":"Démo de pied de page collant",
+       "FollowUs":"Suivez-nous sur les réseaux"
+      }
+    },
+
+    "IDENTIFCATION":{
+      "TEXT":"Identification",
+      "LIST":{
+        "SignIn":"Identifiez-vous",
+        "SignInButton":"Connectez-vous",
+        "SignUp":"Inscrivez-vous",
+        "Username":"Identifiant",
+        "Password":"Mot de passe",
+        "ProvideUsername":"Veuillez-nous fournir votre identifant",
+        "ProvidePassword":"Veuillez-nous founrir votre mot de passe",
+        "RememberMe":"Rester connecté",
+        "ForgotPassword":"Mot de passe oublié",
+        "YourCompanyName":"Le nom de votre société",
+        "EmailAdress":"Votre adresse email",
+        "FillInCompanyName":"Veuillez-nous fournir le nom de votre société",
+        "ProvideEmail":"Veuillez-nous fournir votre adresse email",
+        "NumTel":"Votre numero de téléphone",
+        "FillNumTel":"Veuillez-nous fournir avec votre numero de telephone",
+        "KBis":"Votre numero de KBis",
+        "FillKBis":"Veuillez-nous fournir avec votre bon numero de K-Bis",
+        "SignUpButton":"S'inscrire"
+      }
+    },
+
+    "HEADER":{
+      "TEXT":"En-Tête",
+      "LIST":{
+        "SearchForProducts":"Recherche de produits",
+        "WishList":"Votre liste de voeux",
+        "Hello":"Bonjour, ",
+        "MyAccount":"Mon compte",
+        "MyCart":"Mon Panier",
+        "Total":"Total: ",
+        "CheckOut":"Régler"
+      }
+    },
+
+    "SIDEMENU":{
+      "TEXT":"Menu latéral",
+      "LIST":{
+        "Support":"Support"
+      }
+    },
+    "SINGLEPRODUCTPAGE":{
+      "TEXT":"Page de produit unique",
+      "LIST":{
+        "AddToCart":"Ajouter au panier",
+        "ProductDescription":"Détail du produit"
       }
     },
     "BLOGS": {
@@ -134,6 +187,15 @@
         "ArticlewithSidebar":"Article avec encadré",
         "ArticlenoSidebar":"Article no Sidebar"
       }
+    },
+    "SEARCHPAGE":{
+      "TITLE":"Page de recherche",
+      "LIST":{
+        "Next":"Suivant",
+        "Prev":"Précédent",
+        "NoPrduits":"Pas de produits",
+        "Loading":"Chargement"
+      }
     }
   },
   "TABLE": {
@@ -154,4 +216,5 @@
   "INDICATOR": {
     "CurrencyText":"Montants exprimés en Euros"
   }
+
 }
