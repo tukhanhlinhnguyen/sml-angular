@@ -5,7 +5,7 @@
     <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs nav-justified mt-4 mt-lg-5 mb-0" role="tablist">
         <li [ngbNavItem]="1">
             <a ngbNavLink>
-                Categories
+                {{"MENUITEMS.SIDEMENU.LIST.Category"|translate}}
             </a>
             <ng-template ngbNavContent>
                 <!-- Categories-->
@@ -39,7 +39,7 @@
             </ng-template>
         </li>
 		<li class="nav-item d-lg-none"><a class="nav-link fs-sm" href="javascript:void(0);" data-bs-dismiss="offcanvas" role="tab" (click)="close()">
-			<i class="ci-close fs-xs me-2"></i>Close
+			<i class="ci-close fs-xs me-2"></i>{{"MENUITEMS.SIDEMENU.LIST.Close"|translate}}
 			</a>
 		</li>
     </ul>
@@ -51,7 +51,7 @@
     <div class="offcanvas-footer d-block px-grid-gutter pt-4 pb-4 mb-2">
         <div class="d-flex mb-3"><i class="ci-support h4 mb-0 fw-normal text-primary mt-1 me-1"></i>
             <div class="ps-2">
-                <div class="text-muted fs-sm">Support</div>
+                <div class="text-muted fs-sm">{{"MENUITEMS.SIDEMENU.LIST.Support"|translate}}</div>
                 <a class="nav-link-style fs-md" href="tel:{{smlPhoneNumber}}">SMS-WhatsApp: <br>{{smlPhoneNumber}}</a>
                 <br><br>
                 <a class="nav-link-style fs-md" href="tel:{{smlHotline}}">Hotline: <br>{{smlHotline}}</a>
@@ -63,7 +63,7 @@
                     href="mailto:{{smlEmail}}">{{smlEmail}}</a>
             </div>
         </div>
-        <h6 class="pt-2 pb-1">Follow us</h6>
+        <h6 class="pt-2 pb-1">{{"MENUITEMS.PAGES.LIST.FollowUs"|translate}}</h6>
                 <a class="btn-social bs-outline bs-facebook me-2 mb-2" href={{smlFacebookURL}}><i class="ci-facebook"></i></a>
     </div>
 </aside>

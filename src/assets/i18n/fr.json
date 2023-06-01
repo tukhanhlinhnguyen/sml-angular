@@ -98,11 +98,11 @@
       }
     },
 
-    "IDENTIFCATION":{
+    "IDENTIFICATION":{
       "TEXT":"Identification",
       "LIST":{
         "SignIn":"Identifiez-vous",
-        "SignInButton":"Connectez-vous",
+        "SignInButton":"Connectez",
         "SignUp":"Inscrivez-vous",
         "Username":"Identifiant",
         "Password":"Mot de passe",
@@ -110,14 +110,14 @@
         "ProvidePassword":"Veuillez-nous founrir votre mot de passe",
         "RememberMe":"Rester connecté",
         "ForgotPassword":"Mot de passe oublié",
-        "YourCompanyName":"Le nom de votre société",
-        "EmailAdress":"Votre adresse email",
+        "YourCompanyName":"Votre société",
+        "EmailAdress":"Email adresse",
         "FillInCompanyName":"Veuillez-nous fournir le nom de votre société",
         "ProvideEmail":"Veuillez-nous fournir votre adresse email",
-        "NumTel":"Votre numero de téléphone",
-        "FillNumTel":"Veuillez-nous fournir avec votre numero de telephone",
-        "KBis":"Votre numero de KBis",
-        "FillKBis":"Veuillez-nous fournir avec votre bon numero de K-Bis",
+        "NumTel":"Votre numéro de téléphone",
+        "FillNumTel":"Veuillez-nous fournir avec votre numéro de telephone",
+        "KBis":"Votre numéro de KBis",
+        "FillKBis":"Veuillez-nous fournir avec votre bon numéro de K-Bis",
         "SignUpButton":"S'inscrire"
       }
     },
@@ -127,25 +127,35 @@
       "LIST":{
         "SearchForProducts":"Recherche de produits",
         "WishList":"Votre liste de voeux",
-        "Hello":"Bonjour, ",
+        "Hello":"Bonjour",
         "MyAccount":"Mon compte",
         "MyCart":"Mon Panier",
         "Total":"Total: ",
-        "CheckOut":"Régler"
+        "CheckOut":"Payer"
       }
     },
 
     "SIDEMENU":{
       "TEXT":"Menu latéral",
       "LIST":{
-        "Support":"Support"
+        "Support":"Support",
+        "Category":"Categories",
+        "Close":"Fermer"
       }
     },
-    "SINGLEPRODUCTPAGE":{
+    "SINGLEPRODUCT":{
       "TEXT":"Page de produit unique",
       "LIST":{
         "AddToCart":"Ajouter au panier",
         "ProductDescription":"Détail du produit"
+      }
+    },
+    "CHECKOUT":{
+      "TEXT":"Réglement",
+      "LIST":{
+        "CheckOut":"Réglement",
+        "YourOrder":"Votre commande",
+        "PlaceOrder":"Commandez"
       }
     },
     "BLOGS": {
@@ -193,8 +203,8 @@
       "LIST":{
         "Next":"Suivant",
         "Prev":"Précédent",
-        "NoPrduits":"Pas de produits",
-        "Loading":"Chargement"
+        "NoProducts":"Pas de produits",
+        "Loading":"Chargement..."
       }
     }
   },
