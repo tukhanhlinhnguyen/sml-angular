@@ -6,7 +6,7 @@
                 <li [ngbNavItem]="1">
                     <a ngbNavLink class="nav-link fw-medium">
                         <i class="ci-unlocked me-2 mt-n1"> </i>
-                        Sign in
+                        {{"MENUITEMS.IDENTIFICATION.LIST.SignIn"|translate}}
                     </a>
                     <ng-template ngbNavContent>
                         <form class="needs-validation tab-pane fade show active" autocomplete="off"
@@ -19,21 +19,22 @@
                                 <div class="invalid-feedback">Please provide a valid email address.</div>
                             </div> -->
                             <div class="mb-3">
-                                <label class="form-label" for="si-email">Username</label>
-                                <input class="form-control" type="test" id="si-email" placeholder="johndoe" required
+                                <label class="form-label" for="si-email">{{"MENUITEMS.IDENTIFICATION.LIST.Username"|translate}}</label>
+                                <input class="form-control" type="test" id="si-email" placeholder='{{"MENUITEMS.IDENTIFICATION.LIST.Username"|translate}}' required
                                     formControlName="email" [(ngModel)]="loginuser.username"
                                     [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
-                                <div class="invalid-feedback">Please provide a valid username.</div>
+                                <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvideUsername"|translate}}</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="si-password">
-                                    Password
+                                    {{"MENUITEMS.IDENTIFICATION.LIST.Password"|translate}}
                                     <!-- {{loginPassfield}} -->
                                 </label>
                                 <div class="password-toggle">
                                     <input class="form-control" [type]="loginPassfield ? 'text' : 'password'"
                                         id="si-password" required formControlName="password" [(ngModel)]="loginuser.password"
                                         [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                                        <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvidePassword"|translate}}</div>
                                     <label class="password-toggle-btn" aria-label="Show/hide password">
                                         <input class="password-toggle-check" type="checkbox"><span
                                             class="password-toggle-indicator"
@@ -45,11 +46,11 @@
                             <div class="mb-3 d-flex flex-wrap justify-content-between">
                                 <div class="form-check mb-2">
                                     <input class="form-check-input" type="checkbox" id="si-remember">
-                                    <label class="form-check-label" for="si-remember">Remember me</label>
+                                    <label class="form-check-label" for="si-remember">{{"MENUITEMS.IDENTIFICATION.LIST.RememberMe"|translate}}</label>
                                 </div>
-                                <a class="fs-sm" href="javascript:void(0);">Forgot password?</a>
+                                <a class="fs-sm" href="javascript:void(0);">{{"MENUITEMS.IDENTIFICATION.LIST.ForgotPassword"|translate}}</a>
                             </div>
-                            <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Sign in</button>
+                            <button class="btn btn-primary btn-shadow d-block w-100" type="submit">{{"MENUITEMS.IDENTIFICATION.LIST.SignInButton"|translate}}</button>
                         </form>
                     </ng-template>
                 </li>
@@ -131,7 +132,7 @@
                 <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i
                         class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                     <input class="form-control rounded-start w-100" type="text" [(ngModel)]="searchLabel"
-                        placeholder="Search for products" (keyup.enter)="onSearch()"
+                        placeholder='{{"MENUITEMS.HEADER.LIST.SearchForProducts"|translate}}' (keyup.enter)="onSearch()"
                     >
                     <!-- <select class="form-select flex-shrink-0" style="width: 14rem;">
                         <option>All categories</option>
@@ -147,7 +148,7 @@
                             class="navbar-tool-tooltip">Search</span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-search"></i></div>
                     </a><a class="navbar-tool d-none d-lg-flex" routerLink="/account/wishlist"><span
-                            class="navbar-tool-tooltip">Wishlist</span>
+                            class="navbar-tool-tooltip">{{"MENUITEMS.HEADER.LIST.WishList"|translate}}</span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
                     </a>
 
@@ -155,11 +156,11 @@
                         <a *ngIf="!_isLoggedIn" id="sign-in" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
                                         href="javascript:void(0);" data-bs-toggle="modal" (click)="toggleModal(toggleFirstModal)">
                                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
-                                        <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>
+                                        <div class="navbar-tool-text ms-n3"><small>{{"MENUITEMS.HEADER.LIST.Hello"|translate}}, {{"MENUITEMS.IDENTIFICATION.LIST.SignIn"|translate}}</small>{{"MENUITEMS.HEADER.LIST.MyAccount"|translate}}</div>
                                     </a>
                                     <a *ngIf="_isLoggedIn" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2">
                                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
-                                        <div class="navbar-tool-text ms-n3"><small>Hello, {{user.username}}</small>My Account</div>
+                                        <div class="navbar-tool-text ms-n3"><small>{{"MENUITEMS.HEADER.LIST.Hello"|translate}}, {{user.username}}</small>{{"MENUITEMS.HEADER.LIST.MyAccount"|translate}}</div>
                                     </a>
                         <div *ngIf="_isLoggedIn" class="dropdown-menu dropdown-menu-end">
                             <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
@@ -183,10 +184,9 @@
                     <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
                             routerLink="/grocery/checkout"><span class="navbar-tool-label">{{mycart?.length}}</span><i
                                 class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                            routerLink="/grocery/checkout"><small>My Cart</small>{{subtotal}}€</a>
+                            routerLink="/grocery/checkout"><small>{{"MENUITEMS.HEADER.LIST.MyCart"|translate}}</small>${{subtotal}}</a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
-                                <span class="border-bottom">{{"INDICATOR.CurrencyText" | translate}}</span>
                                 <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
                                     <div *ngFor="let cart of mycart;let i = index;"
                                         class="widget-cart-item pb-2 border-bottom" (click)="gotodetail(i)">
@@ -200,17 +200,17 @@
                                                 <h6 class="widget-product-title"><a
                                                         href="javascript:void(0);">{{cart.title || cart.label}}</a></h6>
                                                 <div class="widget-product-meta"><span
-                                                        class="text-accent me-2 price">{{cart.price | number:'.2'}}€</span><span
+                                                        class="text-accent me-2 price">${{cart.price | number:'.2'}}</span><span
                                                         class="text-muted">x {{cart.qty}}</span></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-wrap justify-content-between align-items-center pt-3">
-                                    <div class="fs-sm me-2 py-2"><span class="text-muted">Total:</span><span
-                                            class="text-accent fs-base ms-1">{{subtotal}}€</span></div><a
+                                    <div class="fs-sm me-2 py-2"><span class="text-muted">{{"MENUITEMS.HEADER.LIST.Total"|translate}}</span><span
+                                            class="text-accent fs-base ms-1">${{subtotal}}</span></div><a
                                         class="btn btn-primary btn-sm" routerLink="/grocery/checkout"><i
-                                            class="ci-card me-2 fs-base align-middle"></i>Checkout<i
+                                            class="ci-card me-2 fs-base align-middle"></i>{{"MENUITEMS.HEADER.LIST.CheckOut"|translate}}<i
                                             class="ci-arrow-right ms-1 me-n1"></i></a>
                                 </div>
                             </div>

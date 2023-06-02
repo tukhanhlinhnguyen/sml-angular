@@ -65,15 +65,14 @@
             </ng-container>
             <ng-container *ngIf="catalogs && !catalogs.length && !loading">
                 <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
-                    //TODO NOTHING AVAILABLE
-                    No produitsts
+                    {{"PAGES.SEARCHPAGE.LIST.NoProducts"|translate}}
                 </div>
             </ng-container>
 
             <!-- Loader -->
             <div *ngIf="loading" div class="text-center" id="elmLoader">
                 <div class="spinner-border text-primary avatar-sm" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                    <span class="visually-hidden">{{"MENUITEMS.SEARCHPAGE.LIST.Loading"|translate}}</span>
                 </div>
             </div>
 
@@ -83,10 +82,10 @@
                     [(page)]="service.page" [pageSize]="service.pageSize" aria-label="Custom pagination">
                     <ng-template ngbPaginationPrevious let-page let-pages="pages">
                         <i class="ci-arrow-left me-2"></i>
-                        Prev
+                        {{"PAGES.SEARCHPAGE.LIST.Prev"|translate}}
                     </ng-template>
                     <ng-template ngbPaginationNext>
-                        Next
+                        {{"PAGES.SEARCHPAGE.LIST.Next"|translate}}
                         <i class="ci-arrow-right ms-2"></i>
                     </ng-template>
                 </ngb-pagination>

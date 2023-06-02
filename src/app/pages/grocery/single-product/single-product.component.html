@@ -44,11 +44,11 @@
                                 <option value=5>5</option>
                             </select>
                             <button class="btn btn-primary btn-shadow me-3 mb-3" type="submit" (click)="addcart()"><i
-                                    class="ci-cart fs-lg me-2"></i>Add to Cart</button>
+                                    class="ci-cart fs-lg me-2"></i>{{"MENUITEMS.SINGLEPRODUCT.LIST.AddToCart"|translate}}</button>
                             <button class="btn btn-icon btn-secondary mb-3" type="submit"
                                 ngbTooltip="Add to Wishlist"><i class="ci-heart fs-lg"></i></button>
                         </div>
-                        <h6>Product description</h6>
+                        <h6>{{"MENUITEMS.SINGLEPRODUCT.LIST.ProductDescription"|translate}}</h6>
                         <ul class="list-unstyled fs-sm pt-2 mb-0">
                             <li><i class="ci-check-circle text-success me-2"></i>{{product.description}}</li>
                             <!-- <li><i class="ci-check-circle text-success me-2"></i>Natural ingredients</li>
