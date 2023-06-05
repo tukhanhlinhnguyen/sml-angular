@@ -160,13 +160,6 @@ export class AuthService {
         localStorage.setItem("socid", data.socid)
     }
 
-    getSocIDData(): Societe{
-        const societe = new Societe();
-
-        societe.socID = localStorage.getItem("socid") || "";
-        
-        return societe;
-    }
 
     getTokenData(): Token {
         const token = new Token();

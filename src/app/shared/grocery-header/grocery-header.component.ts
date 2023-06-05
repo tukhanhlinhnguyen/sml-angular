@@ -294,6 +294,7 @@ export class GroceryHeaderComponent {
 
   onlogOut() {
     this.authService.logoutUser_();
+    this.router.navigate(['/grocery'])
   }
 
   onSearch(){

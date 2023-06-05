@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from '../../../services/cart/cart.service';
 import { CheckoutService } from '../../../services/checkout/checkout.service';
 import { PriceService } from '../../../services/price/price.service';
+import { ProposalService } from '../proposal/proposal.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CheckoutComponent implements OnInit {
 
   orderForm!: UntypedFormGroup;
   submitted = false;
+  status:any;
   // deliveryFee = 7.00;
   deliveryFee: any = 0.00;
 
@@ -42,7 +44,8 @@ export class CheckoutComponent implements OnInit {
     private checkoutService: CheckoutService,
     public priceService: PriceService,
     private modalService: NgbModal,
-    public router: Router
+    public router: Router,
+    public proposalService: ProposalService
   ) {
     // this.deliveryFee = (this.deliveryFee + 0)
     this.deliveryFee = this.deliveryFee
@@ -64,6 +67,7 @@ export class CheckoutComponent implements OnInit {
 
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
+    this.checkStatus();
 
     /**
 * BreadCrumb
@@ -135,6 +139,7 @@ export class CheckoutComponent implements OnInit {
     this.msg = null;
     this.submitted = true;
 
+
     let m: any = this.document.getElementById("msgmodal");
     // m.click();
 
@@ -164,12 +169,20 @@ export class CheckoutComponent implements OnInit {
   
               } catch (error) {
                 console.log("error:", error);
+              
   
                 m.click();
                 this.msg = JSON.stringify(error);
               }
+              try{
+                let res2: any = await this.checkoutService.validateProposalLines(res);
+                console.log("res2:", res2)
+                } catch (error){
+                  console.log("error:", error);
+                }
+                
+              
             // }, 100);
-          
 
 
           m.click();
@@ -194,6 +207,20 @@ export class CheckoutComponent implements OnInit {
       si.click();
     }
 
+  }
+  async checkStatus(){
+    this.status=[]
+    try{
+      let res2: any = await this.proposalService.getProposal();
+     
+      if(res2){
+        console.log("resStatus:",res2)
+        this.status=res2.statut_libelle
+        console.log("status:", this.status)
+      }
+    } catch (error) {
+      console.log("error:", error);
+    }
   }
 
   /**

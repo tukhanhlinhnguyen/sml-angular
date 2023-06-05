@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpBackend, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpBackend, HttpHeaders, HttpContext, HttpContextToken } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { User } from "../../core/model/user.model";
 import { Token } from "../../core/model/token.model";
@@ -40,7 +40,6 @@ export class CheckoutService {
 
 async createProposalLines(id: any, body: any[]) {
     const url = environment.baseApiUrl + '/proposals/' + id + '/lines';
-
     let user: User = this.authService.getUser();
     let socId = localStorage.getItem("socId") || null;
 
@@ -53,5 +52,35 @@ async createProposalLines(id: any, body: any[]) {
     let header = new HttpHeaders({ 'DOLAPIKEY': key });
 
     return await this._http.post(url, body, { headers: header }).toPromise();
+}
+
+async validateProposalLines(id:any){
+  const url = environment.baseApiUrl + '/proposals/' + id + '/validate';
+  let body:any= {"notrigger":1};
+  let user: User = this.authService.getUser();
+  let socId = localStorage.getItem('socId') || null;
+
+  let storeToken: Token;
+  storeToken = this.authService.getTokenData();
+  const key: string = storeToken ? storeToken.tokenId || "" : "";
+  let header = new HttpHeaders({'DOLAPIKEY' : key});
+
+  return await this._http.post(url, body, {headers: header}).toPromise();
+}
+
+async proposalInfo (){
+  const url=environment.baseApiUrl + "/proposals";
+  let user: User = this.authService.getUser();
+  let socId = localStorage.getItem("socId") || null;
+
+    let storeToken: Token;
+    storeToken = this.authService.getTokenData();
+
+    const key: string = storeToken ? storeToken.tokenId || "" : "";
+
+    // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
+    let header = new HttpHeaders({ 'DOLAPIKEY': key });
+
+    return await this._http.post(url, { headers: header }).toPromise();
 }
 }
