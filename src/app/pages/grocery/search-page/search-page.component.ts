@@ -2,6 +2,7 @@ import { DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from "src/environments/environment";
 
 // Data Get
 // import { catalog } from './data';
@@ -20,6 +21,7 @@ import { CartService } from '../../../services/cart/cart.service';
 })
 export class SearchPageComponent implements OnInit {
 
+  docHashpUrl = environment.docHashpUrl;
   breadCrumbItems: any;
   catalogs: any;
   loading: boolean = false;

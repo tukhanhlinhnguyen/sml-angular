@@ -36,9 +36,11 @@
                         <!-- <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
                             ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
                         </button> -->
-                        <a *ngIf="product.url_photo
-                        " class="card-img-top d-block overflow-hidden"><img src="https://devdolibarrsml.societe-kali.fr/document.php?hashp=C1P6UcnE9jZVz9cfO1n6h1RN4gj6J0Gf"
-                                alt="Product" (click)="gotodetail(product.id)">
+                        <a  class="card-img-top d-block overflow-hidden">
+                            <img 
+                                src="{{docHashpUrl+product.public_key}}"
+                                alt="Product" (click)="gotodetail(product.id)"
+                            >
                         </a>
                         <!-- <iframe [src]="product.url_photo"></iframe> -->
 

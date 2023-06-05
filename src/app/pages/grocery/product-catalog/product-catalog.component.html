@@ -36,9 +36,9 @@
                         <!-- <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
                             ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
                         </button> -->
-                        <a  class="card-img-top d-block overflow-hidden"><img src="{{'https://devdolibarrsml.societe-kali.fr/document.php?hashp='+product.public_key
-                        }}"
-                                alt="Product" (click)="gotodetail(product.id)">
+                        <a  class="card-img-top d-block overflow-hidden">
+                            <img style="height: 200px;" src="{{'https://devdolibarrsml.societe-kali.fr/document.php?hashp='+product.public_key}}"
+                            alt="Product" (click)="gotodetail(product.id)">
                         </a>
                         <div class="card-body py-2">
                             <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(product.id)">

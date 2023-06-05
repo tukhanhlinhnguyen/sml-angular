@@ -14,15 +14,10 @@
                 <div class="col-xl-7 px-2 mb-3">
                     <div class="h-100 bg-light rounded-3 p-4">
                         <div class="product-gallery">
-                            <div *ngIf="preview" class="product-gallery-preview order-sm-2">
+                            <div *ngIf="product.public_key" class="product-gallery-preview order-sm-2">
                                 <div class="product-gallery-preview-item active" id="first">
-                                    <img src="{{preview}}" alt="Product image">
-                                </div>
-                            </div>
-                            <div class="product-gallery-thumblist order-sm-1">
-                                <div *ngFor="let img of productimage;let i =index;" id="{{i}}"
-                                    class="product-gallery-thumblist-item" (click)="imagePreview(i,$event)">
-                                    <img src="{{img}}" alt="Product thumb">
+                                    <img src="{{'https://devdolibarrsml.societe-kali.fr/document.php?hashp='+product.public_key}}"
+                                    alt="Product">
                                 </div>
                             </div>
                         </div>

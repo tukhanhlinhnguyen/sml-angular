@@ -9,7 +9,8 @@ export const environment = {
   smlHotline:"(+33) 9 80 80 15 89",
   smlEmail:"contact@sml-import-export.fr",
   smlFacebookURL:"https://www.facebook.com/sml.import.export/",
-  smlEuroPageURL:"https://www.europages.fr/SML-IMPORT-EXPORT/00000005437621-001.html"
+  smlEuroPageURL:"https://www.europages.fr/SML-IMPORT-EXPORT/00000005437621-001.html",
+  docHashpUrl:"https://devdolibarrsml.societe-kali.fr/document.php?hashp="
 };
 
 /*

@@ -4,6 +4,6 @@ export interface ProductModel {
     label: string;
     price: number;
     ref: string;
-    url_photo: string;
+    public_key: string;
     qty: number;
 }
