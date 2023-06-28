@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -19,12 +19,13 @@ import { CartService } from '../../../services/cart/cart.service';
   providers: [ProductCatlogService, DecimalPipe]
 })
 export class ProductCatalogComponent implements OnInit {
-
+  @Output() changePageID = new EventEmitter();
   breadCrumbItems: any;
   catalogs: any;
   loading: boolean = false;
   title:string;
   categoryId:any;
+  pageId:any;
 
   // Table data
   CatelogList!: Observable<CatalogModel[]>;
@@ -46,13 +47,14 @@ export class ProductCatalogComponent implements OnInit {
 
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
+    this.pageId=this.service.page
 
     /**
     * BreadCrumb
     */
     this.breadCrumbItems = [
       { label: 'Home', link: '/grocery' },
-      { label: 'Product catalog', active: true, link: '/grocery/product-catalog/all' }
+      { label: 'Product catalog', active: true, link: `/grocery/product-catalog/all/` }
     ];
 
     this.route.params.subscribe(routeParams => {
@@ -70,6 +72,12 @@ export class ProductCatalogComponent implements OnInit {
     }, 2000);
   }
 
+
+
+  gotoPageID(id:any){
+    this.changePageID.emit({id});
+    //this.router.navigate([`/grocery/product-catalog/all/${id}`])
+  }
   // Sorting
 
   sortproduct(ev: any) {

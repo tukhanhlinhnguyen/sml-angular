@@ -12,7 +12,7 @@ imports:[
   providedIn: 'root'
 })
 export class EmailService {
-  private url=""
+  private url="https://formspree.io/f/xgebbvye"
   //https://formspree.io/f/xgebbvye
 
   constructor(private http:HttpClient) { }
