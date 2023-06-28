@@ -2,8 +2,28 @@
 <app-grocery-header></app-grocery-header>
 <!-- Sidebar menu-->
 <app-side-menu (changeCategory)="updateCategoryTitle($event)"></app-side-menu>
+<!-- Home Button-->
+
+
+
 <!-- Page-->
 <main class="offcanvas-enabled" style="padding-top: 5rem;">
+    <div class="py-4 pb-md-5 mb-4">
+        <app-home-button></app-home-button>
+        <!-- Pagination -->
+        <ngb-pagination class="d-flex justify-content-center pt-2" [collectionSize]="(total |async)!"
+            [(page)]="service.page" [pageSize]="service.pageSize" aria-label="Custom pagination">
+            <ng-template ngbPaginationPrevious let-page let-pages="pages">
+                <i class="ci-arrow-left me-2"></i>
+                Prev
+            </ng-template>
+            <ng-template ngbPaginationNext>
+                Next
+                <i class="ci-arrow-right ms-2"></i>
+            </ng-template>
+        </ngb-pagination>
+    </div>
+
     <section class="ps-lg-4 pe-lg-3 pt-4 min-vh-100">
         <div class="px-3 pt-2">
             <!-- Page title + breadcrumb-->
@@ -51,8 +71,12 @@
                                 </a>
                             </h3>
                             <div class="product-price">
-                                <span class="text-accent">{{product.price | number:'.1-2'}}€</span>
+                                <span class="text-accent">{{product.price | number:'.1-2'}}€ HT </span>
                             </div>
+                            <div class="product-price">
+                                <span class="text-accent">({{product.price_ttc | number: '.1-2'}}€ TTC)</span>
+                            </div>
+                            
                         </div>
                         <div class="product-floating-btn">
                             <button class="btn btn-primary btn-shadow btn-sm" type="button" (click)="addtocart(i)">+<i

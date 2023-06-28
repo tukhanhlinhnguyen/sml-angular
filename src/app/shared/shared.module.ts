@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbCarouselModule, NgbDropdownModule, NgbNavModule, NgbRatingModule, NgbCollapseModule,NgbTooltipModule, NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
 
+
 // Language
 import { LanguageService } from '../services/language/language.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,6 +29,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { GroceryBreadcrumbComponent } from './grocery-breadcrumb/grocery-breadcrumb.component';
 import { GroceryHeaderComponent } from './grocery-header/grocery-header.component';
 import { GroceryFooterComponent } from './grocery-footer/grocery-footer.component';
+import { HomeButtonComponent } from './home-button/home-button.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { GroceryFooterComponent } from './grocery-footer/grocery-footer.componen
     GroceryBreadcrumbComponent,
     GroceryHeaderComponent,
     GroceryFooterComponent,
+    HomeButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -61,13 +64,13 @@ import { GroceryFooterComponent } from './grocery-footer/grocery-footer.componen
     NgxUsefulSwiperModule,
     ScrollToModule.forRoot(),
     TranslateModule,
-    NgbAccordionModule
+    NgbAccordionModule,
   ],
   providers: [
     LanguageService,
   ],
   exports:[BreadcrumbsComponent,TrendingComponent,ProductSliderComponent,BrandLogosComponent,FooterComponent,NavbarLevel1LightComponent,NavbarLevel1DarkComponent,
     NavbarLevel2LightComponent, NavbarLevel2DarkComponent, NavbarLevel3DarkComponent, SideMenuComponent, GroceryBreadcrumbComponent,GroceryFooterComponent,
-    GroceryHeaderComponent]
+    GroceryHeaderComponent, HomeButtonComponent]
 })
 export class SharedModule { }
