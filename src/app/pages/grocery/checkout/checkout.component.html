@@ -11,7 +11,7 @@
       <app-grocery-breadcrumb [breadcrumbItems]="breadCrumbItems"></app-grocery-breadcrumb>
       <!-- Content-->
       <!-- Checkout form-->
-      <form (ngSubmit)="placeorder()" [formGroup]="orderForm" class="needs-validation" novalidate>
+      <form (ngSubmit)="confirmOrder()" [formGroup]="orderForm" class="needs-validation" novalidate>
         <div class="row g-0 pb-5 mb-xl-3">
           <!-- Delivery details-->
           <div class="col-xl-6 mb-3">
@@ -188,7 +188,7 @@
   <app-grocery-footer></app-grocery-footer>
 </main>
 
-<div id="msgmodal" data-bs-toggle="modal" (click)="toggleModal(toggleMsgModal)"></div>
+<div id="confirmation" data-bs-toggle="modal" (click)="toggleModal(toggleMsgModal)"></div>
 <ng-template #toggleMsgModal let-modal>
   <div class="modal-content">
     <div class="modal-header bg-secondary">
@@ -196,14 +196,18 @@
         <li [ngbNavItem]="1">
           <a ngbNavLink class="nav-link fw-medium">
             <!-- <i class="ci-unlocked me-2 mt-n1"> </i> -->
-            Info
+            Confirmation
           </a>
           <ng-template ngbNavContent>
 
             <div class="mb-3">
-              <strong>{{msg}}</strong>
+              <strong>Êtes-vous sur de votre commande?</strong>
             </div>
-            <button class="btn btn-primary btn-shadow d-block w-100" (click)="modal.close()">Close</button>
+            <div class="modal-footer">
+              <button id="Cancel" type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+              <button id="Confirm" type="button" class="btn btn-primary btn-shadow" (click)="placeorder()">Confirmer</button>
+            </div>
+            
 
           </ng-template>
         </li>

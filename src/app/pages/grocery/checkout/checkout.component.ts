@@ -134,13 +134,27 @@ export class CheckoutComponent implements OnInit {
     this.router.navigate(['/grocery/single-product', this.cart[id]])
   }
 
+  confirmOrder(){
+    console.log("OrderConfirm")
+    this.msg = null;
+    this.submitted = true;
+
+    let m: any =this.document.getElementById("confirmation");
+    m.click();
+  }
+
+  gotoPage(){
+    window.location.href='/grocery/proposal';
+  }
+
   async placeorder() {
     console.log("placeorder")
     this.msg = null;
     this.submitted = true;
+    
 
 
-    let m: any = this.document.getElementById("msgmodal");
+    let m: any;
     // m.click();
 
     if (this._isLoggedIn) {
@@ -176,6 +190,7 @@ export class CheckoutComponent implements OnInit {
               }
               try{
                 let res2: any = await this.checkoutService.validateProposalLines(res);
+                this.gotoPage();
                 console.log("res2:", res2)
                 } catch (error){
                   console.log("error:", error);
@@ -186,8 +201,8 @@ export class CheckoutComponent implements OnInit {
 
 
           m.click();
-          this.msg = "Propasal Created. " + res;
         }
+        this.gotoPage();
 
       } catch (error) {
         console.log("error:", error);
