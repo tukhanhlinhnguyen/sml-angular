@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit {
     this.authService.loginUserStatusChanged.subscribe(
       (user) => {
         this.user = this.authService.getUser();
-        //console.log(user)
       },
       (error) => {
         console.error(error)
@@ -112,19 +111,10 @@ export class HomeComponent implements OnInit {
     }
     
     try {
-      let res: any = await this.authService.login(this.loginuser);
-     
-      console.log("res", res);
-     
+      let res: any = await this.authService.login(this.loginuser);     
       if (res) {
-
         let obj = res && res.success ? res.success : null;
-       
-
         this.authService.saveToken(obj);
-       
-
-
         let user: User = new User();
 
         // user.username = obj && obj.username ? obj.username || null : null;
@@ -140,23 +130,14 @@ export class HomeComponent implements OnInit {
       }
   }catch (error) {
     console.log("error", error);
-
   }
   try{
     let societeid: any = await this.authService.userInfo();
-    console.log("socid", societeid);
-
     if(societeid){
-
       let objSocID = societeid ? societeid : null;
-      console.log(objSocID);
-
       await this.authService.saveSocID(objSocID)
-
       let SocID: Societe= new Societe;
-
       SocID=this.loginuser.socID;
-
       this.authService.storeSocID(SocID);
     }
   }
@@ -179,7 +160,6 @@ export class HomeComponent implements OnInit {
    * Form submit
    */
   SignUpSubmit(SignUpForm:any) {
-    console.log(this.SignUpForm.value)
     this.contact.SendEmail(SignUpForm)
     .subscribe((response) => {
       //location.href='../grocery/product-catalog.component.html'
@@ -276,11 +256,4 @@ export class HomeComponent implements OnInit {
   gotosellerdetail(id: any) {
     this.router.navigate(['/single-product',this.bestseller[id]])
   }
-
-
-  // Add To Cart
-  addtocart(id: any) {
-    // cart.push(this.discountedproduct[id])
-  }
-
 }

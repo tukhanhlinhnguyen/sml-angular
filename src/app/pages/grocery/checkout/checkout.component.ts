@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
@@ -10,6 +10,7 @@ import { CartService } from '../../../services/cart/cart.service';
 import { CheckoutService } from '../../../services/checkout/checkout.service';
 import { PriceService } from '../../../services/price/price.service';
 import { ProposalService } from '../proposal/proposal.service';
+import { GroceryHeaderComponent } from '../../../shared/grocery-header/grocery-header.component';
 
 
 @Component({
@@ -18,9 +19,10 @@ import { ProposalService } from '../proposal/proposal.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild(GroceryHeaderComponent) gHC: GroceryHeaderComponent; //see that viewChild argument is 
 
   breadCrumbItems: any;
-  cart: any;
+  cart: any[];
   subtotalHT: any = 0;
   subtotalTTC: any = 0;
   totalTVA20: any = 0;
@@ -39,7 +41,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private formBuilder: UntypedFormBuilder,
-    private _authService: AuthService,
+    private authService: AuthService,
     private cartService: CartService,
     private checkoutService: CheckoutService,
     public priceService: PriceService,
@@ -54,13 +56,10 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this._isLoggedIn = this._authService.checkLogin();
+    this._isLoggedIn = this.authService.checkLogin();
 
-    this._authService.loginStatusChanged.subscribe(
+    this.authService.loginStatusChanged.subscribe(
       (IsLoggedIn) => {
-        // console.log("testing");
-        // this._logService.logMessage('on init loginStatusChanged: ' + IsLoggedIn);
-
         this._isLoggedIn = IsLoggedIn;
       }
     );
@@ -77,39 +76,19 @@ export class CheckoutComponent implements OnInit {
       { label: 'Checkout', active: true, link: '/grocery/Checkout' }
     ];
 
+    this.authService.mycartChanged.subscribe({
+      next: () => {
+        this.cart = this.cartService.getCart()
+        this.updateSum()
+      },
+      error:(err) => {
+        console.error(err)
+      },
+    })
+
     // Fetch Data
-    this.cart = this.cartService.getCart()
-    this.cart.forEach((e: any) => {
-      this.subtotalHT += (parseFloat(e.price) * parseFloat(e.qty))
-      this.subtotalTTC += (parseFloat(e.price_ttc) * parseFloat(e.qty))
-      console.log('tva_tx:', this.priceService.roundNumber(e.tva_tx))
-      if(this.priceService.roundNumber(e.tva_tx)==5.5) this.totalTVA5+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)
-      if(this.priceService.roundNumber(e.tva_tx)==20) this.totalTVA20+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)  
-    });
-
-    // this.total = (this.subtotalHT + 7.00)
-    // this.total = (this.subtotalHT + this.deliveryFee)
-    this.total = (this.subtotalHT + parseFloat(this.deliveryFee))
-    this.subtotalHT = this.subtotalHT
-
-    // set decimal point to small
-    setTimeout(() => {
-      document.querySelectorAll(".price").forEach((e) => {
-        let txt = e.innerHTML.split(".")
-        e.innerHTML = txt[0] + ".<small>" + txt[1] + "</small>"
-      })
-    }, 0);
-
-    /**
-     * Form Validation
-     */
-    this.orderForm = this.formBuilder.group({
-      ids: [''],
-      // first_name: ['', [Validators.required]],
-      // last_name: ['', [Validators.required]],
-      // phone: ['', [Validators.required]],
-      // address: ['', [Validators.required]],
-    });
+    //this.cart = this.cartService.getCart()
+    this.authService.mycartChanged.next(true);
   }
 
 
@@ -148,94 +127,102 @@ export class CheckoutComponent implements OnInit {
   }
 
   async placeorder() {
-    console.log("placeorder")
     this.msg = null;
     this.submitted = true;
     
+    let m: any = this.document.getElementById("msgmodal");
+    // if (this._isLoggedIn) {
+    //   try {
+    //     let res: any = await this.checkoutService.createProposal();
+    //     // if (res && res.Status) {
+    //     if (res) {
+    //       let body:any = []
+    //       this.cart.forEach(async (e: any) => {
+    //         body.push({
+    //           "fk_product": e.id,
+    //           "qty": e.qty,
+    //           "subprice": e.price,
+    //           "tva_tx": e.tva_tx
+    //         });
+    //       });
+    //       // setTimeout(async () => {
+    //         try {
 
+    //           let res1: any = await this.checkoutService.createProposalLines(res, body);
 
-    let m: any;
-    // m.click();
+    //         } catch (error) {
+    //           console.log("error:", error);
+    //           m.click();
+    //           this.msg = JSON.stringify(error);
+    //         }
+    //         try{
+    //           let res2: any = await this.checkoutService.validateProposalLines(res);
+    //           } catch (error){
+    //             console.log("error:", error);
+    //           }
+    //       m.click();
+    //     }
+    //     this.gotoPage();
 
-    if (this._isLoggedIn) {
+    //   } catch (error) {
+    //     console.log("error:", error);
 
-      try {
-
-        let res: any = await this.checkoutService.createProposal();
-
-        console.log("res:", res);
-
-        // if (res && res.Status) {
-        if (res) {
-          let body:any = []
-          this.cart.forEach(async (e: any) => {
-            body.push({
-              "fk_product": e.id,
-              "qty": e.qty,
-              "subprice": e.price,
-              "tva_tx": e.tva_tx
-            });
-          });
-            // setTimeout(async () => {
-              try {
-
-                let res1: any = await this.checkoutService.createProposalLines(res, body);
-  
-              } catch (error) {
-                console.log("error:", error);
-              
-  
-                m.click();
-                this.msg = JSON.stringify(error);
-              }
-              try{
-                let res2: any = await this.checkoutService.validateProposalLines(res);
-                this.gotoPage();
-                console.log("res2:", res2)
-                } catch (error){
-                  console.log("error:", error);
-                }
-                
-              
-            // }, 100);
-
-
-          m.click();
-        }
-        this.gotoPage();
-
-      } catch (error) {
-        console.log("error:", error);
-
-        m.click();
-        this.msg = JSON.stringify(error);
-      }
-
-    }
-    else {
-      // let si: any = this.document.geteById("sign-in") as HTMLe;
-      let si: any = this.document.getElementById("sign-in");
-      // let si: any = this.document.geteById("test");
-
-      console.log("si", si)
-
-      si.click();
-    }
-
+    //     m.click();
+    //     this.msg = JSON.stringify(error);
+    //   }
+    // }
+    // else {
+    //   // let si: any = this.document.geteById("sign-in") as HTMLe;
+    //   let si: any = this.document.getElementById("sign-in");
+    //   // let si: any = this.document.geteById("test");
+    //   si.click();
+    // }
   }
+
   async checkStatus(){
     this.status=[]
     try{
       let res2: any = await this.proposalService.getProposal();
      
       if(res2){
-        console.log("resStatus:",res2)
         this.status=res2.statut_libelle
-        console.log("status:", this.status)
       }
     } catch (error) {
       console.log("error:", error);
     }
+  }
+
+  plus(qty:number) {
+    qty++;
+  }
+  minus(qty:number) {
+    if(qty > 1) qty--;
+  }
+
+  updateQuantity($event:any, i:number){
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.cart[i].qty = parseInt(filterValue)
+    this.cartService.setCart(this.cart)
+    this.authService.mycartChanged.next(true);
+  }
+
+  updateSum(){
+    this.subtotalHT=0
+    this.subtotalTTC=0
+    this.cart.forEach((e: any) => {
+      this.subtotalHT += (parseFloat(e.price) * parseFloat(e.qty))
+      this.subtotalTTC += (parseFloat(e.price_ttc) * parseFloat(e.qty))
+      if(this.priceService.roundNumber(e.tva_tx)==5.5) this.totalTVA5+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)
+      if(this.priceService.roundNumber(e.tva_tx)==20) this.totalTVA20+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)  
+    });
+
+    this.total = (this.subtotalHT + parseFloat(this.deliveryFee))
+    //this.subtotalHT = this.subtotalHT
+  }
+
+  removeFromCart(i:number){
+    this.gHC.removecart(i)
+    this.authService.mycartChanged.next(true);
   }
 
   /**

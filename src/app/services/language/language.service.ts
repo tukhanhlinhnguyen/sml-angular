@@ -9,7 +9,6 @@ export class LanguageService {
 
   constructor(public translate: TranslateService, private cookieService: CookieService) {
     this.cookieService.set('lang', 'fr')
-    console.log('this.cookieService:', this.cookieService)
     let browserLang: any;
     /***
      * cookie Language Get

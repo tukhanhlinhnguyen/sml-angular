@@ -219,6 +219,9 @@
           "SubTotalHT":"Montant HT",
           "TotalTVA5":"Total TVA 5,5%",
           "TotalTVA20":"Total TVA 20%"
+        },
+        "TABLE" :{
+          "Delete":"Supprimer"
         }
       } 
     }

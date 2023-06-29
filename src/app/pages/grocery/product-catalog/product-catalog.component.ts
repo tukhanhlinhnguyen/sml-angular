@@ -59,7 +59,6 @@ export class ProductCatalogComponent implements OnInit {
 
     this.route.params.subscribe(routeParams => {
       this.title = routeParams.label ? routeParams.label : this.title
-      console.log('this.title:', this.title)
       this.getProduct();
     });
 
@@ -110,11 +109,10 @@ export class ProductCatalogComponent implements OnInit {
   // Add To Cart
   addtocart(id: any) {
     this.catalogs[id].qty = 1;
-    this.cartService.addToCart(id, this.catalogs[id])
+    this.cartService.addToCart(1, this.catalogs[id])
   }
 
   async getProduct() {
-    console.log('getProduct:')
     this.catalogs =[];
     this.loading=true;
     try {
@@ -137,7 +135,6 @@ export class ProductCatalogComponent implements OnInit {
     } catch (error) {
       console.log("error", error);
       this.loading = false
-      console.log('this.catalogs:', this.catalogs)
     }
   }
 

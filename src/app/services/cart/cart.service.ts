@@ -16,7 +16,6 @@ export class CartService {
     //check if item already in cart
     let cart = localStorage.getItem("cart")
     let result = cart ? JSON.parse(cart) : []
-    console.log('product.id:', product.id)
     let index = result.findIndex( (t:any) => t.id === product.id)
     if(index>=0){
       let p = this.deepCopy(result[index])
@@ -24,7 +23,7 @@ export class CartService {
       p.qty = newQty
       result[index] = p
     }else{
-      product.qty=1
+      product.qty=qty
       result.push(product);
     }
     let now = new Date();

@@ -48,17 +48,6 @@ export class SingleProductComponent implements OnInit {
       console.log('data:', data)
         if(data) this.product = data
       });
-  
-      // get cat product by ID
-      // this.productService.getProductCatById(this.route.snapshot.params['id']).subscribe((data)=>{
-      //   if(data) {
-      //     this.product = data
-      //   }
-      // });
-  
-      // this.productimage =  this.product.image.split(',');
-      console.log("this.productimage", this.productimage);
-      // this.preview = this.productimage[0]
       this.preview = this.productimage && this.productimage.length > 0 ? this.productimage[0] : null;
 
     this.route.params.subscribe(routeParams => {
@@ -117,7 +106,13 @@ export class SingleProductComponent implements OnInit {
 
   // Add To Cart
   addcart() {
-    console.log('this.qty:', (this.qty))
     this.cartService.addToCart(this.qty, this.product)
+  }
+
+  plus() {
+    this.qty++;
+  }
+  minus() {
+    if(this.qty > 1) this.qty--;
   }
 }

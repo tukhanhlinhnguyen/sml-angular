@@ -17,8 +17,9 @@ export class GroceryFooterComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    //TODO
     if(!this.translateService.currentLang){
-      console.log('zadza:', this.translateService.use('fr'))
+      console.log('TODO:', this.translateService.use('fr'))
     }
     
   }

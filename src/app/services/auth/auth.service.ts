@@ -130,15 +130,7 @@ export class AuthService {
         // let data: any = response.json();
         let data: any = response;
         var d = new Date();
-        // this.token_expires = Date.now() + ((data.expires_in - 60) * 1000);
-        // this.token_expires = (d.getTime() + (data.expires_in * 1000));
-
         let token_expires = d.getTime() + (data.expires_in - 60) * 1000;
-        // let token_expires = (d.getTime() + ((data.expires_in - 3380) * 1000));
-
-        // this.token_expires = (d.getTime() + ((60) * 1000));
-
-        console.log('expiry:' + data.expires_in);
 
         localStorage.setItem("token_id", data.token);
         // localStorage.setItem("token_expiry_date", data.expiry_Date);
@@ -146,13 +138,6 @@ export class AuthService {
         // localStorage.setItem("refresh_token", data.refresh_token);
         // localStorage.setItem("token_type", data.token_type);
         localStorage.setItem("socid", data.socid)
-
-        // this.loginStatusChanged.next(true);
-
-        // setTimeout(function(){ this.logoutUser(); }, (data.expires_in * 1000));
-        // console.log();
-
-        // return data;
     }
 
     async saveSocID(response: any){

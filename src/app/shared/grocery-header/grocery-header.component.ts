@@ -56,9 +56,6 @@ export class GroceryHeaderComponent {
     this.authService.loginStatusChanged.subscribe(
       (IsLoggedIn) => {
         this.user = this.authService.getUser();
-        // console.log("testing");
-        // this._logService.logMessage('on init loginStatusChanged: ' + IsLoggedIn);
-
         this._isLoggedIn = IsLoggedIn;
       }
     );
@@ -105,8 +102,6 @@ export class GroceryHeaderComponent {
         this.subtotal = 0
         this.mycart.forEach((element: any) => {
           this.subtotal = parseFloat(this.subtotal) + (parseFloat(element.price) * parseFloat(element.qty))
-
-          // console.log("this.subtotal", this.subtotal)
         });
         this.subtotal = this.subtotal.toFixed(2)
       },
@@ -114,7 +109,6 @@ export class GroceryHeaderComponent {
         console.error(error)
       },
       () => {
-        // console.log('Login state has been marked completed!')
       }
     );
 
@@ -204,19 +198,11 @@ export class GroceryHeaderComponent {
     }
     try{
       let societeid: any = await this.authService.userInfo();
-      console.log("socid", societeid);
-  
       if(societeid){
-  
         let objSocID = societeid ? societeid : null;
-        console.log(objSocID);
-  
         await this.authService.saveSocID(objSocID)
-  
         let SocID: Societe= new Societe;
-  
         SocID=this.loginuser.socID;
-  
         this.authService.storeSocID(SocID);
       }
     }

@@ -11,10 +11,10 @@
       <app-grocery-breadcrumb [breadcrumbItems]="breadCrumbItems"></app-grocery-breadcrumb>
       <!-- Content-->
       <!-- Checkout form-->
-      <form (ngSubmit)="confirmOrder()" [formGroup]="orderForm" class="needs-validation" novalidate>
+      <form (ngSubmit)="confirmOrder()" class="needs-validation" novalidate>
         <div class="row g-0 pb-5 mb-xl-3">
           <!-- Delivery details-->
-          <div class="col-xl-6 mb-3">
+          <!-- <div class="col-xl-6 mb-3">
             <h1 class="h2 mb-4">{{"MENUITEMS.CHECKOUT.LIST.CheckOut" | translate}}</h1>
             <h2 *ngIf="false" class="h5 mb-4">Delivery details</h2>
             <div *ngIf="false"
@@ -72,9 +72,9 @@
                 <button class="btn btn-outline-primary" type="button">Apply code</button>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- Order summary + payment-->
-          <div class="col-xl-5 offset-xl-1 mb-2">
+          <div class="col-xl-12 mb-2">
             <div class="bg-light rounded-3 py-5 px-4 px-xxl-5">
               <h2 class="h5">{{"MENUITEMS.CHECKOUT.LIST.YourOrder"|translate}}</h2>
               <span class="pb-3">{{"INDICATOR.CurrencyText" | translate}}</span>
@@ -83,17 +83,33 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th colspan="2">{{"TABLE.CHECKOUT.ROW.HEADER.ProductText" | translate}}</th>
-                      <th>{{"TABLE.CHECKOUT.ROW.HEADER.QuantityText" | translate}}</th>
+                      <th style="width: 30%;">{{"TABLE.CHECKOUT.ROW.HEADER.ProductText" | translate}}</th>
+                      <th style="width: 200px;">{{"TABLE.CHECKOUT.ROW.HEADER.QuantityText" | translate}}</th>
                       <th>{{"TABLE.CHECKOUT.ROW.HEADER.HTText" | translate}}</th>
                       <th>{{"TABLE.CHECKOUT.ROW.HEADER.TVAText" | translate}}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let product of cart;let i = index">
-                      <th scope="row">{{i+1}}</th>
-                      <td colspan="2">{{product.title || product.label}}</td>
-                      <td>{{product.qty}}</td>
+                      <th scope="row">{{i+1}}
+                        <br>
+                        <span (click)="removeFromCart(i)">{{"TABLE.CHECKOUT.ROW.TABLE.Delete" | translate}}</span>
+                      </th>
+                      <td colspan="1">{{product.title || product.label}}</td>
+                      <td>
+                        <!-- <button class="btn btn-icon btn-secondary me-3 mb-3" type="button" (click)="minus(product.qty)">
+                          <i class="ci-arrow-down"></i>
+                        </button>
+                        <button class="btn btn-icon btn-secondary me-3 mb-3" type="button" (click)="plus(product.qty)">
+                            <i class="ci-arrow-down"></i>
+                        </button> -->
+                        <div class="input-group mb-3">
+                          <!-- <span class="input-group-text" id="basic-addon1">-</span> -->
+                          <input type="number" class="form-control" aria-label="Qty" value={{product.qty}} 
+                          (change)="updateQuantity($event, i)" min="1"/>
+                          <!-- <span class="input-group-text" id="basic-addon1">+</span> -->
+                        </div>
+                      </td>
                       <td>{{product.price | number:'.1-4'}}</td>
                       <td>{{priceService.roundNumber(product.price_ttc)}}</td>
                     </tr>
@@ -103,10 +119,13 @@
               <ul class="list-unstyled fs-sm pt-4 pb-2 border-bottom">
                 <li class="d-flex justify-content-between align-items-center">
                   <span class="me-2">{{"TABLE.CHECKOUT.ROW.HEADER.SubTotalHT" | translate}}:</span>
-                  <span class="text-end fw-medium price">{{priceService.roundNumber(subtotalHT)}}</span>
+                  <span class="text-end fw-medium">
+                    {{priceService.roundNumber(subtotalHT)}}
+                  </span>
                 </li>
                 <li class="d-flex justify-content-between align-items-center">
-                  <span class="me-2">{{"TABLE.CHECKOUT.ROW.HEADER.TotalTVA5" | translate}}: </span><span class="text-end fw-medium">
+                  <span class="me-2">{{"TABLE.CHECKOUT.ROW.HEADER.TotalTVA5" | translate}}: </span>
+                  <span class="text-end fw-medium">
                     {{priceService.roundNumber(totalTVA5)}}
                   </span>
                 </li>
@@ -116,7 +135,7 @@
                   </span>
                 </li>
               </ul>
-              <h3 class="fw-normal text-center my-4 py-2 price">{{priceService.roundNumber(subtotalTTC)}}€</h3>
+              <h3 class="fw-normal text-center my-4 py-2">{{priceService.roundNumber(subtotalTTC)}}€</h3>
               <!-- Payment methods accordion -->
               <div *ngIf="false" class="accordion accordio-flush shadow-sm rounded-3 mb-4" id="payment-methods">
                 <div class="accordion-item border-bottom">

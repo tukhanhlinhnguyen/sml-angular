@@ -102,9 +102,7 @@ export class InvoiceComponent implements OnInit {
   downloadInvoice(url: any) {
     let trimedURL = url.replace('facture/','')
     this.service.downloadInvoice(trimedURL).then(fee=>{
-    console.log('fee:', fee)
       fee.subscribe((data:any)=>{
-        console.log('data:', data)
         var binaryData = [];
         const linkSource = `data:application/pdf;base64,${data.content}`;
 
@@ -148,7 +146,6 @@ export class InvoiceComponent implements OnInit {
     } catch (error) {
       console.log("error", error);
       this.loading = false
-      console.log('this.invoices:', this.invoices)
     }
   }
 

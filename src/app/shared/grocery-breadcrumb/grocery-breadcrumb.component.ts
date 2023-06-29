@@ -28,7 +28,6 @@ export class GroceryBreadcrumbComponent implements OnInit {
   goToCat(link:any, label:any){
     let categoryId = link.split('/')
     categoryId = categoryId[categoryId.length-1]
-    console.log('{label:label, id:categoryId}:', {label:label, id:categoryId})
     this.route.navigate([link, {label:label}]);
 
   }

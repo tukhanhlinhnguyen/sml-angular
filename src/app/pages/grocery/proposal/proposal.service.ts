@@ -92,10 +92,7 @@ export class ProposalService {
 
     this.productChanged.subscribe(
       (products) => {
-        // console.log("testing");
         this.products = products;
-        console.log('this.products:', this.products)
-
         // this._search$.next();
       }
     );

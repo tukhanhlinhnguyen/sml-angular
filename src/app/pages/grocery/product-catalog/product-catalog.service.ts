@@ -94,7 +94,6 @@ export class ProductCatlogService {
 
     this.productChanged.subscribe(
       (products) => {
-        // console.log("testing");
         this.products = products;
         // this._search$.next();
       }
