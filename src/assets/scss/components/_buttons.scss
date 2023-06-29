@@ -336,3 +336,32 @@
     box-shadow: $btn-video-hover-box-shadow;
   }
 }
+
+.btn-home {
+  width: 2.875rem;
+  height: 2.875rem;
+  padding: 0 !important;
+  transition: $btn-transition;
+  border: 0;
+  border-radius: 50%;
+  background-color: $btn-wishlist-bg;
+  color: $btn-wishlist-color;
+  text-align: center;
+  > i {
+    font-size: $btn-wishlist-font-size;
+    line-height: $btn-wishlist-size;
+  }
+
+  &:hover { color: $btn-wishlist-hover-color; }
+  &:focus { outline: 0; }
+
+  &.btn-sm {
+    width: $btn-wishlist-size-sm;
+    height: $btn-wishlist-size-sm;
+      > i {
+      font-size: 1.5rem;
+      line-height: $btn-wishlist-size-sm;
+    }
+  }
+  margin-left: 1rem;
+}
