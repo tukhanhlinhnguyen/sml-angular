@@ -178,7 +178,8 @@ export class ProposalService {
     let thirdparty_ids = 231
     let queryParams = new HttpParams();
     queryParams = queryParams.append("thirdparty_ids", thirdparty_ids);
-    
+    queryParams = queryParams.append("sortorder", "DESC");
+
 
     let storeToken: Token;
     storeToken = this.authService.getTokenData();
