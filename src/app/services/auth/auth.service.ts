@@ -8,13 +8,6 @@ import { User } from "../../core/model/user.model";
 import { Token } from "../../core/model/token.model";
 import { Societe } from "src/app/core/model/Societe.model";
 
-// import { User } from "../../models/user.model";
-// import { Token } from "../../models/token.model";
-
-// import { environment } from "src/environments/environment";
-
-// import { UIService } from '../ui/ui.service';
-
 declare const setChatUserInfo: any;
 
 @Injectable()
@@ -26,11 +19,6 @@ export class AuthService {
     loginUserStatusChanged = new Subject<User>();
     mycartChanged = new Subject<boolean>();
     loginStatusChanged = new Subject<boolean>();
-
-    // loginUserStatusChanged = new Subject<User>();
-    // serviceChanged = new Subject<Service>();
-
-    // useCauseStatusChanged: Subject<number> = new Subject<number>();
     useCauseStatusChanged: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -55,35 +43,11 @@ export class AuthService {
      */
     async login(user: User, token?: string) {
         const url = environment.baseApiUrl + '/login?login=' + user.username + '&password=' + user.password;
-
-        // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
-
-        // return await this._http.get(url, { headers: header }).toPromise();
         return await this._http.get(url).toPromise();
     }
 
-
-    // async socIDInfo(){
-    //     let user: User = this.getUser();
-
-    //     let sqlfilters = "(t.login:like:'" + user.username + "')"
-
-    //     const url = environment.baseApiUrl + '/contacts?sortfield=t.rowid&sortorder=ASC&limit=100&sqlfilters=' + sqlfilters;
-
-    //     let storeToken: Token;
-    //     storeToken = this.getTokenData();
-
-    //     const key: string = storeToken ? storeToken.tokenId || "" : "";
-
-    //     // let header = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
-    //     let header = new HttpHeaders({ 'DOLAPIKEY': key });
-
-    //     return await this._http.get(url, { headers: header }).toPromise();
-    // }
-
     async userInfo() {
         const url = environment.baseApiUrl + '/users/info';
-
         let storeToken: Token;
         storeToken = this.getTokenData();
 
@@ -131,20 +95,12 @@ export class AuthService {
         let data: any = response;
         var d = new Date();
         let token_expires = d.getTime() + (data.expires_in - 60) * 1000;
-
         localStorage.setItem("token_id", data.token);
         // localStorage.setItem("token_expiry_date", data.expiry_Date);
         // localStorage.setItem("token_expiry", token_expires.toString());
         // localStorage.setItem("refresh_token", data.refresh_token);
         // localStorage.setItem("token_type", data.token_type);
-        localStorage.setItem("socid", data.socid)
     }
-
-    async saveSocID(response: any){
-        let data: any = response;
-        localStorage.setItem("socid", data.socid)
-    }
-
 
     getTokenData(): Token {
         const token = new Token();
@@ -168,12 +124,6 @@ export class AuthService {
         this.loginUserStatusChanged.next(user);
     }
 
-    storeSocID(id:Societe){
-        if(!id){
-            return;
-        }
-        localStorage.setItem("id", JSON.stringify(id))
-    }
     getUser(): User {
         if (localStorage.getItem("user")) {
             return JSON.parse(localStorage.getItem("user") || "");
@@ -182,11 +132,11 @@ export class AuthService {
     }
 
     storeObj(key: string, data: any) {
-        if (!data) {
-            return;
-        }
-
         localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    storeInt(key: string, data: any) {
+        localStorage.setItem(key, data);
     }
 
     getStoreObj(key: string): any {
@@ -213,6 +163,10 @@ export class AuthService {
         else{
             this._router.navigate(['/grocery'])
         }
+    }
+
+    getthirdparty_ids():any {
+        return localStorage.getItem("socid");
     }
     
 }

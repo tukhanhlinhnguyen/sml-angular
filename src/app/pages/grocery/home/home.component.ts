@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Token } from 'src/app/core/model/token.model';
+import { environment } from "src/environments/environment";
 
 // Swiper Slider
 import { SwiperOptions } from 'swiper';
@@ -41,10 +44,15 @@ export class HomeComponent implements OnInit {
   discountedproduct: any;
   bestseller: any;
   reviews: any;
+  tooManyProposal:boolean
+  baseUrl: string = environment.baseApiUrl;
 
-  constructor(public router: Router, private formBuilder: UntypedFormBuilder, private contact: EmailService, private authService: AuthService) { }
+  constructor(
+    public router: Router, private formBuilder: UntypedFormBuilder, private contact: EmailService, 
+    private authService: AuthService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    
     this._isLoggedIn = this.authService.checkLogin();
     this.user = this.authService.getUser();
 
@@ -71,8 +79,8 @@ export class HomeComponent implements OnInit {
     /Log In
     */
     this.LoginForm=this.formBuilder.group({
-      email:['',[Validators.required,]],
-      password:['', Validators.required]
+      email:['testsocid',[Validators.required,]],
+      password:['HF9YnGqCZjS9', Validators.required]
     })
 
     /*
@@ -92,14 +100,6 @@ export class HomeComponent implements OnInit {
     this.discountedproduct = discout
     this.bestseller = Bestsellers
     this.reviews = review
-
-    // set decimal point to small
-    setTimeout(() => {
-      document.querySelectorAll(".product-price").forEach((e) => {
-        let txt = e.innerHTML.split(".")
-        e.innerHTML = txt[0] + ".<small>" + txt[1] + "</small>"
-      })
-    }, 0);
   }
 
   get f(){return this.LoginForm.controls}
@@ -115,17 +115,13 @@ export class HomeComponent implements OnInit {
       let res: any = await this.authService.login(this.loginuser);     
       if (res) {
         let obj = res && res.success ? res.success : null;
+        //We save the token here
         this.authService.saveToken(obj);
         let user: User = new User();
 
-        // user.username = obj && obj.username ? obj.username || null : null;
-        user.username = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
-        user.useremail = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
-        user.userdisplayname = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
-        //user.socID = this.loginuser.socID || this.loginuser.username || this.loginuser.useremail;
+        user.username = this.loginuser.username
 
-        this.authService.storeUser(user);
-
+        await this.authService.storeUser(user);
         this.authService.loginStatusChanged.next(true);
         this.authService.gotoHome();
       }
@@ -133,13 +129,11 @@ export class HomeComponent implements OnInit {
     console.log("error", error);
   }
   try{
-    let societeid: any = await this.authService.userInfo();
-    if(societeid){
-      let objSocID = societeid ? societeid : null;
-      await this.authService.saveSocID(objSocID)
-      let SocID: Societe= new Societe;
-      SocID=this.loginuser.socID;
-      this.authService.storeSocID(SocID);
+    let userInfo: any = await this.authService.userInfo();
+    if(userInfo){
+      let socid=userInfo.socid;
+      await this.authService.storeInt('socid', socid);
+      await this.checkOnGoingProposal()
     }
   }
   catch (error){
@@ -256,5 +250,37 @@ export class HomeComponent implements OnInit {
 
   gotosellerdetail(id: any) {
     this.router.navigate(['/single-product',this.bestseller[id]])
+  }
+
+  async checkOnGoingProposal(){
+      console.log('checkOnGoingProposal:')
+      let proposal:any[]=[]
+      let url = this.baseUrl + '/proposals';
+      //TODO CHANGE
+      let thirdparty_ids = this.authService.getthirdparty_ids()
+      if(thirdparty_ids) thirdparty_ids = parseInt(thirdparty_ids)
+      console.log('thirdparty_ids:', thirdparty_ids)
+      let queryParams = new HttpParams();
+      queryParams = queryParams.append("thirdparty_ids", thirdparty_ids);
+      queryParams = queryParams.append("sortorder", "DESC");
+  
+      let storeToken: Token;
+      storeToken = this.authService.getTokenData();
+      console.log('storeToken:', storeToken)
+  
+      //TODO REMOVE HARD CODE TOKEN
+      const key: string = storeToken.tokenId;
+  
+      let header = new HttpHeaders({ 'DOLAPIKEY': key });
+      await this.httpClient.get(url, { headers: header, params:queryParams }).subscribe(
+        res=>{
+          console.log('res:', res)
+          proposal = Object.assign([], res);
+          let onGoingProposal = proposal.filter(x => x.status=="0" || x.status=="1").length;
+          console.log('onGoingProposal:', onGoingProposal)
+          if(onGoingProposal>=3) this.authService.storeObj('tooManyProposal', true);
+          else this.authService.storeObj('tooManyProposal', false);
+        }
+      ) 
   }
 }

@@ -3,14 +3,14 @@
     <div class="modal-content">
         <div class="modal-header bg-secondary">
             <ul class="nav nav-tabs card-header-tabs" role="tablist" ngbNav #nav="ngbNav">
-                <li [ngbNavItem]="1">
+                <!-- <li [ngbNavItem]="1">
                     <a ngbNavLink class="nav-link fw-medium">
                         <i class="ci-unlocked me-2 mt-n1"> </i>
                         {{"MENUITEMS.IDENTIFICATION.LIST.SignIn"|translate}}
                     </a>
                     <ng-template ngbNavContent>
                         <form class="needs-validation tab-pane fade show active" autocomplete="off"
-                            [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                            [formGroup]="loginForm" (ngSubmit)="onSubmit()"> -->
                             <!-- <div class="mb-3">
                                 <label class="form-label" for="si-email">Email address</label>
                                 <input class="form-control" type="email" id="si-email" placeholder="johndoe@example.com"
@@ -18,7 +18,7 @@
                                     [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
                                 <div class="invalid-feedback">Please provide a valid email address.</div>
                             </div> -->
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label class="form-label" for="si-email">{{"MENUITEMS.IDENTIFICATION.LIST.Username"|translate}}</label>
                                 <input class="form-control" type="test" id="si-email" placeholder='{{"MENUITEMS.IDENTIFICATION.LIST.Username"|translate}}' required
                                     formControlName="email" [(ngModel)]="loginuser.username"
@@ -28,8 +28,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="si-password">
                                     {{"MENUITEMS.IDENTIFICATION.LIST.Password"|translate}}
-                                    <!-- {{loginPassfield}} -->
-                                </label>
+                                    {{loginPassfield}} -->
+                                <!-- </label>
                                 <div class="password-toggle">
                                     <input class="form-control" [type]="loginPassfield ? 'text' : 'password'"
                                         id="si-password" required formControlName="password" [(ngModel)]="loginuser.password"
@@ -53,7 +53,7 @@
                             <button class="btn btn-primary btn-shadow d-block w-100" type="submit">{{"MENUITEMS.IDENTIFICATION.LIST.SignInButton"|translate}}</button>
                         </form>
                     </ng-template>
-                </li>
+                </li> -->
                 <li [ngbNavItem]="2" *ngIf="false">
                     <a ngbNavLink class="nav-link fw-medium"><i class="ci-user me-2 mt-n1"></i>Sign up</a>
                     <ng-template ngbNavContent>
@@ -181,10 +181,14 @@
                         </div>
                     </div>
 
-                    <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                            routerLink="/grocery/checkout"><span class="navbar-tool-label">{{mycart?.length}}</span><i
-                                class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                            routerLink="/grocery/checkout"><small>{{"MENUITEMS.HEADER.LIST.MyCart"|translate}}</small>€{{subtotal}} HT</a>
+                    <div *ngIf="!tooManyProposal" class="navbar-tool dropdown ms-3">
+                        <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" routerLink="/grocery/checkout">
+                            <span class="navbar-tool-label">{{mycart?.length}}</span>
+                            <i class="navbar-tool-icon ci-cart"></i>
+                        </a>
+                        <a class="navbar-tool-text"
+                            routerLink="/grocery/checkout"><small>{{"MENUITEMS.HEADER.LIST.MyCart"|translate}}</small>€{{subtotal}} HT
+                        </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
                                 <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
@@ -231,6 +235,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div *ngIf="tooManyProposal">
+                        <span>Trop de devis ouvert</span>
                     </div>
                 </div>
             </div>

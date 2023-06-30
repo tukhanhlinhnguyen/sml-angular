@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveOffcanvas, NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Societe } from 'src/app/core/model/Societe.model';
-
+import { environment } from "src/environments/environment";
+import { Token } from 'src/app/core/model/token.model';
 
 
 @Component({
@@ -41,18 +43,23 @@ export class GroceryHeaderComponent {
   submit = false;
   _isLoggedIn: boolean = false;
 
+  baseUrl: string = environment.baseApiUrl;
+
   //  Search form
   searchLabel : string = ""
+  tooManyProposal:boolean
 
   constructor(private modalService: NgbModal,
     private authService: AuthService,
     private formBuilder: UntypedFormBuilder,
     private cartService: CartService,
-    public router: Router, private offcanvasService: NgbOffcanvas) { }
+    public router: Router, private offcanvasService: NgbOffcanvas,
+    private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this._isLoggedIn = this.authService.checkLogin();
     this.user = this.authService.getUser();
+    this.tooManyProposal = this.authService.getStoreObj("tooManyProposal")
 
     this.authService.loginStatusChanged.subscribe(
       (IsLoggedIn) => {
@@ -162,65 +169,6 @@ export class GroceryHeaderComponent {
         this.authService.gotoPage(this._isLoggedIn)
       }
     
-  }
-
-  /**
-   * Form submit
-   */
-  async onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    try {
-      let res: any = await this.authService.login(this.loginuser);
-      if (res) {
-
-        let obj = res && res.success ? res.success : null;
-
-        await this.authService.saveToken(obj);
-
-
-        let user: User = new User();
-
-        // user.username = obj && obj.username ? obj.username || null : null;
-        user.username = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
-        user.useremail = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
-        user.userdisplayname = this.loginuser.username || this.loginuser.useremail || this.loginuser.email;
-
-        this.authService.storeUser(user);
-
-        this.authService.loginStatusChanged.next(true);
-        this.authService.gotoHome();
-
-        // let si: any = this.document.getElementById("modalclose") as HTMLElement;
-        let md: any = document.getElementById("modalclose");
-
-        md.click();
-
-        // document.getElementById('elmLoader')?.classList.add('d-none')
-      }
-
-    } catch (error) {
-      console.log("error", error);
-
-    }
-    try{
-      let societeid: any = await this.authService.userInfo();
-      if(societeid){
-        let objSocID = societeid ? societeid : null;
-        await this.authService.saveSocID(objSocID)
-        let SocID: Societe= new Societe;
-        SocID=this.loginuser.socID;
-        this.authService.storeSocID(SocID);
-      }
-    }
-    catch (error){
-      console.log("error", error);
-    }
   }
 
   /**

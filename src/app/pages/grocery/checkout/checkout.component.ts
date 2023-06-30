@@ -55,7 +55,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this._isLoggedIn = this.authService.checkLogin();
 
     this.authService.loginStatusChanged.subscribe(

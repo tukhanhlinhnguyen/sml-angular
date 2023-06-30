@@ -43,7 +43,7 @@ export class ProposalService {
   async getProposal() {
     let url = this.baseUrl + '/proposals';
     //TODO CHANGE
-    let thirdparty_ids = 231
+    let thirdparty_ids = this.authService.getthirdparty_ids()
     let queryParams = new HttpParams();
     queryParams = queryParams.append("thirdparty_ids", thirdparty_ids);
     queryParams = queryParams.append("sortorder", "DESC");
