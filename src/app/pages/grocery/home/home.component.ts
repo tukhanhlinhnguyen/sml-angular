@@ -58,6 +58,7 @@ export class HomeComponent implements OnInit {
     this.authService.loginUserStatusChanged.subscribe(
       (user) => {
         this.user = this.authService.getUser();
+        this.router.navigate(['/grocery/product-catalog/all'])
       },
       (error) => {
         console.error(error)
