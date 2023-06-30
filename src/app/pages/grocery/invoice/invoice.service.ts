@@ -181,7 +181,7 @@ export class InvoiceService {
     let catId = 210
     let queryParams = new HttpParams();
     queryParams = queryParams.append("thirdparty_ids", catId);
-    
+    queryParams = queryParams.append("sortorder", "DESC");
 
     let storeToken: Token;
     storeToken = this.authService.getTokenData();
