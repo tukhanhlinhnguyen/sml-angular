@@ -32,24 +32,16 @@
                 <div *ngFor="let invoice of invoices;let i = index;" class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
                     <div class="card invoice-card card-static pb-3">
                         <span *ngIf="invoice.tag == true"
-                            class="badge bg-{{invoice.tagcolor}} badge-shadow">{{invoice.tagname}}</span>
-                        <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
-                            ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
-                        </button>
-                        <a *ngIf="invoice.url_photo_recto
-                        " class="card-img-top d-block overflow-hidden"><img src="{{invoice.url_photo_recto
-                        }}"
-                                alt="Product" (click)="gotodetail(invoice.id)">
-                        </a>
+                            class="badge bg-{{invoice.tagcolor}} badge-shadow">{{invoice.tagname}}
+                        </span>
+
                         <div class="card-body py-2">
-                            <a class="invoice-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(invoice.id)">
+                            <span class="invoice-meta d-block fs-xs pb-1">
                                 {{ service.convertDate(invoice.date) }}
-                            </a>
+                            </span>
                             <h3 class="invoice-title fs-sm text-truncate">
-                                <a href="javascript:void(0);" (click)="gotodetail(invoice.id)">
-                                    <!-- {{ invoice.title }} -->
-                                    {{ getPDFName(invoice.last_main_doc) }}
-                                </a>
+                                <!-- {{ invoice.title }} -->
+                                {{ getPDFName(invoice.last_main_doc) }}
                             </h3>
                             <div class="invoice-price">
                                 <span class="text-accent">{{invoice.total_ht | number:'.1-4'}}€</span>

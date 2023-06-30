@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbNavModule, NgbPaginationModule, NgbTooltipModule , NgbAccordionModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 // Swiper Slider
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
@@ -45,7 +46,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    NgxImageZoomModule
   ],
   providers: [
     LanguageService,

@@ -4,6 +4,7 @@
 <app-side-menu></app-side-menu>
 <!-- Page-->
 <main class="offcanvas-enabled" style="padding-top: 5rem;">
+    <app-pagination (total)="total"></app-pagination>
     <section class="ps-lg-4 pe-lg-3 pt-4 min-vh-100">
         <div class="px-3 pt-2">
             <!-- Page title + breadcrumb-->
@@ -37,7 +38,7 @@
                         </a> -->
                         <div class="card-body py-2">
                             <a class="proposal-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(proposal.id)">
-                                {{ service.convertDate(proposal.date_creation) }}
+                                {{ pService.convertDate(proposal.date_creation) }}
                             </a>
                             <h3 class="proposal-title fs-sm text-truncate">
                                 <a href="javascript:void(0);" (click)="gotodetail(proposal.id)">
@@ -79,20 +80,7 @@
                 </div>
             </div>
 
-            <div class="py-4 pb-md-5 mb-4">
-                <!-- Pagination -->
-                <ngb-pagination class="d-flex justify-content-center pt-2" [collectionSize]="(total |async)!"
-                    [(page)]="service.page" [pageSize]="service.pageSize" aria-label="Custom pagination">
-                    <ng-template ngbPaginationPrevious let-page let-pages="pages">
-                        <i class="ci-arrow-left me-2"></i>
-                        Prev
-                    </ng-template>
-                    <ng-template ngbPaginationNext>
-                        Next
-                        <i class="ci-arrow-right ms-2"></i>
-                    </ng-template>
-                </ngb-pagination>
-            </div>
+            <app-pagination (total)="total"></app-pagination>
         </div>
     </section>
 

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbCarouselModule, NgbDropdownModule, NgbNavModule, NgbRatingModule, NgbCollapseModule,NgbTooltipModule, NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbDropdownModule, NgbNavModule, NgbRatingModule, NgbCollapseModule,NgbTooltipModule, NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 
 // Language
@@ -32,6 +33,7 @@ import { GroceryFooterComponent } from './grocery-footer/grocery-footer.componen
 import { HomeButtonComponent } from './home-button/home-button.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ZoomImageComponent } from './zoom-image/zoom-image.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     GroceryFooterComponent,
     HomeButtonComponent,
     PaginationComponent,
+    ZoomImageComponent,
   ],
   imports: [
     CommonModule,
@@ -68,13 +71,14 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     ScrollToModule.forRoot(),
     TranslateModule,
     NgbAccordionModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgxImageZoomModule
   ],
   providers: [
     LanguageService,
   ],
   exports:[BreadcrumbsComponent,TrendingComponent,ProductSliderComponent,BrandLogosComponent,FooterComponent,NavbarLevel1LightComponent,NavbarLevel1DarkComponent,
     NavbarLevel2LightComponent, NavbarLevel2DarkComponent, NavbarLevel3DarkComponent, SideMenuComponent, GroceryBreadcrumbComponent,GroceryFooterComponent,
-    GroceryHeaderComponent, HomeButtonComponent, PaginationComponent]
+    GroceryHeaderComponent, HomeButtonComponent, PaginationComponent, ZoomImageComponent]
 })
 export class SharedModule { }

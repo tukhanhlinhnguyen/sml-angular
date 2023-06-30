@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
 
-// Data Get
-// import { catalog } from './data';
-// import { ProposalModel, ProductModel } from './proposal.model';
 import { ProposalModel } from './proposal.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CartService } from '../../../services/cart/cart.service';
+import { PaginationService } from '../../../shared/pagination/pagination.service';
 import { ProposalService } from './proposal.service';
 
 @Component({
   selector: 'app-proposal',
   templateUrl: './proposal.component.html',
   styleUrls: ['./proposal.component.scss'],
-  providers: []
+  providers: [PaginationService, DecimalPipe]
 })
 export class ProposalComponent implements OnInit {
 
@@ -26,9 +25,9 @@ export class ProposalComponent implements OnInit {
   categoryId:any;
   public isCollapsed: boolean[] = [];
   // Table data
-  CatelogList!: Observable<ProposalModel[]>;
+  ProposalListObservable!: Observable<ProposalModel[]>;
   // ProductList!: ProductModel[];
-  ProductList!: ProposalModel[];
+  ProposalList!: ProposalModel[];
   total: Observable<number>;
 
   constructor(
@@ -36,8 +35,11 @@ export class ProposalComponent implements OnInit {
     public cartService: CartService,
     public router: Router,
     private route: ActivatedRoute,
-    public service: ProposalService,
+    public pService: ProposalService,
+    public service: PaginationService,
   ) {
+    this.ProposalListObservable = service.products$;
+    this.total = service.total$;
   }
 
   ngOnInit(): void {
@@ -72,11 +74,25 @@ export class ProposalComponent implements OnInit {
     this.proposals =[];
     this.loading=true;
     try {
-      let res: any = await this.service.getProposal();
+      let res: any = await this.pService.getProposal();
       if (res) {
         console.log('res:', res)
         this.proposals=res
+        this.total=this.proposals
         this.loading = false
+      }
+      if (res) {
+        //this.catalogs=res
+        this.service.productChanged.next(this.ProposalList);
+        this.ProposalList = res || [];
+        this.ProposalListObservable.subscribe(x => {
+          this.proposals = Object.assign([], x);
+          this.service.productChanged.next(this.ProposalList);
+          setTimeout(() => {
+            this.loading = false
+          }, 500);
+          // console.log("this.catalogs", this.catalogs);
+        });
       }
 
     } catch (error) {

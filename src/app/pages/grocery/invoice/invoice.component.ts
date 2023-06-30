@@ -93,11 +93,6 @@ export class InvoiceComponent implements OnInit {
 
   }
 
-  // Go To Detail Page
-  gotodetail(id: any) {
-    this.router.navigate(['/grocery/single-product', {id:id, categoryId:this.categoryId, categoryLabel:this.title}])
-  }
-
   // Add To Cart
   downloadInvoice(url: any) {
     let trimedURL = url.replace('facture/','')
