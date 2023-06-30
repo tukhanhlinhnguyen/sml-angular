@@ -8,22 +8,8 @@
 
 <!-- Page-->
 <main class="offcanvas-enabled" style="padding-top: 5rem;">
-    <div class="py-4 pb-md-5 mb-4">
-        <app-home-button></app-home-button>
-        <!-- Pagination -->
-        <ngb-pagination class="d-flex justify-content-center pt-2" [collectionSize]="(total |async)!"
-            [(page)]="service.page" [pageSize]="service.pageSize" aria-label="Custom pagination">
-            <ng-template ngbPaginationPrevious let-page let-pages="pages">
-                <i class="ci-arrow-left me-2"></i>
-                Prev
-            </ng-template>
-            <ng-template ngbPaginationNext>
-                Next
-                <i class="ci-arrow-right ms-2"></i>
-            </ng-template>
-        </ngb-pagination>
-    </div>
-
+    <app-pagination (total)="total"></app-pagination>
+                                       
     <section class="ps-lg-4 pe-lg-3 pt-4 min-vh-100">
         <div class="px-3 pt-2">
             <!-- Page title + breadcrumb-->
@@ -56,10 +42,10 @@
                         <!-- <button class="btn-wishlist btn-sm" type="button" data-bs-placement="left"
                             ngbTooltip="Add to wishlist"><i class="ci-heart"></i>
                         </button> -->
-                        <a  class="card-img-top d-block overflow-hidden">
+                        <div  class="card-img-top d-block overflow-hidden">
                             <img style="height: 200px;" src="{{'https://devdolibarrsml.societe-kali.fr/document.php?hashp='+product.public_key}}"
                             alt="Product" (click)="gotodetail(product.id)">
-                        </a>
+                        </div>
                         <div class="card-body py-2">
                             <a class="product-meta d-block fs-xs pb-1" href="javascript:void(0);" (click)="gotodetail(product.id)">
                                 {{ product.category }}
@@ -99,20 +85,7 @@
                 </div>
             </div>
 
-            <div class="py-4 pb-md-5 mb-4">
-                <!-- Pagination -->
-                <ngb-pagination class="d-flex justify-content-center pt-2" [collectionSize]="(total |async)!"
-                    [(page)]="service.page" [pageSize]="service.pageSize" aria-label="Custom pagination">
-                    <ng-template ngbPaginationPrevious let-page let-pages="pages">
-                        <i class="ci-arrow-left me-2"></i>
-                        Prev
-                    </ng-template>
-                    <ng-template ngbPaginationNext>
-                        Next
-                        <i class="ci-arrow-right ms-2"></i>
-                    </ng-template>
-                </ngb-pagination>
-            </div>
+            <app-pagination (total)="total"></app-pagination>
         </div>
     </section>
 

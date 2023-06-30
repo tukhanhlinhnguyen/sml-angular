@@ -2,12 +2,12 @@ import { DecimalPipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { PaginationService } from '../../../shared/pagination/pagination.service';
 
 // Data Get
 // import { catalog } from './data';
 // import { CatalogModel, ProductModel } from './product-catalog.model';
 import { CatalogModel } from './product-catalog.model';
-import { ProductCatlogService } from './product-catalog.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CartService } from '../../../services/cart/cart.service';
@@ -16,7 +16,7 @@ import { CartService } from '../../../services/cart/cart.service';
   selector: 'app-product-catalog',
   templateUrl: './product-catalog.component.html',
   styleUrls: ['./product-catalog.component.scss'],
-  providers: [ProductCatlogService, DecimalPipe]
+  providers: [PaginationService, DecimalPipe]
 })
 export class ProductCatalogComponent implements OnInit {
   @Output() changePageID = new EventEmitter();
@@ -34,7 +34,7 @@ export class ProductCatalogComponent implements OnInit {
   total: Observable<number>;
 
   constructor(
-    public service: ProductCatlogService,
+    public service: PaginationService,
     public authService: AuthService,
     public cartService: CartService,
     public router: Router,
@@ -142,5 +142,9 @@ export class ProductCatalogComponent implements OnInit {
     this.title= event.label ? event.label : this.title
     this.categoryId=event.id
   }
+
+  selectPage(page: string) {
+		this.service.page = parseInt(page, 10) || 1;
+	}
 
 }

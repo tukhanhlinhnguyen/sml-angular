@@ -30,6 +30,8 @@ import { GroceryBreadcrumbComponent } from './grocery-breadcrumb/grocery-breadcr
 import { GroceryHeaderComponent } from './grocery-header/grocery-header.component';
 import { GroceryFooterComponent } from './grocery-footer/grocery-footer.component';
 import { HomeButtonComponent } from './home-button/home-button.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { HomeButtonComponent } from './home-button/home-button.component';
     GroceryHeaderComponent,
     GroceryFooterComponent,
     HomeButtonComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -65,12 +68,13 @@ import { HomeButtonComponent } from './home-button/home-button.component';
     ScrollToModule.forRoot(),
     TranslateModule,
     NgbAccordionModule,
+    NgbPaginationModule
   ],
   providers: [
     LanguageService,
   ],
   exports:[BreadcrumbsComponent,TrendingComponent,ProductSliderComponent,BrandLogosComponent,FooterComponent,NavbarLevel1LightComponent,NavbarLevel1DarkComponent,
     NavbarLevel2LightComponent, NavbarLevel2DarkComponent, NavbarLevel3DarkComponent, SideMenuComponent, GroceryBreadcrumbComponent,GroceryFooterComponent,
-    GroceryHeaderComponent, HomeButtonComponent]
+    GroceryHeaderComponent, HomeButtonComponent, PaginationComponent]
 })
 export class SharedModule { }
