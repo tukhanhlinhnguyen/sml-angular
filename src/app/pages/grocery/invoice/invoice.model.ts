@@ -13,7 +13,7 @@
 // }
 
 // export interface ProductModel {
-export interface CatalogModel {
+export interface ProposalModel {
 
   id: any;
   image: string;

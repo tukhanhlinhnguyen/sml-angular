@@ -40,7 +40,7 @@
                         <span *ngIf="product.tag == true"
                             class="badge bg-{{product.tagcolor}} badge-shadow">{{product.tagname}}
                         </span>
-                        <div class="card-img-top d-block overflow-hidden bg-image hover-zoom">
+                        <div class="card-img-top d-block overflow-hidden">
                             <app-zoom-image [public_key]="product.public_key"></app-zoom-image>
                         </div>
                         <div class="card-body py-2">

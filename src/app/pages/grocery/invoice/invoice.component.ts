@@ -3,11 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-// Data Get
-// import { catalog } from './data';
-// import { CatalogModel, ProductModel } from './invoice.model';
-import { CatalogModel } from './invoice.model';
+import { ProposalModel } from './invoice.model';
 import { InvoiceService } from './invoice.service';
+import { PaginationService } from '../../../shared/pagination/pagination.service';
+
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CartService } from '../../../services/cart/cart.service';
@@ -16,7 +15,7 @@ import { CartService } from '../../../services/cart/cart.service';
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss'],
-  providers: [InvoiceService, DecimalPipe]
+  providers: [PaginationService, DecimalPipe]
 })
 export class InvoiceComponent implements OnInit {
 
@@ -27,18 +26,19 @@ export class InvoiceComponent implements OnInit {
   categoryId:any;
 
   // Table data
-  CatelogList!: Observable<CatalogModel[]>;
+  InvoiceListObservable!: Observable<ProposalModel[]>;
   // ProductList!: ProductModel[];
-  ProductList!: CatalogModel[];
+  InvoiceList!: ProposalModel[];
   total: Observable<number>;
 
   constructor(
-    public service: InvoiceService,
+    public service: PaginationService,
+    public iService: InvoiceService,
     public authService: AuthService,
     public cartService: CartService,
     public router: Router,
     private route: ActivatedRoute) {
-    this.CatelogList = service.countries$;
+    this.InvoiceListObservable = service.products$;
     this.total = service.total$;
   }
 
@@ -69,34 +69,10 @@ export class InvoiceComponent implements OnInit {
     }, 2000);
   }
 
-  // Sorting
-
-  sortproduct(ev: any) {
-    if (ev.nextId == 1) {
-      // this.service.products = catalog.filter((element: any) => {
-      this.service.products = this.ProductList.filter((element: any) => {
-        return element.type == 'popular'
-      })
-    }
-    if (ev.nextId == 2) {
-      // this.service.products = catalog.filter((element: any) => {
-      this.service.products = this.ProductList.filter((element: any) => {
-        return element.type == 'Cheap'
-      })
-    }
-    if (ev.nextId == 3) {
-      // this.service.products = catalog.filter((element: any) => {
-      this.service.products = this.ProductList.filter((element: any) => {
-        return element.type == 'Expensive'
-      })
-    }
-
-  }
-
   // Add To Cart
   downloadInvoice(url: any) {
     let trimedURL = url.replace('facture/','')
-    this.service.downloadInvoice(trimedURL).then(fee=>{
+    this.iService.downloadInvoice(trimedURL).then(fee=>{
       fee.subscribe((data:any)=>{
         var binaryData = [];
         const linkSource = `data:application/pdf;base64,${data.content}`;
@@ -123,19 +99,19 @@ export class InvoiceComponent implements OnInit {
     this.invoices =[];
     this.loading=true;
     try {
-      let res: any = await this.service.getInvoice();
+      let res: any = await this.iService.getInvoice();
       console.log('res:', res)
       if (res) {
         this.invoices=res
         this.loading = false
-        // this.service.productChanged.next(this.ProductList);
-        // this.ProductList = res || [];
-        // this.CatelogList.subscribe(x => {
-        //   this.invoices = Object.assign([], x);
-        //   this.service.productChanged.next(this.ProductList);
-        //   this.loading = false
-        //   // console.log("this.invoices", this.invoices);
-        // });
+        this.service.productChanged.next(this.InvoiceList);
+        this.InvoiceList = res || [];
+        this.InvoiceListObservable.subscribe(x => {
+          this.invoices = Object.assign([], x);
+          this.service.productChanged.next(this.InvoiceList);
+          this.loading = false
+          // console.log("this.invoices", this.invoices);
+        });
       }
 
     } catch (error) {
