@@ -24,6 +24,7 @@ export class GroceryHeaderComponent {
   Total: any;
   mycart: any;
   subtotal: any = 0;
+  subtotal_ttc:any=0;
   total: any = 0;
 
   loginuser: User = new User();
@@ -96,14 +97,25 @@ export class GroceryHeaderComponent {
     });
     this.subtotal = this.subtotal.toFixed(2)
 
+    this.mycart.forEach((element: any) => {
+      this.subtotal_ttc += (parseFloat(element.price_ttc) * parseFloat(element.qty))
+    });
+    this.subtotal_ttc = this.subtotal_ttc.toFixed(2)
+
     this.authService.mycartChanged.subscribe(
       (res) => {
         this.mycart = this.cartService.getCart()
         this.subtotal = 0
+        this.subtotal_ttc=0;
         this.mycart.forEach((element: any) => {
           this.subtotal = parseFloat(this.subtotal) + (parseFloat(element.price) * parseFloat(element.qty))
         });
         this.subtotal = this.subtotal.toFixed(2)
+
+        this.mycart.forEach((element: any) => {
+          this.subtotal_ttc = parseFloat(this.subtotal_ttc) + (parseFloat(element.price_ttc) * parseFloat(element.qty))
+        });
+        this.subtotal_ttc = this.subtotal_ttc.toFixed(2)
       },
       (error) => {
         console.error(error)
