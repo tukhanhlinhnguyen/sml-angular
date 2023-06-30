@@ -130,53 +130,54 @@ export class CheckoutComponent implements OnInit {
     this.msg = null;
     this.submitted = true;
     
-    let m: any = this.document.getElementById("msgmodal");
-    // if (this._isLoggedIn) {
-    //   try {
-    //     let res: any = await this.checkoutService.createProposal();
-    //     // if (res && res.Status) {
-    //     if (res) {
-    //       let body:any = []
-    //       this.cart.forEach(async (e: any) => {
-    //         body.push({
-    //           "fk_product": e.id,
-    //           "qty": e.qty,
-    //           "subprice": e.price,
-    //           "tva_tx": e.tva_tx
-    //         });
-    //       });
-    //       // setTimeout(async () => {
-    //         try {
+    let m: any;
+    if (this._isLoggedIn) {
+      try {
+        let res: any = await this.checkoutService.createProposal();
+        // if (res && res.Status) {
+        if (res) {
+          let body:any = []
+          this.cart.forEach(async (e: any) => {
+            body.push({
+              "fk_product": e.id,
+              "qty": e.qty,
+              "subprice": e.price,
+              "tva_tx": e.tva_tx
+            });
+          });
+          // setTimeout(async () => {
+            try {
 
-    //           let res1: any = await this.checkoutService.createProposalLines(res, body);
+              let res1: any = await this.checkoutService.createProposalLines(res, body);
 
-    //         } catch (error) {
-    //           console.log("error:", error);
-    //           m.click();
-    //           this.msg = JSON.stringify(error);
-    //         }
-    //         try{
-    //           let res2: any = await this.checkoutService.validateProposalLines(res);
-    //           } catch (error){
-    //             console.log("error:", error);
-    //           }
-    //       m.click();
-    //     }
-    //     this.gotoPage();
+            } catch (error) {
+              console.log("error:", error);
+              m.click();
+              this.msg = JSON.stringify(error);
+            }
+            try{
+              let res2: any = await this.checkoutService.validateProposalLines(res);
+              this.gotoPage();
+              } catch (error){
+                console.log("error:", error);
+              }
+          m.click();
+        }
+        this.gotoPage();
 
-    //   } catch (error) {
-    //     console.log("error:", error);
+      } catch (error) {
+        console.log("error:", error);
 
-    //     m.click();
-    //     this.msg = JSON.stringify(error);
-    //   }
-    // }
-    // else {
-    //   // let si: any = this.document.geteById("sign-in") as HTMLe;
-    //   let si: any = this.document.getElementById("sign-in");
-    //   // let si: any = this.document.geteById("test");
-    //   si.click();
-    // }
+        m.click();
+        this.msg = JSON.stringify(error);
+      }
+    }
+    else {
+      // let si: any = this.document.geteById("sign-in") as HTMLe;
+      let si: any = this.document.getElementById("sign-in");
+      // let si: any = this.document.geteById("test");
+      si.click();
+    }
   }
 
   async checkStatus(){
