@@ -116,8 +116,8 @@
         "ProvideEmail":"Veuillez-nous fournir votre adresse email",
         "NumTel":"Votre numéro de téléphone",
         "FillNumTel":"Veuillez-nous fournir avec votre numéro de telephone",
-        "KBis":"Votre numéro de KBis",
-        "FillKBis":"Veuillez-nous fournir avec votre bon numéro de K-Bis",
+        "KBis":"Votre numéro de SIRET",
+        "FillKBis":"Veuillez-nous fournir avec votre numéro de SIRET",
         "SignUpButton":"S'inscrire"
       }
     },

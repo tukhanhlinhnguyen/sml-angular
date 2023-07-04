@@ -79,8 +79,8 @@ export class HomeComponent implements OnInit {
     /Log In
     */
     this.LoginForm=this.formBuilder.group({
-      email:['testsocid',[Validators.required,]],
-      password:['HF9YnGqCZjS9', Validators.required]
+      email:['',[Validators.required,]],
+      password:['', Validators.required]
     })
 
     /*

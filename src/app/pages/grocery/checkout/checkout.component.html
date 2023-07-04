@@ -93,7 +93,9 @@
                     <tr *ngFor="let product of cart;let i = index">
                       <th scope="row">{{i+1}}
                         <br>
-                        <span (click)="removeFromCart(i)">{{"TABLE.CHECKOUT.ROW.TABLE.Delete" | translate}}</span>
+                        <span (click)="removeFromCart(i)">
+                          <i class="ci-trash"></i>
+                        </span>
                       </th>
                       <td colspan="1">{{product.title || product.label}}</td>
                       <td>
