@@ -1,0 +1,57 @@
+<main>
+    <section class="AddressLivraison">
+        <ul>
+            <div class="container-address">
+                <form class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="AdressLivraison">
+                    <div class="form-group">
+                        <input class="form-control" type="radio" id="monsieur" name="civilite" value="Monsieur">
+                        <label class="form-label" for="monsieur">Monsieur</label>
+                        <input class="form-control" type="radio" id="madame" name="civilite" value="Madame">
+                        <label class="form-label" for="madame">Madame</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="Nom">Nom</label>
+                        <input class="form-control" type="text" id="Nom" placeholder="Nom" required
+                        formControlName="Nom" [ngClass]="{ 'is-invalid': submit &&
+                        fa['Nom'].errors }">
+                        <label class="form-label" for="Prenom">Prenom</label>
+                        <input class="form-control" type="text" id="Prenom" placeholder="Prenom" required
+                        formControlName="Prenom" [ngClass]="{ 'is-invalid': submit &&
+                        fa['Prenom'].errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="Ville">Ville</label>
+                        <input class="form-control" type="text" id="Ville" placeholder="Ville" required
+                        formControlName="Ville" [ngClass]="{ 'is-invalid': submit &&
+                        fa['Ville'].errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="AddrPost">Adresse Postale</label>
+                        <input class="form-control" type="text" id="AddrPost" placeholder="Adresse Postale" required
+                        formControlName="AddrPost" [ngClass]="{ 'is-invalid': submit &&
+                        fa['AddrPost'].errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="CompAddr">Complement Adresse</label>
+                        <input class="form-control" type="text" id="CompAddr" placeholder="Complement Adresse"
+                        formControlName="CompAddr" [ngClass]="{ 'is-invalid': submit &&
+                        fa['CompAddr'].errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="CodePost">Code Postale</label>
+                        <input class="form-control" type="number" id="CodePost" placeholder="Code Postale" required
+                        formControlName="CodePost" [ngClass]="{ 'is-invalid': submit &&
+                        fa['CodePost'].errors }">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="Telephone">Numero de telephone</label>
+                        <input class="form-control" type="tel" id="Telephone" placeholder="(33)" required
+                        formControlName="Telephone" [ngClass]="{ 'is-invalid': submit &&
+                        fa['Telephone'].errors }">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter cette adresse</button>
+                </form>
+            </div>
+        </ul>
+    </section>
+</main>

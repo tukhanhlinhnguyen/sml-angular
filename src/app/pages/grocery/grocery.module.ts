@@ -23,6 +23,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ProposalComponent } from './proposal/proposal.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { AdresseLivraisonComponent } from './adresse-livraison/adresse-livraison.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     CheckoutComponent,
     ProposalComponent,
     InvoiceComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    AdresseLivraisonComponent,
   ],
   imports: [
     CommonModule,

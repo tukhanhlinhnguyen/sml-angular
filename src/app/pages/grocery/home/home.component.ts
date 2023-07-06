@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Token } from 'src/app/core/model/token.model';
 import { environment } from "src/environments/environment";
@@ -15,6 +15,9 @@ import { EmailService } from 'src/app/services/email/email.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
 import { Societe } from 'src/app/core/model/Societe.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
@@ -49,7 +52,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public router: Router, private formBuilder: UntypedFormBuilder, private contact: EmailService, 
-    private authService: AuthService, private httpClient: HttpClient) { }
+    private authService: AuthService, private httpClient: HttpClient, private modalService: NgbModal, @Inject(DOCUMENT) private document: Document,
+    ) { }
 
   ngOnInit(): void {
     
@@ -106,7 +110,9 @@ export class HomeComponent implements OnInit {
 
   async onSubmitted(){
     this.submitted=true;
-    
+    console.log("retakeorder")
+    let m: any =this.document.getElementById("retakeorder");
+    m.click()
     if(this.LoginForm.invalid){
       return;
     }
@@ -142,6 +148,11 @@ export class HomeComponent implements OnInit {
   
     
 }
+
+toggleModal(staticDataModal: any) {
+  this.modalService.open(staticDataModal, { size: 'md', centered: true });
+}
+
 
   //Hide or show password
   toggleLoginPassField() {
@@ -250,6 +261,10 @@ export class HomeComponent implements OnInit {
 
   gotosellerdetail(id: any) {
     this.router.navigate(['/single-product',this.bestseller[id]])
+  }
+
+  retakeorder(){
+    this.router.navigate(['/grocery/invoice'])
   }
 
   async checkOnGoingProposal(){
