@@ -71,7 +71,7 @@ export class CheckoutComponent implements OnInit {
 * BreadCrumb
 */
     this.breadCrumbItems = [
-      { label: 'Home', link: '/grocery' },
+      { label: 'Home', link: '/grocery/product-catalog/all' },
       { label: 'Checkout', active: true, link: '/grocery/Checkout' }
     ];
 

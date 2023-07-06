@@ -17,6 +17,9 @@ import { User } from 'src/app/core/model/user.model';
 import { Societe } from 'src/app/core/model/Societe.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DOCUMENT } from '@angular/common';
+import { InvoiceService } from '../invoice/invoice.service';
+import { CatalogModel } from '../product-catalog/product-catalog.model';
+import { CartService } from 'src/app/services/cart/cart.service';
 
 
 @Component({
@@ -49,10 +52,17 @@ export class HomeComponent implements OnInit {
   reviews: any;
   tooManyProposal:boolean
   baseUrl: string = environment.baseApiUrl;
+  submitInvoice = false;
+  msg: any;
+  idList: any[];
+  ProductList!: CatalogModel[];
+  products:any;
 
   constructor(
     public router: Router, private formBuilder: UntypedFormBuilder, private contact: EmailService, 
     private authService: AuthService, private httpClient: HttpClient, private modalService: NgbModal, @Inject(DOCUMENT) private document: Document,
+    public iService: InvoiceService, public cartService: CartService,
+
     ) { }
 
   ngOnInit(): void {
@@ -263,9 +273,30 @@ toggleModal(staticDataModal: any) {
     this.router.navigate(['/single-product',this.bestseller[id]])
   }
 
-  retakeorder(){
-    this.router.navigate(['/grocery/invoice'])
+  async retakeorder(){
+    if(this._isLoggedIn){
+      try{
+      let invoice: any = await this.iService.getLatestInvoice();
+      console.log('Retrieved invoice:', invoice);
+      console.log('lines:', invoice.lines)
+      if (invoice && invoice[0].lines) {
+        invoice[0].lines[0].forEach((line:any) => {
+          console.log("line", line)
+          let productIds = line.id;
+          let qty = Number(line.qty);
+          console.log('Adding product:', productIds, 'Quantity:', qty);
+          this.cartService.addToCart(qty, productIds);
+          console.log("reussi")
+        })
+      }
+      this.modalService.dismissAll();
+      console.log('Products added to the basket successfully.');
+      } catch (error) {
+      console.log("error:", error);
+
+    }
   }
+}
 
   async checkOnGoingProposal(){
       console.log('checkOnGoingProposal:')

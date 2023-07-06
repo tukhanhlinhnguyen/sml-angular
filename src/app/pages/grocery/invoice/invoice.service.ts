@@ -40,6 +40,28 @@ export class InvoiceService {
     return await this.httpClient.get(url, { headers: header, params:queryParams }).toPromise();
   }
 
+  async getLatestInvoice(){
+    let url = this.baseUrl + '/invoices'
+    let catId = this.authService.getthirdparty_ids()
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("thirdparty_ids", catId);
+    queryParams = queryParams.append("sortorder", "DESC");
+    queryParams = queryParams.append("limit", "1");
+
+    let storeToken: Token;
+    storeToken = this.authService.getTokenData();
+
+
+    let dkey = storeToken.tokenId;
+
+
+    let header = new HttpHeaders({ 'DOLAPIKEY': dkey });
+
+    // return this.httpClient.get(this.baseUrl + '/products').toPromise();
+    return await this.httpClient.get(url, { headers: header, params:queryParams }).toPromise();
+  
+  }
+
   convertDate(date:any){
     return new Date(date*1000).toLocaleDateString('fr-FR') // The 0 there is the key, which sets the date to the epoch
   }
