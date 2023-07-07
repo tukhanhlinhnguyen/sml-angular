@@ -22,16 +22,16 @@ export class InvoiceService {
 
   async getInvoice() {
     let url = this.baseUrl + '/invoices';
-    let catId = 210
+    let catId = this.authService.getthirdparty_ids()
     let queryParams = new HttpParams();
     queryParams = queryParams.append("thirdparty_ids", catId);
     queryParams = queryParams.append("sortorder", "DESC");
+    queryParams = queryParams.append("sqlfilters", "(t.type:=:0) and (t.fk_statut:>:0)");
 
     let storeToken: Token;
     storeToken = this.authService.getTokenData();
 
-    //TODO REMOVE HARD CODE TOKEN
-    let dkey = "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";
+    let dkey = storeToken.tokenId;
     //const key: string = storeToken ? storeToken.tokenId || dkey : dkey;
 
     let header = new HttpHeaders({ 'DOLAPIKEY': dkey });
@@ -47,14 +47,13 @@ export class InvoiceService {
     queryParams = queryParams.append("thirdparty_ids", catId);
     queryParams = queryParams.append("sortorder", "DESC");
     queryParams = queryParams.append("limit", "1");
+    queryParams = queryParams.append("sqlfilters", "(t.type:=:0) and (t.fk_statut:>:0)");
 
     let storeToken: Token;
     storeToken = this.authService.getTokenData();
 
 
     let dkey = storeToken.tokenId;
-
-
     let header = new HttpHeaders({ 'DOLAPIKEY': dkey });
 
     // return this.httpClient.get(this.baseUrl + '/products').toPromise();
@@ -76,13 +75,32 @@ export class InvoiceService {
     let storeToken: Token;
     storeToken = this.authService.getTokenData();
 
-    //TODO REMOVE HARD CODE TOKEN
-    let dkey = "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";
+    let dkey = storeToken.tokenId;
     //const key: string = storeToken ? storeToken.tokenId || dkey : dkey;
 
     let header = new HttpHeaders({ 'DOLAPIKEY': dkey });
 
     // return this.httpClient.get(this.baseUrl + '/products').toPromise();
     return await this.httpClient.get(url, { headers: header, params:queryParams });
+  }
+
+  // Get product from a list ID
+  async getProductFromIdsList(productIdsList:any[]){
+    let url = this.baseUrl + '/products'
+    let queryParams = new HttpParams();
+    let sqlfilters = `(t.rowid:in:${productIdsList})`
+    queryParams = queryParams.append("sqlfilters", sqlfilters);
+
+    let storeToken: Token;
+    storeToken = this.authService.getTokenData();
+
+
+    let dkey = storeToken.tokenId;
+
+    let header = new HttpHeaders({ 'DOLAPIKEY': dkey });
+
+    // return this.httpClient.get(this.baseUrl + '/products').toPromise();
+    return await this.httpClient.get(url, { headers: header, params:queryParams }).toPromise();
+  
   }
 }

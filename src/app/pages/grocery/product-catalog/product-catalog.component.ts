@@ -1,9 +1,11 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '../../../shared/pagination/pagination.service';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductModel } from 'src/app/core/model/product';
+import { DOCUMENT } from '@angular/common';
 // Data Get
 // import { catalog } from './data';
 // import { CatalogModel, ProductModel } from './product-catalog.model';
@@ -11,6 +13,8 @@ import { CatalogModel } from './product-catalog.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CartService } from '../../../services/cart/cart.service';
+import { InvoiceService } from '../invoice/invoice.service';
+import { CookieService } from '../../../services/cookie/cookie.service';
 
 @Component({
   selector: 'app-product-catalog',
@@ -34,11 +38,16 @@ export class ProductCatalogComponent implements OnInit {
   total: Observable<number>;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     public service: PaginationService,
     public authService: AuthService,
     public cartService: CartService,
     public router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    private iService: InvoiceService,
+    private cookieService: CookieService
+    ) {
     this.CatelogList = service.products$;
     this.total = service.total$;
   }
@@ -69,6 +78,14 @@ export class ProductCatalogComponent implements OnInit {
         e.innerHTML = txt[0] + ".<small>" + txt[1] + "</small>"
       })
     }, 2000);
+
+    //as client if they want to reorder
+    if(!this.cookieService.getCookie("retake_order_asked")){
+      let m: any =this.document.getElementById("retakeorder");
+      m.click()
+      //ok we display it once, let stop shoving it on client's face
+      this.cookieService.setCookie("retake_order_asked","true",1)
+    }
   }
 
 
@@ -146,5 +163,49 @@ export class ProductCatalogComponent implements OnInit {
   selectPage(page: string) {
 		this.service.page = parseInt(page, 10) || 1;
 	}
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 RETAKE ORDER                               */
+  /* -------------------------------------------------------------------------- */
+  toggleModal(staticDataModal: any) {
+    this.modalService.open(staticDataModal, { size: 'md', centered: true });
+  }
+
+  async retakeorder(){
+    if(true){
+      try{
+      let productIdsList :any[] = []
+      let productQtyList :number[] = []
+      let invoice: any = await this.iService.getLatestInvoice();
+      console.log('Retrieved invoice:', invoice);
+      console.log('lines:', invoice.lines)
+      if (invoice && invoice[0].lines) {
+        invoice[0].lines.forEach((line:any) => {
+          console.log("line", line)
+          let productIds = line.id;
+          let qty = Number(line.qty);
+          productIdsList.push(productIds);
+          productQtyList.push(qty);
+
+          console.log("reussi")
+        })
+        console.log('productIdsList:', productIdsList)
+        let productList:any = await this.iService.getProductFromIdsList(productIdsList);
+        //we clear the cart
+        localStorage.removeItem("cart");
+
+        productList.forEach((p:ProductModel, index:number) => {
+          this.cartService.addToCart(productQtyList[index], p);
+        });
+      }
+      this.modalService.dismissAll();
+      console.log('Products added to the basket successfully.');
+      } catch (error) {
+      console.log("error:", error);
+
+    }
+  }
+}
+
 
 }

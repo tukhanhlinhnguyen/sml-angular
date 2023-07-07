@@ -10,14 +10,11 @@ import { SwiperOptions } from 'swiper';
 import { discout, Bestsellers, review } from './data';
 import { Router } from '@angular/router';
 
-import { EmailValidator, FormControl, UntypedFormBuilder, UntypedFormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormBuilder } from '@angular/forms';
 import { EmailService } from 'src/app/services/email/email.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
-import { Societe } from 'src/app/core/model/Societe.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DOCUMENT } from '@angular/common';
-import { InvoiceService } from '../invoice/invoice.service';
+
 import { CatalogModel } from '../product-catalog/product-catalog.model';
 import { CartService } from 'src/app/services/cart/cart.service';
 
@@ -60,8 +57,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public router: Router, private formBuilder: UntypedFormBuilder, private contact: EmailService, 
-    private authService: AuthService, private httpClient: HttpClient, private modalService: NgbModal, @Inject(DOCUMENT) private document: Document,
-    public iService: InvoiceService, public cartService: CartService,
+    private authService: AuthService, private httpClient: HttpClient,
+    public cartService: CartService,
 
     ) { }
 
@@ -120,14 +117,11 @@ export class HomeComponent implements OnInit {
 
   async onSubmitted(){
     this.submitted=true;
-    console.log("retakeorder")
-    let m: any =this.document.getElementById("retakeorder");
-    m.click()
-    if(this.LoginForm.invalid){
-      return;
-    }
-    
+  
     try {
+      if(this.LoginForm.invalid){
+        return;
+      }
       let res: any = await this.authService.login(this.loginuser);     
       if (res) {
         let obj = res && res.success ? res.success : null;
@@ -141,28 +135,21 @@ export class HomeComponent implements OnInit {
         this.authService.loginStatusChanged.next(true);
         this.authService.gotoHome();
       }
-  }catch (error) {
-    console.log("error", error);
-  }
-  try{
-    let userInfo: any = await this.authService.userInfo();
-    if(userInfo){
-      let socid=userInfo.socid;
-      await this.authService.storeInt('socid', socid);
-      await this.checkOnGoingProposal()
+    }catch (error) {
+      console.log("error", error);
+    }
+    try{
+      let userInfo: any = await this.authService.userInfo();
+      if(userInfo){
+        let socid=userInfo.socid;
+        await this.authService.storeInt('socid', socid);
+        await this.checkOnGoingProposal()
+      }
+    }
+    catch (error){
+      console.log("error", error);
     }
   }
-  catch (error){
-    console.log("error", error);
-  }
-  
-    
-}
-
-toggleModal(staticDataModal: any) {
-  this.modalService.open(staticDataModal, { size: 'md', centered: true });
-}
-
 
   //Hide or show password
   toggleLoginPassField() {
@@ -272,31 +259,6 @@ toggleModal(staticDataModal: any) {
   gotosellerdetail(id: any) {
     this.router.navigate(['/single-product',this.bestseller[id]])
   }
-
-  async retakeorder(){
-    if(this._isLoggedIn){
-      try{
-      let invoice: any = await this.iService.getLatestInvoice();
-      console.log('Retrieved invoice:', invoice);
-      console.log('lines:', invoice.lines)
-      if (invoice && invoice[0].lines) {
-        invoice[0].lines[0].forEach((line:any) => {
-          console.log("line", line)
-          let productIds = line.id;
-          let qty = Number(line.qty);
-          console.log('Adding product:', productIds, 'Quantity:', qty);
-          this.cartService.addToCart(qty, productIds);
-          console.log("reussi")
-        })
-      }
-      this.modalService.dismissAll();
-      console.log('Products added to the basket successfully.');
-      } catch (error) {
-      console.log("error:", error);
-
-    }
-  }
-}
 
   async checkOnGoingProposal(){
       console.log('checkOnGoingProposal:')
