@@ -1,12 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpBackend, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpBackend, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
-import { takeUntil } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
 import { User } from "../../core/model/user.model";
 import { Token } from "../../core/model/token.model";
-import { Societe } from "src/app/core/model/Societe.model";
 
 declare const setChatUserInfo: any;
 
@@ -154,7 +152,7 @@ export class AuthService {
     }
     gotoHome(){
         this._router.navigate(['/grocery/product-catalog/all'])
-      }
+    }
     
     gotoPage(login:boolean){
         if(login){
@@ -167,6 +165,27 @@ export class AuthService {
 
     getthirdparty_ids():any {
         return localStorage.getItem("socid");
+    }
+
+    async getCreditNote(token:any) {
+        console.log('token:', token)
+        let params = new HttpParams()
+            .set("sortorder","DESC")
+            .set("limit", 1)
+            .set("sqlfilters", "(t.type:=:2)"); //Create new HttpParams
+        const headers = new HttpHeaders({ 'DOLAPIKEY': token });
+
+        const url = environment.baseApiUrl + '/invoices';
+        await this._http.get(url, {headers:headers, params:params}).subscribe({
+            next: (res:any) => {
+                if(res){
+                    localStorage.setItem("credit_note", res[0].total_ttc);
+                };
+            },
+            error:(err) => {
+            console.error(err)
+            },
+        })        
     }
     
 }

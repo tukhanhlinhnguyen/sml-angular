@@ -34,6 +34,7 @@ import { HomeButtonComponent } from './home-button/home-button.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ZoomImageComponent } from './zoom-image/zoom-image.component';
+import { CreditNoteIndicatorComponent } from './credit-note-indicator/credit-note-indicator.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ZoomImageComponent } from './zoom-image/zoom-image.component';
     HomeButtonComponent,
     PaginationComponent,
     ZoomImageComponent,
+    CreditNoteIndicatorComponent,
   ],
   imports: [
     CommonModule,

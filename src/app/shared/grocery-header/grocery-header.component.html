@@ -147,10 +147,14 @@
                         (click)="collapse.toggle()" role="button" aria-expanded="false" aria-controls="searchBox"><span
                             class="navbar-tool-tooltip">Search</span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-search"></i></div>
-                    </a><a class="navbar-tool d-none d-lg-flex" routerLink="/account/wishlist"><span
-                            class="navbar-tool-tooltip">{{"MENUITEMS.HEADER.LIST.WishList"|translate}}</span>
-                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
                     </a>
+                    <!-- <a class="navbar-tool d-none d-lg-flex" routerLink="/account/wishlist">
+                        <span
+                            class="navbar-tool-tooltip">{{"MENUITEMS.HEADER.LIST.WishList"|translate}}
+                        </span>
+                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
+                    </a> -->
+                    <app-credit-note-indicator></app-credit-note-indicator>
 
                     <div class="navbar-tool dropdown ms-3">
                         <a *ngIf="!_isLoggedIn" id="sign-in" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
