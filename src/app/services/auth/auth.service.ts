@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { User } from "../../core/model/user.model";
 import { Token } from "../../core/model/token.model";
+import { CookieService } from "../cookie/cookie.service";
 
 declare const setChatUserInfo: any;
 
@@ -24,6 +25,7 @@ export class AuthService {
         // private http: HttpClient,
         // private _uiService: UIService,
         private _router: Router,
+        private cookieService: CookieService
     ) {
         this._http = new HttpClient(_handler);
     }
@@ -147,6 +149,7 @@ export class AuthService {
     async logoutUser_() {
         let key = localStorage.getItem("token_id") || null;
         localStorage.clear();
+        this.cookieService.deleteCookie("retake_order_asked")
         this.loginStatusChanged.next(false);
         this.loginUserStatusChanged.next(new User());
     }
