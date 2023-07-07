@@ -26,6 +26,7 @@ export class ProductCatalogComponent implements OnInit {
   @Output() changePageID = new EventEmitter();
   breadCrumbItems: any;
   catalogs: any;
+  productsInvoice:any[] = [];
   loading: boolean = false;
   title:string;
   categoryId:any;
@@ -195,8 +196,13 @@ export class ProductCatalogComponent implements OnInit {
         localStorage.removeItem("cart");
 
         productList.forEach((p:ProductModel, index:number) => {
+          this.productsInvoice.push({
+            name: p.label,
+            quantity: productQtyList[index]
+          })
           this.cartService.addToCart(productQtyList[index], p);
         });
+        console.log("productsInvoice", this.productsInvoice)
       }
       this.modalService.dismissAll();
       console.log('Products added to the basket successfully.');
