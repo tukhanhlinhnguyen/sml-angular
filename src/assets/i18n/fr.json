@@ -221,13 +221,15 @@
           "TotalTVA20":"Total TVA 20%"
         },
         "TABLE" :{
-          "Delete":"Supprimer"
+          "Delete":"Supprimer",
+          "Discount":"Remise"
         }
       } 
     }
   },
   "INDICATOR": {
-    "CurrencyText":"Montants exprimés en Euros"
+    "CurrencyText":"Montants exprimés en Euros",
+    "QuantityText":"Quantité"
   }
 
 }

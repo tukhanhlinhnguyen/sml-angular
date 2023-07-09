@@ -126,13 +126,16 @@ export class HomeComponent implements OnInit {
       if (res) {
         let obj = res && res.success ? res.success : null;
         //We save the token here
-        this.authService.saveToken(obj);
+        await this.authService.saveToken(obj);
         let user: User = new User();
 
         user.username = this.loginuser.username
 
-        await this.authService.storeUser(user);
+        await this.authService.storeUser(obj.tokenId);
+        //we find credit note
+        await this.authService.saveCreditNote()
         this.authService.loginStatusChanged.next(true);
+        //we go home
         this.authService.gotoHome();
       }
     }catch (error) {
@@ -194,71 +197,6 @@ export class HomeComponent implements OnInit {
 //   togglesignupCPassfield() {
 //     this.SignUpCPassField = !this.SignUpCPassField;
 //   }
-  /**
-  * Swiper Coverflow setting
-  */
-  
-  /**
-  * Swiper Coverflow setting
-  */
-  Coverflow: SwiperOptions = {
-    pagination: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    effect: 'fade',
-  };
-
-  /**
- * Swiper Discount Product setting
- */
-  Discount: SwiperOptions = {
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    spaceBetween: 15,
-    breakpoints: {
-      575: {
-        slidesPerView: 1,
-      },
-      1080: {
-        slidesPerView: 5,
-      },
-    },
-  };
-
-  /**
- * Swiper Review setting
- */
-  Review: SwiperOptions = {
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    breakpoints: {
-      575: {
-        slidesPerView: 1,
-      },
-      1080: {
-        slidesPerView: 4,
-      },
-    },
-  };
-
-  // Go To Detail Page
-  gotodetail(id: any) {
-    this.router.navigate(['/single-product',this.discountedproduct[id]])
-  }
-
-  gotosellerdetail(id: any) {
-    this.router.navigate(['/single-product',this.bestseller[id]])
-  }
 
   async checkOnGoingProposal(){
       console.log('checkOnGoingProposal:')

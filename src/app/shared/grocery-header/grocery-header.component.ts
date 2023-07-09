@@ -28,6 +28,7 @@ export class GroceryHeaderComponent {
   subtotal: any = 0;
   subtotal_ttc:any=0;
   total: any = 0;
+  creditNote: any;
 
   loginuser: User = new User();
   user: User = new User();
@@ -79,6 +80,16 @@ export class GroceryHeaderComponent {
         console.log('Login state has been marked completed!')
       }
     );
+
+    this.authService.creditNoteChanged.subscribe({
+      next: (creditNote) => {
+        this.creditNote = creditNote
+        console.log('creditNote:', creditNote)
+      },
+      error:(err) => {
+        console.error(err)
+      },
+    })
 
     /**
      * Form Validatyion

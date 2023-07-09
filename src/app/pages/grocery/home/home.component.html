@@ -1,80 +1,72 @@
-<main>
-<section class="authentification et register">
-    <ul>
-        <div class="container-si">
-          <h1>{{"MENUITEMS.IDENTIFICATION.LIST.SignIn"|translate}}</h1>
-            <form class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="LoginForm" 
-              (ngSubmit)="onSubmitted()">
-              <div class="mb-3">
-                <label class="form-label" for="si-email">{{"MENUITEMS.IDENTIFICATION.LIST.Username"|translate}}</label>
-                <input class="form-control" type="text" id="si-email" placeholder="{{'MENUITEMS.IDENTIFICATION.LIST.Username'|translate}} " required
-                  formControlName="email" [(ngModel)]="loginuser.username" [ngClass]="{ 'is-invalid': submitted
-                  && f['email'].errors }">
-                <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvideUsername"|translate}}</div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="si-password">{{"MENUITEMS.IDENTIFICATION.LIST.Password"|translate}}
-                  {{loginPassfield}}</label>
-                <div class="password-toggle">
-                  <input class="form-control" [type]="loginPassfield ? 'text' :
-                    'password'" id="si-password" placeholder="{{'MENUITEMS.IDENTIFICATION.LIST.Password'|translate}}" required formControlName="password" [(ngModel)]="loginuser.password" [ngClass]="{ 'is-invalid':
-                    submitted && f['password'].errors }">
-                    <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvidePassword"|translate}}</div>
-                  <label class="password-toggle-btn" aria-label="Show/hide
-                    password">
-                    <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"
-                      [ngClass]="{'mdi-eye-off-outline': !loginPassfield,
-                      'mdi-eye-outline': loginPassfield
-                      }" (click)="toggleLoginPassField()"></span>
-                  </label>
-                </div>
-              </div>
-              <div class="mb-3 d-flex flex-wrap justify-content-between">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="si-remember">
-                  <label class="form-check-label" for="si-remember">{{"MENUITEMS.IDENTIFICATION.LIST.RememberMe"|translate}}</label>
-                </div><a class="fs-sm" href="javascript:void(0);">{{"MENUITEMS.IDENTIFICATION.LIST.ForgotPassword"|translate}}</a>
-              </div>
-              <button type="submit" class="btn btn-primary">{{"MENUITEMS.IDENTIFICATION.LIST.SignInButton"|translate}}</button>
-            </form>
-        </div>
-        <div class="container-su">
-          <h1>{{"MENUITEMS.IDENTIFICATION.LIST.SignUp"|translate}}</h1>
-              <!-- class="needs-validation tab-pane fade show active" autocomplete="off" [formGroup]="SignUpForm" (ngSubmit)="SignupSubmit" -->
-              <!-- [formGroup]="SignUpForm" -->
-          <form class="needs-validation tab-pane fade show active" [formGroup]="SignUpForm"  (ngSubmit)="SignUpSubmit(SignUpForm.value)">
-              <div class="form-group">
-                <label class="form-label" for="su-Societe">{{"MENUITEMS.IDENTIFICATION.LIST.YourCompanyName"|translate}}</label>
+<main class="h-100">
+  <div class="row g-0">
+    <div class="col-xl-6 d-none d-xl-block">
+      <img class="img-bg" src="assets/img/bg.jpg" alt="home page background">
+    </div>
+    <div class="col-xl-6 pt-1 px-5">
+      <div class="row h-100">
+        <div class="align-items-center text-center my-auto">
+          <h4>{{"MENUITEMS.IDENTIFICATION.LIST.SignIn"|translate}}</h4>
+          <form class="needs-validation form-inline" autocomplete="off" [formGroup]="LoginForm" 
+          (ngSubmit)="onSubmitted()">
+            <div class="form-group mb-3">
+              <input class="form-control" type="text" id="si-email" placeholder="{{'MENUITEMS.IDENTIFICATION.LIST.Username'|translate}} " required
+              formControlName="email" [(ngModel)]="loginuser.username" [ngClass]="{ 'is-invalid': submitted
+              && f['email'].errors }">
+              <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvideUsername"|translate}}</div>
+            </div>  
+          
+            <div class="form-group mb-3">
+              <input class="form-control" [type]="loginPassfield ? 'text' :
+                'password'" id="si-password" placeholder="{{'MENUITEMS.IDENTIFICATION.LIST.Password'|translate}}" required formControlName="password" [(ngModel)]="loginuser.password" [ngClass]="{ 'is-invalid':
+                submitted && f['password'].errors }">
+              <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvidePassword"|translate}}
+                <input class="password-toggle-check" type="checkbox">
+                <span class="password-toggle-indicator"
+                  [ngClass]="{'mdi-eye-off-outline': !loginPassfield,
+                  'mdi-eye-outline': loginPassfield
+                  }" (click)="toggleLoginPassField()">
+                </span>
+              </div> 
+            </div>
+          <div class="d-flex flex-wrap justify-content-between">
+            <div class="form-check">
+            </div><a class="fs-sm" href="javascript:void(0);">{{"MENUITEMS.IDENTIFICATION.LIST.ForgotPassword"|translate}}</a>
+          </div>
+          <button type="submit" class="btn btn-primary">{{"MENUITEMS.IDENTIFICATION.LIST.SignInButton"|translate}}</button>
+          </form>
+        
+          <div class="text-divider py-5"><b>OU</b></div>
+            <form class="needs-validation tab-pane fade show active" [formGroup]="SignUpForm"  (ngSubmit)="SignUpSubmit(SignUpForm.value)">
+              <h4>{{"MENUITEMS.IDENTIFICATION.LIST.SignUp"|translate}}</h4>
+              <div class="form-group mb-3">
                 <input class="form-control" type="text" name="su-Societe" placeholder="{{'MENUITEMS.IDENTIFICATION.LIST.YourCompanyName'|translate}}" required
                   formControlName="Societe" [ngClass]="{ 'is-invalid': submit &&
                   fa['Societe'].errors }">
                 <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.FillInCompanyName"|translate}}</div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="su-email">{{"MENUITEMS.IDENTIFICATION.LIST.EmailAdress"|translate}}</label>
+              <div class="form-group mb-3">
                 <input class="form-control" type="email" name="su-email" placeholder='{{"MENUITEMS.IDENTIFICATION.LIST.EmailAdress"|translate}}' required
                   formControlName="email" [ngClass]="{ 'is-invalid': submit &&
                   fa['email'].errors }">
                 <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.ProvideEmail"|translate}}</div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="su-numTel">{{"MENUITEMS.IDENTIFICATION.LIST.NumTel"|translate}}</label>
+              <div class="form-group mb-3">
                 <input class="form-control" type="number" name="su-numTel" placeholder='{{"MENUITEMS.IDENTIFICATION.LIST.NumTel"|translate}}' required
                   formControlName="numTel" [ngClass]="{ 'is-invalid': submit &&
                   fa['numTel'].errors }">
                 <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.FillNumTel"|translate}}</div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="su-KBis">{{"MENUITEMS.IDENTIFICATION.LIST.KBis"|translate}}</label>
+              <div class="form-group mb-3">
                 <input class="form-control" type="number" name="su-KBis" placeholder='{{"MENUITEMS.IDENTIFICATION.LIST.KBis"|translate}}' required
                   formControlName="KBis" [ngClass]="{ 'is-invalid': submit &&
                   fa['KBis'].errors }">
                 <div class="invalid-feedback">{{"MENUITEMS.IDENTIFICATION.LIST.FillKBis"|translate}}</div>  
               </div>
-              <button type="submit" class="btn btn-primary">{{"MENUITEMS.IDENTIFICATION.LIST.SignUpButton"|translate}}</button>
+                <button type="submit" class="btn btn-primary">{{"MENUITEMS.IDENTIFICATION.LIST.SignUpButton"|translate}}</button>
             </form>
         </div>
-      </ul>
-      
-</section>
+      </div>
+    </div> 
+  </div>
 </main>

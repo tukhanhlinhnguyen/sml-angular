@@ -93,41 +93,46 @@
 <!-- Retake Order Modal -->
 <div id="retakeorder" data-bs-toggle="modal" (click)="toggleModal(toggleMsgModal)"></div>
 <ng-template #toggleMsgModal let-modal>
-  <div class="modal-content">
-    <div class="modal-header bg-secondary">
-      <ul class="nav nav-tabs card-header-tabs" role="tablist" ngbNav #nav="ngbNav">
-        <li [ngbNavItem]="1">
-          <a ngbNavLink class="nav-link fw-medium">
-            <!-- <i class="ci-unlocked me-2 mt-n1"> </i> -->
-            Confirmation
-          </a>
-          <ng-template ngbNavContent>
-
-            <div class="mb-3">
-              <strong>Voulez-vous revoir votre facture habituelle?</strong>
-            </div>
-            <div class="modal-body">
-            <ul>
-                <li>test product</li>
-                <li *ngFor="let products of productsInvoice">
-                    {{products.name}} x {{products.quantity}}
-                </li>
-            </ul>
-            </div>
-            <div class="modal-footer">
-              <button id="Cancel" type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Non</button>
-              <button id="Confirm" type="button" class="btn btn-primary btn-shadow" (click)="retakeorder()">Oui</button>
-            </div>
-            
-
-          </ng-template>
-        </li>
-      </ul>
-      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close()"
-        id="modalclose"></button>
+    <!-- Loader -->
+    <div *ngIf="loading" div class="text-center" id="elmLoader">
+        <div class="spinner-border text-primary avatar-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
-    <div class="modal-body tab-content py-4">
-      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    <div *ngIf="!loading" class="modal-content">
+        <div class="modal-header bg-secondary">
+        <ul class="nav nav-tabs card-header-tabs" role="tablist" ngbNav #nav="ngbNav">
+            <li [ngbNavItem]="1">
+            <a ngbNavLink class="nav-link fw-medium">
+                <!-- <i class="ci-unlocked me-2 mt-n1"> </i> -->
+                Confirmation
+            </a>
+            <ng-template ngbNavContent>
+
+                <div class="mb-3">
+                <strong>Voulez-vous reprendre votre facture habituelle?</strong>
+                </div>
+                <div class="modal-body">
+                <ul>
+                    <li *ngFor="let products of productList,let i = index">
+                        <strong>{{products.label}}</strong> - {{"INDICATOR.QuantityText" | translate}}: {{productQtyList[i]}}
+                    </li>
+                </ul>
+                </div>
+                <div class="modal-footer">
+                <button id="Cancel" type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Non</button>
+                <button id="Confirm" type="button" class="btn btn-primary btn-shadow" (click)="retakeorder()">Oui</button>
+                </div>
+                
+
+            </ng-template>
+            </li>
+        </ul>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="modal.close()"
+            id="modalclose"></button>
+        </div>
+        <div class="modal-body tab-content py-4">
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
     </div>
-  </div>
 </ng-template>

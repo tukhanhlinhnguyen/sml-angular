@@ -11,6 +11,7 @@ import { CheckoutService } from '../../../services/checkout/checkout.service';
 import { PriceService } from '../../../services/price/price.service';
 import { ProposalService } from '../proposal/proposal.service';
 import { GroceryHeaderComponent } from '../../../shared/grocery-header/grocery-header.component';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   totalTVA5: any = 0;
   total: any = 0;
   msg: any;
+  creditNote: any;
 
   orderForm!: UntypedFormGroup;
   submitted = false;
@@ -57,6 +59,8 @@ export class CheckoutComponent implements OnInit {
 
     this._isLoggedIn = this.authService.checkLogin();
 
+    let creditNote = this.authService.getCreditNote()
+
     this.authService.loginStatusChanged.subscribe(
       (IsLoggedIn) => {
         this._isLoggedIn = IsLoggedIn;
@@ -66,6 +70,9 @@ export class CheckoutComponent implements OnInit {
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
     this.checkStatus();
+
+    //Get credit note
+    this.creditNote = this.authService.getCreditNote();
 
     /**
 * BreadCrumb
@@ -78,6 +85,18 @@ export class CheckoutComponent implements OnInit {
     this.authService.mycartChanged.subscribe({
       next: () => {
         this.cart = this.cartService.getCart()
+        if(creditNote){
+          console.log('creditNote:', creditNote)
+          console.log('this.cart:', this.cart)
+          this.cart.push(
+            {
+              "label": 'Remise',
+              "qty": 1,
+              "price_ttc": creditNote,
+              "tva_tx": 0
+            }
+          )
+        }
         this.updateSum()
       },
       error:(err) => {
@@ -136,6 +155,7 @@ export class CheckoutComponent implements OnInit {
         // if (res && res.Status) {
         if (res) {
           let body:any = []
+          
           this.cart.forEach(async (e: any) => {
             body.push({
               "fk_product": e.id,
@@ -145,21 +165,21 @@ export class CheckoutComponent implements OnInit {
             });
           });
           // setTimeout(async () => {
-            try {
+          try {
 
-              let res1: any = await this.checkoutService.createProposalLines(res, body);
+            let res1: any = await this.checkoutService.createProposalLines(res, body);
 
-            } catch (error) {
+          } catch (error) {
+            console.log("error:", error);
+            m.click();
+            this.msg = JSON.stringify(error);
+          }
+          try{
+            let res2: any = await this.checkoutService.validateProposalLines(res);
+            this.gotoPage();
+            } catch (error){
               console.log("error:", error);
-              m.click();
-              this.msg = JSON.stringify(error);
             }
-            try{
-              let res2: any = await this.checkoutService.validateProposalLines(res);
-              this.gotoPage();
-              } catch (error){
-                console.log("error:", error);
-              }
           m.click();
         }
         this.gotoPage();
@@ -216,7 +236,8 @@ export class CheckoutComponent implements OnInit {
       if(this.priceService.roundNumber(e.tva_tx)==20) this.totalTVA20+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)  
     });
 
-    this.total = (this.subtotalHT + parseFloat(this.deliveryFee))
+    //Add other fee
+    this.total = (this.subtotalHT + parseFloat(this.deliveryFee)) + this.creditNote;
     //this.subtotalHT = this.subtotalHT
   }
 

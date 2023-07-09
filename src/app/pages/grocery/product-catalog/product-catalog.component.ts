@@ -28,9 +28,12 @@ export class ProductCatalogComponent implements OnInit {
   catalogs: any;
   productsInvoice:any[] = [];
   loading: boolean = false;
+  loadingInvoice: boolean = false;
   title:string;
   categoryId:any;
   pageId:any;
+  productList:any;
+  productQtyList :number[] = []
 
   // Table data
   CatelogList!: Observable<CatalogModel[]>;
@@ -53,8 +56,9 @@ export class ProductCatalogComponent implements OnInit {
     this.total = service.total$;
   }
 
-  ngOnInit(): void {
-
+  async ngOnInit() {
+    this.loading = true;
+    this.loadingInvoice = true;
     // When the user clicks on the button, scroll to the top of the document
     document.documentElement.scrollTop = 0;
     this.pageId=this.service.page
@@ -72,14 +76,19 @@ export class ProductCatalogComponent implements OnInit {
       this.getProduct();
     });
 
-    // set decimal point to small
-    setTimeout(() => {
-      document.querySelectorAll(".product-price").forEach((e) => {
-        let txt = e.innerHTML.split(".")
-        e.innerHTML = txt[0] + ".<small>" + txt[1] + "</small>"
+    let invoice: any = await this.iService.getLatestInvoice();
+    if (invoice && invoice[0].lines) {
+      let productIdsList :any[] = []
+      invoice[0].lines.forEach(async(line:any) => {
+        let productIds = line.id;
+        let qty = Number(line.qty);
+        productIdsList.push(productIds);
+        this.productQtyList.push(qty);
       })
-    }, 2000);
-
+      this.productList = await this.iService.getProductFromIdsList(productIdsList);
+      console.log('this.productList:', this.productList)
+      this.loadingInvoice = false;
+    }
     //as client if they want to reorder
     if(!this.cookieService.getCookie("retake_order_asked")){
       let m: any =this.document.getElementById("retakeorder");
@@ -135,7 +144,6 @@ export class ProductCatalogComponent implements OnInit {
     this.loading=true;
     try {
       let res: any = await this.service.get_products();
-      console.log('res:', res)
       if (res) {
         //this.catalogs=res
         this.service.productChanged.next(this.ProductList);
@@ -175,35 +183,14 @@ export class ProductCatalogComponent implements OnInit {
   async retakeorder(){
     if(true){
       try{
-      let productIdsList :any[] = []
-      let productQtyList :number[] = []
-      let invoice: any = await this.iService.getLatestInvoice();
-      console.log('Retrieved invoice:', invoice);
-      console.log('lines:', invoice.lines)
-      if (invoice && invoice[0].lines) {
-        invoice[0].lines.forEach((line:any) => {
-          console.log("line", line)
-          let productIds = line.id;
-          let qty = Number(line.qty);
-          productIdsList.push(productIds);
-          productQtyList.push(qty);
-
-          console.log("reussi")
-        })
-        console.log('productIdsList:', productIdsList)
-        let productList:any = await this.iService.getProductFromIdsList(productIdsList);
-        //we clear the cart
         localStorage.removeItem("cart");
-
-        productList.forEach((p:ProductModel, index:number) => {
+        this.productList.forEach((p:ProductModel, index:number) => {
           this.productsInvoice.push({
             name: p.label,
-            quantity: productQtyList[index]
+            quantity: this.productQtyList[index]
           })
-          this.cartService.addToCart(productQtyList[index], p);
+          this.cartService.addToCart(this.productQtyList[index], p);
         });
-        console.log("productsInvoice", this.productsInvoice)
-      }
       this.modalService.dismissAll();
       console.log('Products added to the basket successfully.');
       } catch (error) {

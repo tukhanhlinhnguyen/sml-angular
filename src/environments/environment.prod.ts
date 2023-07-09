@@ -10,7 +10,8 @@ export const environment = {
   smlEmail:"contact@sml-import-export.fr",
   smlFacebookURL:"https://www.facebook.com/sml.import.export/",
   smlEuroPageURL:"https://www.europages.fr/SML-IMPORT-EXPORT/00000005437621-001.html",
-  docHashpUrl:"https://devdolibarrsml.societe-kali.fr/document.php?hashp="
+  docHashpUrl:"https://devdolibarrsml.societe-kali.fr/document.php?hashp=",
+  avoirId:398
 };
 
 /*

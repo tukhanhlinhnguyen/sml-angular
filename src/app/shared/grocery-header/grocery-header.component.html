@@ -154,7 +154,7 @@
                         </span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
                     </a> -->
-                    <app-credit-note-indicator></app-credit-note-indicator>
+                    <app-credit-note-indicator [creditNote]="creditNote"></app-credit-note-indicator>
 
                     <div class="navbar-tool dropdown ms-3">
                         <a *ngIf="!_isLoggedIn" id="sign-in" class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2"
@@ -185,7 +185,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="!tooManyProposal" class="navbar-tool dropdown ms-3">
+                    <div class="navbar-tool dropdown ms-3">
                         <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" routerLink="/grocery/checkout">
                             <span class="navbar-tool-label">{{mycart?.length}}</span>
                             <i class="navbar-tool-icon ci-cart"></i>
@@ -240,9 +240,12 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="tooManyProposal">
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                                  TODO                                   -->
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!-- <div *ngIf="tooManyProposal">
                         <span>Trop de devis ouvert</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

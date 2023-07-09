@@ -9,6 +9,7 @@
   padding-bottom: $card-spacer-y;
   border: 0;
   transition: $product-card-transition;
+  border: solid 2px LightGrey;
 
   .product-card-actions,
   > .btn-wishlist,

@@ -19,6 +19,7 @@ export class AuthService {
     mycartChanged = new Subject<boolean>();
     loginStatusChanged = new Subject<boolean>();
     useCauseStatusChanged: Subject<boolean> = new Subject<boolean>();
+    creditNoteChanged = new Subject<any>();
 
     constructor(
         _handler: HttpBackend,
@@ -170,25 +171,33 @@ export class AuthService {
         return localStorage.getItem("socid");
     }
 
-    async getCreditNote(token:any) {
-        console.log('token:', token)
+    async saveCreditNote() {
+        let storeToken: Token;
+        storeToken = this.getTokenData();
+        const key: string = storeToken ? storeToken.tokenId || "" : "";
         let params = new HttpParams()
             .set("sortorder","DESC")
             .set("limit", 1)
             .set("sqlfilters", "(t.type:=:2)"); //Create new HttpParams
-        const headers = new HttpHeaders({ 'DOLAPIKEY': token });
+        const headers = new HttpHeaders({ 'DOLAPIKEY': key });
 
         const url = environment.baseApiUrl + '/invoices';
         await this._http.get(url, {headers:headers, params:params}).subscribe({
-            next: (res:any) => {
+            next: async (res:any) => {
+                console.log('res:', res)
                 if(res){
-                    localStorage.setItem("credit_note", res[0].total_ttc);
+                    await localStorage.setItem("credit_note", JSON.stringify(res[0]));
+                    this.creditNoteChanged.next(res[0]);
                 };
             },
             error:(err) => {
             console.error(err)
             },
         })        
+    }
+
+    getCreditNote() {
+        return JSON.parse(localStorage.getItem("credit_note") || "");
     }
     
 }

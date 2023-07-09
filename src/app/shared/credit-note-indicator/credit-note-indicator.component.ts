@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-credit-note-indicator',
@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./credit-note-indicator.component.scss']
 })
 
-export class CreditNoteIndicatorComponent {
-  creditNote:any = localStorage.getItem("credit_note");
 
+export class CreditNoteIndicatorComponent {
+  @Input() creditNote: any;
 }

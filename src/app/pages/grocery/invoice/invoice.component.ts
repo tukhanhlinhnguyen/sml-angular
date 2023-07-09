@@ -60,13 +60,7 @@ export class InvoiceComponent implements OnInit {
       this.getProduct();
     });
 
-    // set decimal point to small
-    setTimeout(() => {
-      document.querySelectorAll(".product-price").forEach((e) => {
-        let txt = e.innerHTML.split(".")
-        e.innerHTML = txt[0] + ".<small>" + txt[1] + "</small>"
-      })
-    }, 2000);
+    
   }
 
   // Add To Cart

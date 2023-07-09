@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import { Injectable, PipeTransform } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { ProductModel } from 'src/app/core/model/product';
 // import { CatalogModel, ProductModel } from './product-catalog.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -42,7 +42,7 @@ export class InvoiceService {
 
   async getLatestInvoice(){
     let url = this.baseUrl + '/invoices'
-    let catId = this.authService.getthirdparty_ids()
+    let catId = await this.authService.getthirdparty_ids()
     let queryParams = new HttpParams();
     queryParams = queryParams.append("thirdparty_ids", catId);
     queryParams = queryParams.append("sortorder", "DESC");
