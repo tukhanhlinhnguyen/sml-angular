@@ -55,10 +55,8 @@ export class InvoiceService {
 
     let dkey = storeToken.tokenId;
     let header = new HttpHeaders({ 'DOLAPIKEY': dkey });
-
     // return this.httpClient.get(this.baseUrl + '/products').toPromise();
     return await this.httpClient.get(url, { headers: header, params:queryParams }).toPromise();
-  
   }
 
   convertDate(date:any){

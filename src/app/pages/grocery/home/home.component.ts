@@ -125,31 +125,29 @@ export class HomeComponent implements OnInit {
       let res: any = await this.authService.login(this.loginuser);     
       if (res) {
         let obj = res && res.success ? res.success : null;
+        console.log('obj:', obj)
         //We save the token here
         await this.authService.saveToken(obj);
-        let user: User = new User();
+        let user: User = await new User();
 
-        user.username = this.loginuser.username
+        user.username = await this.loginuser.username
 
         await this.authService.storeUser(obj.tokenId);
+        let userInfo: any = await this.authService.userInfo();
+
+        if(await userInfo){
+          let socid=userInfo.socid;
+          await this.authService.storeInt('socid', socid);
+          await this.checkOnGoingProposal()
+        }
+
         //we find credit note
         await this.authService.saveCreditNote()
-        this.authService.loginStatusChanged.next(true);
+        await this.authService.loginStatusChanged.next(true);
         //we go home
-        this.authService.gotoHome();
+        await this.authService.gotoHome();
       }
     }catch (error) {
-      console.log("error", error);
-    }
-    try{
-      let userInfo: any = await this.authService.userInfo();
-      if(userInfo){
-        let socid=userInfo.socid;
-        await this.authService.storeInt('socid', socid);
-        await this.checkOnGoingProposal()
-      }
-    }
-    catch (error){
       console.log("error", error);
     }
   }

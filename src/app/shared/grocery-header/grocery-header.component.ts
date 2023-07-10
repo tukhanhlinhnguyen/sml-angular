@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { NgbActiveOffcanvas, NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { PriceService } from '../../services/price/price.service';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/core/model/user.model';
@@ -55,7 +56,8 @@ export class GroceryHeaderComponent {
     private formBuilder: UntypedFormBuilder,
     private cartService: CartService,
     public router: Router, private offcanvasService: NgbOffcanvas,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    private priceService: PriceService) { }
 
   ngOnInit(): void {
     this._isLoggedIn = this.authService.checkLogin();
@@ -111,12 +113,12 @@ export class GroceryHeaderComponent {
     // Fetch Data
     this.mycart = this.cartService.getCart()
     this.mycart.forEach((element: any) => {
-      this.subtotal += (parseFloat(element.price) * parseFloat(element.qty))
+      this.subtotal += (this.priceService.roundNumber(parseFloat(element.price)) * parseFloat(element.qty))
     });
     this.subtotal = this.subtotal.toFixed(2)
 
     this.mycart.forEach((element: any) => {
-      this.subtotal_ttc += (parseFloat(element.price_ttc) * parseFloat(element.qty))
+      this.subtotal_ttc += (this.priceService.roundNumber(parseFloat(element.price_ttc)) * parseFloat(element.qty))
     });
     this.subtotal_ttc = this.subtotal_ttc.toFixed(2)
 
@@ -126,12 +128,12 @@ export class GroceryHeaderComponent {
         this.subtotal = 0
         this.subtotal_ttc=0;
         this.mycart.forEach((element: any) => {
-          this.subtotal = parseFloat(this.subtotal) + (parseFloat(element.price) * parseFloat(element.qty))
+          this.subtotal = parseFloat(this.subtotal) + (this.priceService.roundNumber(parseFloat(element.price)) * parseFloat(element.qty))
         });
         this.subtotal = this.subtotal.toFixed(2)
 
         this.mycart.forEach((element: any) => {
-          this.subtotal_ttc = parseFloat(this.subtotal_ttc) + (parseFloat(element.price_ttc) * parseFloat(element.qty))
+          this.subtotal_ttc = parseFloat(this.subtotal_ttc) + (this.priceService.roundNumber(parseFloat(element.price_ttc)) * parseFloat(element.qty))
         });
         this.subtotal_ttc = this.subtotal_ttc.toFixed(2)
       },

@@ -92,7 +92,8 @@ export class CheckoutComponent implements OnInit {
             {
               "label": 'Remise',
               "qty": 1,
-              "price_ttc": creditNote,
+              "price_ttc": creditNote.total_ttc,
+              "price": creditNote.total_ht,
               "tva_tx": 0
             }
           )
@@ -230,8 +231,10 @@ export class CheckoutComponent implements OnInit {
     this.subtotalHT=0
     this.subtotalTTC=0
     this.cart.forEach((e: any) => {
-      this.subtotalHT += (parseFloat(e.price) * parseFloat(e.qty))
-      this.subtotalTTC += (parseFloat(e.price_ttc) * parseFloat(e.qty))
+      console.log('this.priceService.roundNumber(parseFloat(e.price):', this.priceService.roundNumber(parseFloat(e.price)))
+      this.subtotalHT += (this.priceService.roundNumber(parseFloat(e.price)) * parseFloat(e.qty))
+      console.log('this.priceService.roundNumber(parseFloat(e.price_ttc)):', this.priceService.roundNumber(parseFloat(e.price_ttc)))
+      this.subtotalTTC += (this.priceService.roundNumber(parseFloat(e.price_ttc)) * parseFloat(e.qty))
       if(this.priceService.roundNumber(e.tva_tx)==5.5) this.totalTVA5+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)
       if(this.priceService.roundNumber(e.tva_tx)==20) this.totalTVA20+= (parseFloat(e.price) * parseFloat(e.qty) * parseFloat(e.tva_tx)/100)  
     });
