@@ -197,7 +197,7 @@ export class AuthService {
     }
 
     getCreditNote() {
-        return JSON.parse(localStorage.getItem("credit_note") || "");
+        return localStorage.getItem("credit_note") ? JSON.parse(localStorage.getItem("credit_note") || "") : "";
     }
     
 }
